@@ -1,0 +1,545 @@
+/* PageCambiarClave.css - Enhanced Version */
+.clave-cambiar-clave-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  /*background: linear-gradient(135deg, #154971 0%, #2a6f9a 100%);*/
+  min-height: calc(100vh - 200px);
+  position: relative;
+  overflow: hidden;
+}
+
+.clave-cambiar-clave-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.1) 0%, transparent 25%),
+    radial-gradient(circle at 85% 85%, rgba(255, 255, 255, 0.1) 0%, transparent 25%);
+  z-index: 1;
+}
+
+.clave-cambiar-clave-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 520px;
+  padding: 2.5rem;
+  position: relative;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.clave-cambiar-clave-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+.clave-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.clave-lock-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #d81020, #ff3b4e);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 8px 16px rgba(216, 16, 32, 0.3);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.clave-lock-icon-wrapper::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(45deg);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) rotate(45deg); }
+}
+
+.clave-cambiar-clave-card:hover .clave-lock-icon-wrapper {
+  transform: rotate(10deg) scale(1.05);
+}
+
+.clave-lock-icon {
+  color: #ffffff;
+  z-index: 1;
+}
+
+.clave-card-header h2 {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.75rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.clave-card-header p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+/* Mensajes de estado */
+.clave-status-message-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none; /* Permite que se pueda hacer clic a través del overlay */
+  z-index: 100;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.clave-status-message {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  font-weight: 500;
+  animation: scaleIn 0.3s ease forwards, fadeOut 0.5s ease 4.5s forwards; /* Desaparece después de 4.5s (total 5s) */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  max-width: 80%;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.9); }
+  to { transform: scale(1); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.clave-status-message.success {
+  background-color: rgba(22, 163, 74, 0.85);
+  color: white;
+  border-left: 4px solid #4ade80;
+}
+
+.clave-status-message.error {
+  background-color: rgba(239, 68, 68, 0.85);
+  color: white;
+  border-left: 4px solid #f87171;
+}
+
+/* Animación de shake para errores */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.shake {
+  animation: shake 0.5s ease;
+}
+
+.clave-form-group {
+  margin-bottom: 1.75rem;
+  position: relative;
+}
+
+.clave-form-group label {
+  display: block;
+  color: #ffffff;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.clave-password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.clave-password-input-container:focus-within {
+  transform: translateY(-2px);
+}
+
+.clave-password-input-container input {
+  width: 100%;
+  padding: 0.9rem 1.25rem;
+  padding-right: 3rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: #333;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.clave-password-input-container input:focus {
+  outline: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15), 0 0 0 3px rgba(216, 16, 32, 0.2);
+}
+
+.clave-toggle-password-visibility {
+  position: absolute;
+  right: 0.95rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.clave-toggle-password-visibility svg {
+  color: #154971;
+  transition: color 0.2s ease;
+}
+
+.clave-toggle-password-visibility:hover svg {
+  color: #d81020;
+  transform: scale(1.1);
+}
+
+.clave-password-strength-container {
+  margin-top: 1rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.clave-strength-bars {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.clave-strength-bar {
+  height: 8px;
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.clave-strength-bar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.2);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease-out;
+}
+
+.clave-cambiar-clave-card:hover .clave-strength-bar::after {
+  transform: scaleX(1);
+}
+
+.clave-strength-text {
+  font-size: 0.9rem;
+  display: inline-block;
+  font-weight: 600;
+  padding: 0.3rem 0.9rem;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.clave-very-weak {
+  background-color: #ef4444;
+  color: #ffffff;
+}
+
+.clave-weak {
+  background-color: #f97316;
+  color: #ffffff;
+}
+
+.clave-moderate {
+  background-color: #facc15;
+  color: #000000;
+}
+
+.clave-strong {
+  background-color: #22c55e;
+  color: #ffffff;
+}
+
+.clave-very-strong {
+  background-color: #10b981;
+  color: #ffffff;
+}
+
+.clave-password-requirements {
+  margin-top: 1.25rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.clave-password-requirements p {
+  color: #ffffff;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.clave-password-requirements ul {
+  list-style: none;
+  padding-left: 0.5rem;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.5rem;
+}
+
+.clave-password-requirements li {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  position: relative;
+  padding-left: 1.75rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.clave-password-requirements li::before {
+  content: "○";
+  position: absolute;
+  left: 0;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+.clave-password-requirements li.clave-valid {
+  color: #4ade80;
+}
+
+.clave-password-requirements li.clave-valid::before {
+  content: "✓";
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.clave-passwords-match-indicator {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.clave-match {
+  background-color: rgba(255, 254, 254, 0.815);
+  color: #3fbb6c;
+  border-left: 3px solid #4ade80;
+}
+
+.clave-no-match {
+  background-color: rgba(255, 254, 254, 0.815);
+  color: #fc0000;
+  border-left: 3px solid #f87171;
+}
+
+.clave-submit-button {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #d81020, #ff3b4e);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(216, 16, 32, 0.4);
+  letter-spacing: 0.5px;
+}
+
+.clave-submit-button::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(45deg);
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.clave-submit-button:hover {
+  background: linear-gradient(135deg, #c00e1c, #e83545);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(216, 16, 32, 0.5);
+}
+
+.clave-submit-button:hover::after {
+  animation: shine 1.5s ease;
+}
+
+@keyframes shine {
+  0% { opacity: 0; transform: translateX(-100%) rotate(45deg); }
+  50% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(100%) rotate(45deg); }
+}
+
+.clave-submit-button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(216, 16, 32, 0.4);
+}
+
+.clave-submit-button:disabled {
+  background: linear-gradient(135deg, #6c8da9, #8ba6bd);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.clave-button-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.clave-loader {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Floating animated elements */
+.clave-floating-element {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  z-index: 0;
+  animation: float 10s infinite alternate ease-in-out;
+}
+
+.clave-floating-element-1 {
+  width: 100px;
+  height: 100px;
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.clave-floating-element-2 {
+  width: 150px;
+  height: 150px;
+  bottom: 15%;
+  right: 10%;
+  animation-delay: 2s;
+}
+
+.clave-floating-element-3 {
+  width: 80px;
+  height: 80px;
+  bottom: 25%;
+  left: 15%;
+  animation-delay: 4s;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(15px, 15px) rotate(10deg); }
+  100% { transform: translate(-15px, -15px) rotate(-10deg); }
+}
+
+@media (max-width: 600px) {
+  .clave-cambiar-clave-card {
+    padding: 1.5rem;
+  }
+  
+  .clave-lock-icon-wrapper {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .clave-card-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .clave-password-requirements ul {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,674 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Arial', sans-serif;
+  overflow-x: hidden; /* Prevenir scroll horizontal en el body */
+  width: 100%;
+  overflow-y: auto;
+}
+
+.docente-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+}
+
+
+.background-image {
+  width: 100%;
+  min-height: 100vh; /* Changed from height: 100% to min-height: 100vh */
+  background-image: url('../assets/fondo2.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Keep background fixed while scrolling */
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  overflow: visible; /* Changed from hidden to visible */
+}
+
+/* Navbar styles */
+.docente-navbar {
+  width: 100%;
+  background-color: #034081;
+  color: white;
+  padding: 0.5rem 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 10;
+}
+
+/* Contenedor para los elementos de la barra */
+.navbar-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.docente-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 8px;
+}
+
+.docente-nav-logo {
+  flex-shrink: 0;
+}
+
+.docente-logo-image {
+  height: 70px;
+  margin-left: 20px;
+  object-fit: contain;
+}
+
+.docente-welcome-text {
+  color: white;
+  font-size: 1.7rem;
+  margin: 0;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  flex-grow: 1;
+  animation: shine 1.5s infinite;
+}
+@keyframes shine {
+  0% {
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  50% {
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 1);
+  }
+  100% {
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+}
+
+.docente-nav-centre-logo-container {
+  display: flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+  margin-right: 20px;
+}
+
+.docente-centre-logo {
+  height: 60px;
+  object-fit: contain;
+  /*margin-right: 20px;*/
+}
+.docente-options-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+.docente-nav-options {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  max-width: 100%;
+}
+
+.docente-nav-options li {
+  margin: 0;
+}
+
+.docente-nav-options li a {
+  color: #e8e9e4;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  display: block;
+  background-color: #d81020;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  border: 2px solid transparent;
+}
+
+.docente-nav-options li a:hover, 
+.docente-nav-options li a.docente-active {
+  background-color: #034081;
+  transform: translateY(-4px); /* Aumenta el desplazamiento al hacer hover */
+  border: 2px solid #e8e9e4; /* Borde visible al hacer hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Aumenta la sombra al hacer hover */
+  animation: pulse 0.5s infinite; /* Añade una animación de pulso */
+}
+@keyframes pulse {
+  0% {
+      transform: scale(1);
+  }
+  50% {
+      transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+  }
+  100% {
+      transform: scale(1);
+  }
+}
+
+.docente-nav-options li a.docente-active {
+  border-bottom: 3px solid #e8e9e4;
+}
+@media (min-width: 768px) and (max-width: 1400px) {
+  .docente-nav-options {
+    gap: 8px;
+  }
+  
+  .docente-nav-options li a {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+}
+
+/* User info and logout button */
+.user-info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.3rem 1.5rem; /* Reducido para ahorrar espacio vertical */
+  background-color: #eff0f0;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box; /* Incluir padding y border en el ancho total */
+  font-weight: bold;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.user-info p {
+  margin: 0 15px 0 0;
+  font-size: 1rem; /* Reducido para ahorrar espacio vertical */
+  color: #034081;
+  
+}
+
+
+.logout-button {
+  background-color: #d81020;
+  color: white;
+  border: none;
+  padding: 6px 12px; /* Reducido para ahorrar espacio vertical */
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin-top: 0;
+  font-size: 0.9rem;
+  margin-left: auto;
+  
+}
+
+.logout-button:hover {
+  background-color: #a50e18;
+  transform: translateY(-2px);
+}
+
+.content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  padding-top: 40px; /* Maintain top padding */
+  padding-right: 10px; /* Maintain right padding */
+  padding-left: 10px; /* Maintain left padding */
+  padding-bottom: 100px; /* Add extra space at the bottom */
+  color: white;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.logout-confirmation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
+}
+
+.confirmation-logo {
+  width: 200px; /* Ajusta el tamaño a 80 píxeles */
+  margin-bottom: 5px; /* Espacio entre el logo y el texto */
+}
+
+.confirmation-content {
+  background: rgb(8, 72, 102); /* Fondo blanco para la ventana */
+  padding: 20px;
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
+  text-align: center; /* Centrar el texto */
+}
+
+.confirmation-content p {
+  margin-bottom: 20px; /* Espacio entre el texto y los botones */
+  font-size: 16px; /* Tamaño de fuente */
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.confirmation-content button {
+  margin: 0 10px; /* Espacio entre los botones */
+  padding: 10px 20px; /* Espaciado interno */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+  font-size: 16px; /* Tamaño de fuente */
+  background-color: #14213d;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.confirmation-content button:hover {
+  background-color: #4361ee; /* Color de fondo al pasar el mouse */
+}
+
+.confirmation-content button:last-child {
+  background-color: #a50e18; /* Color de fondo para el botón "No" */
+  color: white; /* Color del texto */
+  font-weight: bold;
+}
+
+.confirmation-content button:last-child:hover {
+  background-color: #e53935; /* Color de fondo al pasar el mouse sobre "No" */
+}
+
+/* Section content styles */
+.section-content {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px 0;
+  width: 100%;
+  max-width: 1000px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  color: #333;
+  box-sizing: border-box;
+  position: relative; /* Added position relative */
+  z-index: 5; /* Added z-index */
+  top: 10%;
+}
+
+.section-content h2 {
+  color: #14213d;
+  border-bottom: 2px solid #14213d;
+  padding-bottom: 10px;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+
+.welcome-content {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* NUEVOS ESTILOS PARA LA SECCIÓN DE REGISTRAR HORARIO */
+/* =================================================== */
+
+/* Estilos generales de la sección de horario */
+.horario-section {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 240, 250, 0.95) 100%);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  min-height: 450px;
+  border-top: 5px solid #20386d;
+  position: relative;
+  overflow: visible; /* Changed from hidden to visible */
+  margin-bottom: 15px;
+
+  z-index: 5; /* Added z-index */
+}
+
+.horario-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(58, 134, 255, 0.1) 0%, rgba(58, 134, 255, 0) 70%);
+  z-index: 0;
+}
+
+/* Cabecera de la sección */
+.horario-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px; /* Reducido para ahorrar espacio vertical */
+}
+
+.horario-header h2 {
+  color: #14213d;
+  font-size: 1.5rem; /* Reducido para ahorrar espacio vertical */
+  margin: 0 0 10px 0;
+  padding-bottom: 8px;
+  border-bottom: 3px solid #20386d;
+  position: relative;
+}
+
+.horario-header h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 60px;
+  height: 3px;
+  background-color: #fca311;
+}
+
+/* Información del periodo */
+.periodo-info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.periodo-badge {
+  background-color: #20386d;
+  color: white;
+  font-weight: bold;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  box-shadow: 0 3px 6px rgba(58, 134, 255, 0.3);
+}
+
+.periodo-info p {
+  margin: 0;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.periodo-dates {
+  font-weight: bold;
+  color: #14213d;
+}
+
+/* Estilos del formulario */
+.horario-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 0;
+}
+
+.label-text {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #14213d;
+  font-size: 0.95rem;
+}
+
+.form-control {
+  width: 95%;
+  padding: 10px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.form-control:focus {
+  border-color: #20386d;
+  box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.25);
+  outline: none;
+}
+
+/* Select con estilo personalizado */
+select.form-control {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2314213d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 40px;
+}
+
+/* Contenedor para los inputs de tiempo */
+.time-inputs {
+  display: flex;
+  gap: 15px;
+}
+
+.time-inputs .form-group {
+  flex: 1;
+}
+
+.time-input-wrapper {
+  position: relative;
+}
+
+.time-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #14213d;
+  opacity: 0.6;
+  pointer-events: none;
+  font-size: 0.9rem;
+}
+
+/* Información adicional sobre horarios */
+.horario-info {
+  background-color: rgba(252, 163, 17, 0.1);
+  border-left: 4px solid #fca311;
+  padding: 10px;
+  border-radius: 0 8px 8px 0;
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.info-icon {
+  font-size: 1.1rem;
+  color: #fca311;
+  flex-shrink: 0;
+}
+
+.info-text p {
+  margin: 0 0 3px 0;
+  color: #555;
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+.info-text p:last-child {
+  margin-bottom: 0;
+}
+
+.info-text strong {
+  color: #14213d;
+  font-weight: 600;
+}
+
+/* Botón de envío */
+.submit-button {
+  background: linear-gradient(145deg, #14213d, #4361ee);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+  box-shadow: 0 4px 12px rgba(58, 134, 255, 0.3);
+  align-self: center;
+  min-width: 180px;
+}
+
+.submit-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(58, 134, 255, 0.4);
+  background: linear-gradient(145deg, #4361ee, #14213d);
+}
+
+.submit-button:active {
+  transform: translateY(-1px);
+}
+
+.button-icon {
+  font-size: 1rem;
+}
+
+/* Responsive para la sección de horario */
+@media (max-width: 768px) {
+  .horario-section {
+    padding: 15px;
+  }
+  
+  .time-inputs {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .submit-button {
+    width: 100%;
+  }
+
+  .horario-header h2 {
+    font-size: 1.3rem;
+  }
+}
+
+.footer-bar {
+  width: 100%;
+  background-color: #034081;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  position: relative;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.footer-logo {
+  height: 40px; /* Ajusta el tamaño según sea necesario */
+  max-width: 100px; /* Ajusta el tamaño según sea necesario */
+  margin: 0 10px; /* Espacio entre los logos */
+}
+
+.footer-text {
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 20px; /* Espacio entre el texto y los logos */
+  color: #ffffff;
+}
+
+/* Added specific style to ensure VisualizarHorario component is visible */
+.content-area > div {
+  width: 100%;
+  max-width: 1000px;
+  z-index: 5;
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.user-icon-button {
+  background-color: rgba(5, 84, 255, 0.1);
+  color: #034081;
+  border: none;
+  padding: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.user-icon-button:hover {
+  background-color: rgba(5, 1, 247, 0.2);
+  transform: scale(1.1);
+}
+
+.user-menu-dropdown {
+  position: absolute;
+  top: 120px; /* Adjust based on your navbar height */
+  right: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 20;
+  color: #034081;
+  font-weight: bold;
+}
+
+.user-menu-dropdown ul {
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+}
+
+.user-menu-dropdown ul li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.user-menu-dropdown ul li svg {
+  color: #164971;
+  margin-right: 10px;
+}
+
+.user-menu-dropdown ul li:hover {
+  background-color: #f0f0f0;
+}
+
+.user-menu-dropdown ul li span {
+  flex-grow: 1;
+}

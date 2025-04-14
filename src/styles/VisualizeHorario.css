@@ -1,0 +1,418 @@
+/* Estilos para el componente VisualizarHorario */
+.visualizar-horario-container {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 240, 250, 0.95) 100%);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  /*min-height: 450px;*/
+  height: auto;
+  border-top: 5px solid #20386d;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 15px;
+  color: #14213d;
+  top: 8%;
+  
+}
+
+/* Controles superiores */
+.horario-controles {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.horario-title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.horario-title h2 {
+  color: #14213d;
+  font-size: 1.5rem;
+  margin: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.horario-navegacion {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.nav-button {
+  background-color:   #ffffff;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.9rem;
+  color: #14213d;
+  transition: all 0.2s ease;
+  font-weight: bold;
+  
+}
+
+.nav-button:hover {
+  background-color: #14213d;
+  transform: translateY(-2px);
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.today-button {
+  background-color: #14213d;
+  color: white;
+  font-weight: bold;
+}
+
+.today-button:hover {
+  background-color: #ffffff;
+  color: #14213d;
+  font-weight: bold;
+}
+
+/* Estilos del calendario */
+.calendario-container {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  height: 380px;
+  overflow-y: auto;
+}
+
+.calendario-header {
+  display: flex;
+  background-color: #14213d;
+  border-bottom: 1px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.calendario-hora-cell {
+  width: 80px;
+  min-width: 80px;
+  padding: 8px;
+  text-align: center;
+  font-weight: bold;
+  color: #14213d;
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendario-day-header {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  border-right: 1px solid #e0e0e0;
+  background-color: #14213d;
+}
+
+.day-name {
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.day-date {
+  font-size: 0.9rem;
+  color: #ffffff9c;
+}
+
+.calendario-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.calendario-row {
+  display: flex;
+  min-height: 60px;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #ffffff9c;
+  
+}
+
+.calendario-cell {
+  flex: 1;
+  position: relative;
+  border-right: 1px solid #e0e0e0;
+  min-height: 70px;
+  background-color: #ffffff9c;
+}
+
+/* Estilos para bloques de horario */
+.bloque-horario {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90%;
+  height: 90%;
+  background-color: #14213d;
+  border-left: 4px solid #fca311;
+  padding: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bloque-content {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+}
+
+.bloque-hora {
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.bloque-periodo {
+  color: #ffffff9c;
+  font-size: 0.6rem;
+}
+
+/* Estado de carga y errores */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(58, 134, 255, 0.3);
+  border-radius: 50%;
+  border-top: 4px solid #4361ee;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-message, .no-horarios-message {
+  text-align: center;
+  padding: 30px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.error-message p {
+  color: #e63946;
+  margin: 5px 0;
+}
+
+.no-horarios-message p {
+  color: #666;
+  margin: 5px 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .horario-controles {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .calendario-container {
+    height: 500px;
+  }
+  
+  .calendario-hora-cell {
+    width: 60px;
+    min-width: 60px;
+    font-size: 0.8rem;
+  }
+  
+  .calendario-day-header {
+    padding: 5px;
+  }
+  
+  .day-name {
+    font-size: 0.9rem;
+  }
+  
+  .day-date {
+    font-size: 0.75rem;
+  }
+  
+  .bloque-content {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .horario-navegacion {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .nav-button {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+  
+  .calendario-hora-cell {
+    width: 40px;
+    min-width: 40px;
+  }
+  
+  .calendario-row {
+    min-height: 45px;
+  }
+  
+  .calendario-cell {
+    min-height: 45px;
+  }
+}
+
+/*Nuevos estilos
+/* Estilos adicionales para la edición de horarios */
+
+/* Hacer que los bloques sean clickeables */
+.bloque-content {
+  cursor: pointer;
+  transition: background-color 0.2s;
+  padding: 4px 6px;
+  border-radius: 4px;
+  background-color: rgba(65, 105, 225, 0.7);
+  color: white;
+}
+
+.bloque-content:hover {
+  background-color: rgba(65, 105, 225, 0.9);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal de edición */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #555;
+}
+
+.form-group select,
+.form-group input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-primary,
+.btn-danger,
+.btn-secondary {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.btn-primary {
+  background-color: #4169e1;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #3558c1;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #bd2130;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* Mensaje de no permisos */
+.permiso-mensaje {
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 15px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Deshabilitar campos cuando no hay permisos */
+select:disabled,
+input:disabled {
+  background-color: #f2f2f2;
+  cursor: not-allowed;
+}

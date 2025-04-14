@@ -1,0 +1,340 @@
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Arial', sans-serif;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.estudiante-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.estudiante-background-image {
+  width: 100%;
+  min-height: 100vh;
+  background-image: url('../assets/fondo2.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+}
+
+.estudiante-navbar {
+  width: 100%;
+  background-color: #034081;
+  color: white;
+  padding: 0.5rem 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 10;
+}
+
+.estudiante-navbar-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+.estudiante-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 8px;
+}
+
+.estudiante-nav-logo {
+  flex-shrink: 0;
+}
+
+.estudiante-logo-image {
+  height: 70px;
+  object-fit: contain;
+}
+
+.estudiante-welcome-text {
+  color: white;
+  font-size: 1.7rem;
+  margin: 0;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  flex-grow: 1;
+  animation: shine 1.5s infinite;
+}
+@keyframes shine {
+  0% {
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  50% {
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 1);
+  }
+  100% {
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+}
+
+.estudiante-nav-options {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  max-width: 100%;
+}
+
+.estudiante-nav-options li {
+  margin: 0;
+}
+
+.estudiante-nav-options li a {
+  color: #e8e9e4;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  display: block;
+  background-color: #d81020;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  border: 2px solid transparent;
+}
+
+.estudiante-nav-options li a:hover, .estudiante-nav-options li a.estudiante-active {
+  background-color: #034081;
+  transform: translateY(-4px); /* Aumenta el desplazamiento al hacer hover */
+  border: 2px solid #e8e9e4; /* Borde visible al hacer hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Aumenta la sombra al hacer hover */
+  animation: pulse 0.5s infinite; /* Añade una animación de pulso */
+}
+@keyframes pulse {
+  0% {
+      transform: scale(1);
+  }
+  50% {
+      transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+  }
+  100% {
+      transform: scale(1);
+  }
+}
+
+.estudiante-nav-options li a.estudiante-active {
+  border-bottom: 3px solid #e8e9e4;
+}
+@media (min-width: 768px) and (max-width: 1400px) {
+  .estudiante-nav-options {
+    gap: 8px;
+  }
+  
+  .estudiante-nav-options li a {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+}
+
+.estudiante-nav-centre-logo-container {
+  display: flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.estudiante-centre-logo {
+  height: 60px;
+  object-fit: contain;
+}
+.estudiante-options-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+.estudiante-user-info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.3rem 1.5rem;
+  background-color: #eff0f0;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+  font-weight: bold;
+}
+
+.estudiante-user-info p {
+  margin: 0 15px 0 0;
+  font-size: 1rem;
+  color: #034081;
+}
+
+.estudiante-logout-button {
+  background-color: #d81020;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin-top: 0;
+  font-size: 0.9rem;
+  margin-left: auto;
+}
+
+.estudiante-logout-button:hover {
+  background-color: #a50e18;
+  transform: translateY(-2px);
+}
+
+.estudiante-content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  padding-top: 40px; /* Maintain top padding */
+  padding-right: 10px; /* Maintain right padding */
+  padding-left: 10px; /* Maintain left padding */
+  padding-bottom: 100px; /* Add extra space at the bottom */
+  color: white;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.estudiante-content-area > div {
+  width: 100%;
+  max-width: 1000px;
+  z-index: 5;
+}
+
+.estudiante-logout-confirmation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.estudiante-confirmation-logo {
+  width: 200px;
+  margin-bottom: 5px;
+}
+
+.estudiante-confirmation-content {
+  background: rgb(8, 72, 102);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.estudiante-confirmation-content p {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.estudiante-confirmation-content button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  background-color: #14213d;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.estudiante-confirmation-content button:hover {
+  background-color: #4361ee;
+}
+
+.estudiante-confirmation-content button:last-child {
+  background-color: #a50e18;
+  color: white;
+  font-weight: bold;
+}
+
+.estudiante-confirmation-content button:last-child:hover {
+  background-color: #e53935;
+}
+
+.estudiante-section-content {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px 0;
+  width: 100%;
+  max-width: 1000px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  color: #333;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 5;
+  top: 10%;
+}
+
+.estudiante-welcome-content {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.estudiante-footer-bar {
+  width: 100%;
+  background-color: #034081;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  position: relative;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.estudiante-footer-logo {
+  height: 40px;
+  max-width: 100px;
+  margin: 0 10px;
+}
+
+.estudiante-footer-text {
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 20px;
+  color: #ffffff;
+}
