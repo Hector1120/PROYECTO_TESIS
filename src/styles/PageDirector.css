@@ -1,5 +1,5 @@
-
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -39,7 +39,7 @@ html, body {
     position: relative;
     z-index: 10;
 }
-  
+
 .director-navbar-content {
     display: flex;
     flex-direction: column;
@@ -55,11 +55,11 @@ html, body {
     width: 100%;
     padding-bottom: 8px;
 }
-  
+
 .director-nav-logo {
     flex-shrink: 0;
 }
-  
+
 .director-logo-image {
     height: 70px;
     object-fit: contain;
@@ -73,21 +73,24 @@ html, body {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     text-align: center;
     flex-grow: 1;
-    animation: shine 1.5s infinite; /* Añade la animación de brillo */
+    animation: shine 1.5s infinite;
+    /* Añade la animación de brillo */
 }
 
 @keyframes shine {
     0% {
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5);
     }
+
     50% {
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 1);
     }
+
     100% {
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5);
     }
 }
-  
+
 .director-nav-options {
     display: flex;
     list-style: none;
@@ -98,7 +101,7 @@ html, body {
     gap: 12px;
     max-width: 100%;
 }
-  
+
 .director-nav-options li {
     margin: 0;
 }
@@ -108,49 +111,62 @@ html, body {
     text-decoration: none;
     padding: 8px 14px;
     border-radius: 6px;
-    transition: all 0.3s ease; /* Aumenta la duración de la transición */
+    transition: all 0.3s ease;
+    /* Aumenta la duración de la transición */
     font-size: 0.9rem;
     white-space: nowrap;
-    display: block;
+    display: flex;
+    align-items: center;
     background-color: #d81020;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     font-weight: bold;
-    border: 2px solid transparent; /* Borde inicial transparente */
+    border: 2px solid transparent;
+    /* Borde inicial transparente */
 }
+.director-nav-options li a svg { /* Asegúrate de que el icono sea un SVG */
+    margin-right: 8px; /* Espacio entre el icono y el texto */
+  }
 
-.director-nav-options li a:hover, 
+.director-nav-options li a:hover,
 .director-nav-options li a.director-active {
     background-color: #034081;
-    transform: translateY(-4px); /* Aumenta el desplazamiento al hacer hover */
-    border: 2px solid #e8e9e4; /* Borde visible al hacer hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Aumenta la sombra al hacer hover */
-    animation: pulse 0.5s infinite; /* Añade una animación de pulso */
+    transform: translateY(-4px);
+    /* Aumenta el desplazamiento al hacer hover */
+    border: 2px solid #e8e9e4;
+    /* Borde visible al hacer hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Aumenta la sombra al hacer hover */
+    animation: pulse 0.5s infinite;
+    /* Añade una animación de pulso */
 }
 
 @keyframes pulse {
     0% {
         transform: scale(1);
     }
+
     50% {
-        transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+        transform: scale(1.05);
+        /* Aumenta ligeramente el tamaño */
     }
+
     100% {
         transform: scale(1);
     }
 }
-  
+
 .director-nav-options li a.director-active {
     border-bottom: 3px solid #e8e9e4
 }
 
 @media (min-width: 768px) and (max-width: 1400px) {
     .director-nav-options {
-      gap: 8px;
+        gap: 8px;
     }
-    
+
     .director-nav-options li a {
-      padding: 6px 10px;
-      font-size: 0.85rem;
+        padding: 6px 10px;
+        font-size: 0.85rem;
     }
 }
 
@@ -162,7 +178,7 @@ html, body {
     background-color: rgba(255, 255, 255, 0.1);
     flex-shrink: 0;
 }
-  
+
 .director-centre-logo {
     height: 60px;
     object-fit: contain;
@@ -173,7 +189,7 @@ html, body {
     display: flex;
     justify-content: center;
     margin-top: 6px;
-  }
+}
 
 .director-user-info {
     display: flex;
@@ -222,10 +238,14 @@ html, body {
     flex-direction: column;
     align-items: center;
     overflow-y: auto;
-    padding-top: 40px; /* Maintain top padding */
-    padding-right: 10px; /* Maintain right padding */
-    padding-left: 10px; /* Maintain left padding */
-    padding-bottom: 100px; /* Add extra space at the bottom */
+    padding-top: 40px;
+    /* Maintain top padding */
+    padding-right: 10px;
+    /* Maintain right padding */
+    padding-left: 10px;
+    /* Maintain left padding */
+    padding-bottom: 100px;
+    /* Add extra space at the bottom */
     color: white;
     width: 100%;
     box-sizing: border-box;
@@ -349,11 +369,12 @@ html, body {
     color: #ffffff;
 }
 
-.director-content-area > div {
+.director-content-area>div {
     width: 100%;
     max-width: 1000px;
     z-index: 5;
 }
+
 .director-area-asignaturas {
     margin-top: 10px;
     padding: 10px;
@@ -362,18 +383,18 @@ html, body {
     max-height: 200px;
     overflow-y: auto;
 }
-  
+
 .director-area-asignaturas ul {
     list-style-type: none;
     padding-left: 10px;
 }
-  
+
 .director-area-asignaturas li {
     margin-bottom: 5px;
     padding: 5px;
     border-bottom: 1px solid #e0e0e0;
 }
-  
+
 .director-form-info {
     background-color: #f8f9fa;
     padding: 10px;
@@ -381,15 +402,16 @@ html, body {
     margin-bottom: 15px;
     border: 1px solid #e0e0e0;
 }
-  
+
 .director-form-info p {
     margin: 5px 0;
 }
+
 .docentes-preview-list {
     color: #a11010
 }
 
-  
+
 button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -398,7 +420,7 @@ button:disabled {
 
 
 
-  /* Estilos para contenedor de checkboxes de docentes */
+/* Estilos para contenedor de checkboxes de docentes */
 .director-docentes-checkbox-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -410,8 +432,8 @@ button:disabled {
     border-radius: 4px;
     background-color: #f9f9f9;
 }
-  
-  /* Estilos para cada ítem de checkbox */
+
+/* Estilos para cada ítem de checkbox */
 .director-docente-checkbox-item {
     display: flex;
     align-items: center;
@@ -419,12 +441,12 @@ button:disabled {
     border-radius: 4px;
     transition: background-color 0.2s;
 }
-  
+
 .director-docente-checkbox-item:hover {
     background-color: #f0f0f0;
 }
-  
-  /* Estilos para la etiqueta del docente */
+
+/* Estilos para la etiqueta del docente */
 .director-docente-label {
     display: flex;
     align-items: center;
@@ -432,50 +454,56 @@ button:disabled {
     cursor: pointer;
     width: 100%;
 }
-  
-  /* Contenedor de información del docente */
+
+/* Contenedor de información del docente */
 .director-docente-info {
     display: flex;
     flex-direction: column;
 }
-  
-  /* Estilo para el correo del docente */
+
+/* Estilo para el correo del docente */
 .director-docente-correo {
     font-weight: 500;
     font-weight: bold;
 }
-  
-  /* Estilo para el tipo de docente */
+
+/* Estilo para el tipo de docente */
 .director-docente-tipo {
     /*font-size: 0.85em;*/
     color: #a11010;
 }
+
 .director-docente-subtipo {
     /*font-size: 0.85em;*/
     font-size: 0.9em;
     color: #a11010;
 }
-  
-  /* Estilo para los checkboxes */
+
+/* Estilo para los checkboxes */
 .director-docente-checkbox-item input[type="checkbox"] {
     cursor: pointer;
     width: 18px;
     height: 18px;
 }
+
 .alerta-docentes {
-    color: #801111;
-    background-color: #fff3cd;
-    border: 1px solid #ffeeba;
+    color: #ffffff;
+    /*background-color: #fff3cd;
+    border: 1px solid #ffeeba;*/
+    background-color: #d81020;
+    border: 2px solid #034081;
     padding: 8px;
     border-radius: 4px;
     font-size: 0.95rem;
     margin-top: 5px;
 }
+
 .director-users-list-container {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
+
 .director-search-form {
     background-color: #f5f5f5;
     padding: 15px;
@@ -483,31 +511,34 @@ button:disabled {
     margin-bottom: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-  
+
 .director-search-form h3 {
     margin-top: 0;
     margin-bottom: 10px;
     color: #333;
 }
+
 .director-search-fields {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
     align-items: flex-end;
 }
-  
+
 .director-search-fields .director-form-group {
     flex: 1;
     min-width: 200px;
 }
+
 .director-time-inputs .director-form-group {
     flex: 1;
 }
+
 .director-form-group {
     margin-bottom: 20px;
     position: relative;
 }
-  
+
 .director-form-group label {
     display: block;
     margin-bottom: 8px;
@@ -515,8 +546,8 @@ button:disabled {
     font-weight: 600;
     transition: color 0.3s ease;
 }
-  
-.director-form-group input, 
+
+.director-form-group input,
 .director-form-group select {
     width: 91%;
     padding: 12px;
@@ -527,14 +558,14 @@ button:disabled {
     background-color: white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
-  
-.director-form-group input:focus, 
+
+.director-form-group input:focus,
 .director-form-group select:focus {
     border-color: #4361ee;
     box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
     outline: none;
 }
-  
+
 .director-form-group select {
     appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2314213d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
@@ -542,47 +573,59 @@ button:disabled {
     background-position: right 10px center;
     padding-right: 40px;
 }
+
 .director-form-group input[type="email"],
 .director-form-group select {
-  width: 95%;
-  padding: 12px;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  background-color: #ffffff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    width: 95%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .director-form-group input:focus,
 .director-form-group select:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
-  outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+    outline: none;
 }
+
 .director-form-group input[type="checkbox"] {
     margin-right: 10px;
-    width: 20px; /* Aumenta el tamaño del checkbox */
-    height: 20px; /* Aumenta el tamaño del checkbox */
-    accent-color: #1a1c88; /* Cambia el color de acento del checkbox */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el checkbox */
-  
+    width: 20px;
+    /* Aumenta el tamaño del checkbox */
+    height: 20px;
+    /* Aumenta el tamaño del checkbox */
+    accent-color: #1a1c88;
+    /* Cambia el color de acento del checkbox */
+    cursor: pointer;
+    /* Cambia el cursor al pasar sobre el checkbox */
+
 }
-  
-  
+
+
 .director-form-group label {
-    font-weight: bold; /* Estilo de texto en negrita para la etiqueta */
-    color: #14213d; /* Color del texto de la etiqueta */
-    font-size: 1rem; /* Tamaño de fuente de la etiqueta */
-    display: flex; /* Alinea el checkbox y la etiqueta en línea */
-    align-items: center; /* Centra verticalmente el contenido */
+    font-weight: bold;
+    /* Estilo de texto en negrita para la etiqueta */
+    color: #14213d;
+    /* Color del texto de la etiqueta */
+    font-size: 1rem;
+    /* Tamaño de fuente de la etiqueta */
+    display: flex;
+    /* Alinea el checkbox y la etiqueta en línea */
+    align-items: center;
+    /* Centra verticalmente el contenido */
 }
+
 .director-form-buttons {
     display: flex;
     gap: 15px;
     margin-top: 25px;
 }
-  
+
 .director-form-buttons button {
     padding: 12px 25px;
     border-radius: 8px;
@@ -592,58 +635,62 @@ button:disabled {
     transition: all 0.3s ease;
     font-size: 0.95rem;
 }
-  
+
 .director-form-buttons button[type="submit"] {
     background: linear-gradient(145deg, #14213d, #4361ee);
     color: white;
     flex-grow: 1;
     box-shadow: 0 4px 12px rgba(58, 134, 255, 0.3);
 }
-  
+
 .director-form-buttons button[type="submit"]:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 16px rgba(58, 134, 255, 0.4);
     background: linear-gradient(145deg, #4361ee, #14213d);
 }
-  
+
 .director-form-buttons button[type="button"] {
     background-color: #d81020;
     color: #ffffff;
     font-weight: bold;
     border: 1px solid #d1d5db;
 }
-  
+
 .director-form-buttons button[type="button"]:hover {
     background-color: #a50e18;
     transform: translateY(-3px);
 }
+
 /* Estilos responsive */
 @media (max-width: 768px) {
     .director-form-buttons {
-      flex-direction: column;
+        flex-direction: column;
     }
-    
-    .director-users-table th, 
+
+    .director-users-table th,
     .director-users-table td {
-      padding: 10px 8px;
-      font-size: 0.8rem;
+        padding: 10px 8px;
+        font-size: 0.8rem;
     }
-    
-    .director-edit-button, .director-delete-button {
-      width: 30px;
-      height: 30px;
+
+    .director-edit-button,
+    .director-delete-button {
+        width: 30px;
+        height: 30px;
     }
 }
+
 .director-search-input {
     position: relative;
     display: flex;
     align-items: center;
 }
-  
+
 .director-search-input input {
     padding-right: 35px;
     width: 100%;
 }
+
 .director-clear-filter {
     background-color: #d81020;
     border: 1px solid #ddd;
@@ -653,17 +700,19 @@ button:disabled {
     color: white;
     font-weight: bold;
 }
-  
+
 .director-clear-filter:hover {
     background-color: #a50e18;
     transform: translateY(-2px);
 }
+
 .director-users-table-container p {
     margin-bottom: 10px;
     font-weight: bold;
     color: #14213d;
-    margin-left: 15px;   
+    margin-left: 15px;
 }
+
 .director-users-table-container {
     width: 100%;
     overflow-x: auto;
@@ -672,6 +721,7 @@ button:disabled {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
 }
+
 /* Add these styles to the existing CSS file */
 .director-users-table-container {
     width: 100%;
@@ -681,19 +731,19 @@ button:disabled {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
 }
-  
+
 .director-users-table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
     color: #333;
 }
-  
+
 .director-users-table thead tr {
     background: linear-gradient(145deg, #14213d, #1e3a8a);
     color: white;
 }
-  
+
 .director-users-table th {
     padding: 15px;
     text-align: left;
@@ -703,16 +753,16 @@ button:disabled {
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
-  
+
 .director-users-table th:first-child {
     border-top-left-radius: 10px;
 }
-  
+
 .director-users-table th:last-child {
     border-top-right-radius: 10px;
     text-align: center;
 }
-  
+
 .director-users-table td {
     padding: 12px 15px;
     border-bottom: 1px solid #e0e0e0;
@@ -720,44 +770,52 @@ button:disabled {
     transition: background-color 0.3s ease;
     font-weight: bold;
 }
-  
+
 .director-users-table tr:last-child td {
     border-bottom: none;
 }
-  
+
 .director-users-table tr:last-child td:first-child {
     border-bottom-left-radius: 10px;
 }
-  
+
 .director-users-table tr:last-child td:last-child {
     border-bottom-right-radius: 10px;
 }
-  
+
 .director-users-table tr:hover td {
     background-color: #f8f9fa;
 }
-  
+
 .director-users-table td:last-child {
     text-align: center;
 }
+
 /* Estilo para el estado activo/inactivo */
 .director-users-table td:nth-child(4) {
     font-weight: 600;
+    text-align: center;
 }
-  
-.director-users-table td:nth-child(4):contains('Activo') {
+.director-users-table td:nth-child(5) {
+    text-align: center;
+}
+
+/*.director-users-table td:nth-child(4):contains('Activo') {
     color: #10b981;
 }
-  
+
 .director-users-table td:nth-child(4):contains('Inactivo') {
     color: #ef4444;
-}
+}*/
+
 .director-table-actions {
     display: flex;
     justify-content: center;
     gap: 10px;
 }
-.director-edit-button, .director-delete-button {
+
+.director-edit-button,
+.director-delete-button {
     border: none;
     width: 36px;
     height: 36px;
@@ -769,46 +827,52 @@ button:disabled {
     transition: all 0.3s ease;
     color: white;
 }
-  
+
 .director-edit-button {
     background-color: #1e3a8a;
     box-shadow: 0 2px 5px rgba(59, 130, 246, 0.3);
 }
-  
+
 .director-edit-button:hover {
     background-color: #2563eb;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4);
 }
+
 .director-delete-button {
     background-color: #d81020;
     box-shadow: 0 2px 5px rgba(239, 68, 68, 0.3);
 }
-  
+
 .director-delete-button:hover {
     background-color: #dc2626;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(239, 68, 68, 0.4);
 }
+
 .director-no-results {
     text-align: center;
     padding: 20px;
     color: #666;
     font-style: italic;
 }
+
 .director-search-icon {
     position: absolute;
     right: 10px;
     color: #666;
 }
+
 .director-status-activo {
     color: #10b981;
     font-weight: 600;
 }
+
 .director-status-inactivo {
     color: #ef4444;
     font-weight: 600;
 }
+
 .director-clear-filter {
     background-color: #d81020;
     border: 1px solid #ddd;
@@ -818,11 +882,12 @@ button:disabled {
     color: white;
     font-weight: bold;
 }
-  
+
 .director-clear-filter:hover {
     background-color: #a50e18;
     transform: translateY(-2px);
 }
+
 .director-user-form {
     background: #f5f5f5;
     border-radius: 12px;
@@ -831,17 +896,18 @@ button:disabled {
     /*border-top: 5px solid #14213d;*/
     transition: all 0.3s ease;
 }
-  
+
 .director-user-form:hover {
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
     transform: translateY(-5px);
 }
+
 @media (max-width: 768px) {
     .director-user-form {
-      padding: 20px;
+        padding: 20px;
     }
 }
-  
+
 .director-user-form h3 {
     color: #14213d;
     font-size: 1.4rem;
@@ -849,6 +915,7 @@ button:disabled {
     border-left: 5px solid #fca311;
     padding-left: 15px;
 }
+
 .director-submit-button {
     background: linear-gradient(145deg, #a50e18, #d81020);
     color: white;
@@ -873,22 +940,23 @@ button:disabled {
     */
 }
 
-  
+
 .director-submit-button:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 16px rgba(228, 5, 5, 0.4);
     background: linear-gradient(145deg, #d81020, #a50e18);
 }
-  
+
 .director-submit-button:active {
     transform: translateY(-1px);
 }
 
-@media (max-width: 768px) {  
+@media (max-width: 768px) {
     .director-submit-button {
         width: 100%;
     }
 }
+
 .director-mensaje {
     margin-top: 15px;
     padding: 12px 15px;
@@ -900,13 +968,13 @@ button:disabled {
     justify-content: center;
     animation: fadeIn 0.5s ease;
 }
-  
+
 .director-mensaje-exito {
     background-color: rgba(16, 185, 129, 0.1);
     color: #065f46;
     border-left: 4px solid #10b981;
 }
-  
+
 .director-mensaje-error {
     background-color: rgba(239, 68, 68, 0.1);
     color: #b91c1c;
@@ -928,7 +996,7 @@ button:disabled {
     z-index: 5;
     top: 10%;
 }*/
-  
+
 .director-section-content h2 {
     color: #14213d;
     border-bottom: 2px solid #14213d;
@@ -936,6 +1004,7 @@ button:disabled {
     margin-top: 0;
     margin-bottom: 15px;
 }
+
 @media (max-width: 768px) {
     .director-section-content {
         width: 95%;
@@ -943,12 +1012,13 @@ button:disabled {
         margin: 5px 0;
     }
 }
+
 .director-user-management-buttons {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
 }
-  
+
 .director-user-management-buttons button {
     background: linear-gradient(145deg, #14213d, #4361ee);
     color: white;
@@ -960,22 +1030,565 @@ button:disabled {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 12px rgba(58, 134, 255, 0.3);
-    flex: 1; /* Make buttons take equal space */
-    margin: 0 5px; /* Add some space between buttons */
+    flex: 1;
+    /* Make buttons take equal space */
+    margin: 0 5px;
+    /* Add some space between buttons */
 }
-  
+
 .director-user-management-buttons button:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 16px rgba(58, 134, 255, 0.4);
     background: linear-gradient(145deg, #a11010, #d81020);
 }
+
 .director-active-button {
     background: linear-gradient(145deg, #fca311, #ffb300);
     color: white;
     border: none;
     box-shadow: 0 4px 12px rgba(58, 134, 255, 0.3);
 }
-  
+
 .director-active-button:hover {
     background: linear-gradient(145deg, #ffb300, #fca311);
+}
+
+/* Estilos para la visualización de horarios de docentes */
+.docentes-horarios-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.docente-horarios-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border-left: 5px solid #034081;
+}
+
+.docente-horarios-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.director-horarios-docente-info {
+    background: linear-gradient(145deg, #14213d, #4361ee);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+}
+
+.director-horarios-docente-info h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.subtipo-badge {
+    background-color: #d81020;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.horarios-container {
+    padding: 20px;
+}
+
+.horarios-container h4 {
+    color: #14213d;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.horarios-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.horarios-table thead tr {
+    background: linear-gradient(145deg, #14213d, #1e3a8a);
+    color: white;
+}
+
+.horarios-table th {
+    padding: 12px 10px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-bottom: 2px solid #e0e0e0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.horarios-table th:first-child {
+    border-top-left-radius: 8px;
+}
+
+.horarios-table th:last-child {
+    border-top-right-radius: 8px;
+    text-align: center;
+}
+
+.horarios-table td {
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 0.95rem;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+.horarios-table tr:last-child td {
+    border-bottom: none;
+}
+
+.horarios-table tr:last-child td:first-child {
+    border-bottom-left-radius: 8px;
+}
+
+.horarios-table tr:last-child td:last-child {
+    border-bottom-right-radius: 8px;
+}
+
+.horarios-table tr:hover td {
+    background-color: #f8f9fa;
+}
+
+.permisos-cell {
+    text-align: center;
+}
+
+/* Estilos para el checkbox "Puede Crear Horarios" */
+.permisos-globales {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 6px 12px;
+    border-radius: 6px;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .permisos-globales:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+  }
+  
+  .permiso-creacion {
+    display: flex;
+    align-items: center;
+    color: #034081;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .permiso-creacion input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    accent-color: #d81020;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .permiso-creacion input[type="checkbox"]:checked {
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+  }
+  
+  /* Efecto de pulso para el checkbox cuando está marcado */
+  @keyframes checkbox-pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  .permiso-creacion input[type="checkbox"]:checked {
+    animation: checkbox-pulse 0.5s ease;
+  }
+  
+  /* Media queries para responsive */
+  @media (max-width: 768px) {
+    .permisos-globales {
+      margin-right: 5px;
+      padding: 4px 8px;
+    }
+    
+    .permiso-creacion {
+      font-size: 0.8rem;
+    }
+    
+    .permiso-creacion input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      margin-right: 6px;
+    }
+  }
+.permisos-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.permiso-item {
+    display: flex;
+    align-items: center;
+}
+
+.permiso-item label {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: normal;
+    cursor: pointer;
+    color: #14213d;
+}
+
+.permiso-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    accent-color: #034081;
+    cursor: pointer;
+}
+
+.refresh-button {
+    background: linear-gradient(145deg, #14213d, #4361ee);
+    color: white;
+    border: none;
+    /*padding: 12px 50px;*/
+    width: 400px;
+    height: 50px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    align-self: center;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 12px rgba(58, 134, 255, 0.3);
+}
+
+.refresh-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(58, 134, 255, 0.4);
+    background: linear-gradient(145deg, #a11010, #d81020);
+}
+.director-refresh-button {
+    background: linear-gradient(145deg, #14213d, #4361ee);
+    color: white;
+    border: none;
+    width: 400px;
+    height: 50px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    align-self: center;
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(58, 134, 255, 0.3);
+}
+
+.director-refresh-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(58, 134, 255, 0.4);
+    background: linear-gradient(145deg, #a11010, #d81020);
+}
+
+.cargando {
+    text-align: center;
+    padding: 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #14213d;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+.director-horarios-sin-horarios { 
+    text-align: center; 
+    padding: 30px; 
+    background-color: #f5f5f5; 
+    border-radius: 10px; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+    margin: 20px 0; 
+}
+
+.director-horarios-sin-horarios p {
+    font-size: 1.2rem;
+    color: #14213d;
+    border-bottom: 2px solid #14213d;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    width: 80%; /* Cambia este valor según lo necesites */
+    max-width: 500px; /* Opcional: establece un ancho máximo */
+    text-align: center;
+    margin-left: 200px;
+    
+}
+
+.mensaje-horarios {
+    margin-top: 15px;
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.5s ease;
+}
+
+.mensaje-horarios.exito {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #065f46;
+    border-left: 4px solid #10b981;
+}
+
+.mensaje-horarios.error {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #b91c1c;
+    border-left: 4px solid #ef4444;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .docente-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .subtipo-badge {
+        align-self: flex-start;
+    }
+
+    .horarios-table {
+        font-size: 0.85rem;
+    }
+
+    .horarios-table th,
+    .horarios-table td {
+        padding: 8px 5px;
+    }
+
+    .permisos-container {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+.director-docentes-horarios-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.director-filtros-horarios {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f5f7fa;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.director-buscador-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 60%;
+    max-width: 450px;
+}
+
+.director-horarios-search-icon {
+    position: absolute;
+    left: 12px;
+    color: #14213d;
+}
+
+.director-buscador-input {
+    width: 100%;
+    padding: 12px 40px 12px 40px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+.director-buscador-input:focus {
+    outline: none;
+    border-color: #4361ee;
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+}
+
+.director-clear-search {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    color: #777;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.director-clear-search:hover {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.director-vista-toggle {
+    background: #ffffff;
+    color: #14213d;
+    border: 2px solid #14213d;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.director-vista-toggle:hover {
+    background-color: #f0f3ff;
+    transform: translateY(-2px);
+}
+
+.director-vista-toggle.activa {
+    background: linear-gradient(145deg, #14213d, #4361ee);
+    color: white;
+    border: 2px solid transparent;
+}
+
+.director-horarios-docente-info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.director-horarios-docente-info-header:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.director-horarios-toggle-button {
+    background: transparent;
+    border: none;
+    color: #d81020;
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+.director-horarios-toggle-button:hover {
+    transform: scale(1.2);
+}
+
+.director-horarios-sin-resultados {
+    text-align: center;
+    padding: 30px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+.director-horarios-sin-resultados p {
+    font-size: 1.1rem;
+    color: #14213d;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.director-horarios-sin-horarios-docente {
+    text-align: center;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    color: #666;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+    .director-filtros-horarios {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 10px;
+    }
+
+    .director-buscador-container {
+        width: 100%;
+        max-width: none;
+    }
+
+    .director-vista-toggle {
+        width: 100%;
+    }
+
+    .director-horarios-docente-info-header {
+        width: 100%;
+    }
+
+    .director-horarios-toggle-button {
+        margin-right: 0;
+    }
 }

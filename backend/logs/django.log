@@ -1,0 +1,136 @@
+INFO 2025-05-16 08:45:26,515 autoreload 14728 11236 Watching for file changes with StatReloader
+INFO 2025-05-16 08:49:50,415 basehttp 14728 21412 "GET /verificar-sesion/ HTTP/1.1" 200 157
+INFO 2025-05-16 08:49:50,450 basehttp 14728 29396 "GET /verificar-sesion/ HTTP/1.1" 200 157
+INFO 2025-05-16 08:49:50,691 basehttp 14728 40640 "OPTIONS /limpiar-horarios/ HTTP/1.1" 200 0
+INFO 2025-05-16 08:49:50,923 basehttp 14728 29396 "GET /verificar-permiso-crear-horarios/ HTTP/1.1" 200 30
+INFO 2025-05-16 08:49:51,105 basehttp 14728 44592 "OPTIONS /limpiar-horarios/ HTTP/1.1" 200 0
+INFO 2025-05-16 08:49:51,202 basehttp 14728 21412 "GET /periodo-vigente/ HTTP/1.1" 200 102
+WARNING 2025-05-16 08:49:51,259 log 14728 33772 Forbidden: /limpiar-horarios/
+WARNING 2025-05-16 08:49:51,274 basehttp 14728 33772 "POST /limpiar-horarios/ HTTP/1.1" 403 44
+INFO 2025-05-16 08:49:51,423 basehttp 14728 16464 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1453
+INFO 2025-05-16 08:49:51,478 basehttp 14728 6048 "GET /obtener-asignaturas-docente/ HTTP/1.1" 200 458
+INFO 2025-05-16 08:49:51,486 basehttp 14728 29396 "GET /verificar-permiso-crear-horarios/ HTTP/1.1" 200 30
+INFO 2025-05-16 08:49:51,732 basehttp 14728 21412 "GET /periodo-vigente/ HTTP/1.1" 200 102
+INFO 2025-05-16 08:49:51,764 basehttp 14728 33772 "GET /verificar-permiso-crear-horarios/ HTTP/1.1" 200 30
+INFO 2025-05-16 08:49:51,787 basehttp 14728 2748 "GET /periodo-vigente/ HTTP/1.1" 200 102
+INFO 2025-05-16 08:49:51,822 basehttp 14728 16464 "GET /periodo-vigente/ HTTP/1.1" 200 102
+INFO 2025-05-16 08:49:51,840 basehttp 14728 29396 "GET /obtener-asignaturas-docente/ HTTP/1.1" 200 458
+INFO 2025-05-16 08:49:51,897 basehttp 14728 6048 "GET /verificar-permiso-crear-horarios/ HTTP/1.1" 200 30
+WARNING 2025-05-16 08:49:51,983 log 14728 33772 Forbidden: /limpiar-horarios/
+WARNING 2025-05-16 08:49:51,984 basehttp 14728 33772 "POST /limpiar-horarios/ HTTP/1.1" 403 44
+INFO 2025-05-16 08:49:52,010 basehttp 14728 21412 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1453
+WARNING 2025-05-16 08:49:55,016 log 14728 26192 Unauthorized: /verificar-sesion/
+WARNING 2025-05-16 08:49:55,017 basehttp 14728 26192 "GET /verificar-sesion/ HTTP/1.1" 401 22
+WARNING 2025-05-16 08:49:55,020 log 14728 26192 Unauthorized: /verificar-sesion/
+WARNING 2025-05-16 08:49:55,021 basehttp 14728 26192 "GET /verificar-sesion/ HTTP/1.1" 401 22
+INFO 2025-05-16 08:49:58,399 basehttp 14728 21412 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1453
+INFO 2025-05-16 08:49:58,481 basehttp 14728 16464 "GET /verificar-permiso-crear-horarios/ HTTP/1.1" 200 30
+INFO 2025-05-16 08:49:58,488 basehttp 14728 29396 "GET /periodo-vigente/ HTTP/1.1" 200 102
+INFO 2025-05-16 08:50:12,517 basehttp 14728 9988 "OPTIONS /login/ HTTP/1.1" 200 0
+INFO 2025-05-16 08:50:14,496 basehttp 14728 26192 "POST /login/ HTTP/1.1" 200 169
+INFO 2025-05-16 08:50:14,550 basehttp 14728 9988 "OPTIONS /limpiar-horarios/ HTTP/1.1" 200 0
+WARNING 2025-05-16 08:50:15,106 log 14728 31124 Forbidden: /limpiar-horarios/
+INFO 2025-05-16 08:50:15,115 basehttp 14728 26192 "GET /mis-asesorias/ HTTP/1.1" 200 6574
+WARNING 2025-05-16 08:50:15,148 basehttp 14728 31124 "POST /limpiar-horarios/ HTTP/1.1" 403 44
+WARNING 2025-05-16 08:50:15,234 log 14728 32228 Forbidden: /limpiar-horarios/
+WARNING 2025-05-16 08:50:15,268 basehttp 14728 32228 "POST /limpiar-horarios/ HTTP/1.1" 403 44
+INFO 2025-05-16 08:50:15,449 basehttp 14728 26192 "GET /mis-asesorias/ HTTP/1.1" 200 6574
+INFO 2025-05-16 08:50:16,448 basehttp 14728 26192 "GET /mis-asesorias/ HTTP/1.1" 200 6574
+INFO 2025-05-16 08:50:21,727 basehttp 14728 26192 "GET /obtener-asignaturas-por-semestre HTTP/1.1" 301 0
+INFO 2025-05-16 08:50:21,854 basehttp 14728 31124 "GET /obtener-asignaturas-por-semestre/ HTTP/1.1" 200 136
+INFO 2025-05-16 08:50:25,792 basehttp 14728 31124 "GET /obtener-docentes-por-asignatura/4/ HTTP/1.1" 200 272
+INFO 2025-05-16 08:50:27,837 basehttp 14728 31124 "GET /obtener-horarios-disponibles/3/ HTTP/1.1" 200 5157
+INFO 2025-05-16 08:50:37,126 basehttp 14728 21412 "GET /verificar-permiso-crear-horarios/ HTTP/1.1" 200 30
+INFO 2025-05-16 08:50:37,228 basehttp 14728 16464 "GET /periodo-vigente/ HTTP/1.1" 200 102
+INFO 2025-05-16 08:51:02,800 basehttp 14728 21412 "GET /verificar-permiso-crear-horarios/ HTTP/1.1" 200 30
+INFO 2025-05-16 08:51:02,806 basehttp 14728 40640 "OPTIONS /registrar-horario/ HTTP/1.1" 200 0
+INFO 2025-05-16 08:51:02,940 basehttp 14728 16464 "POST /registrar-horario/ HTTP/1.1" 201 50
+INFO 2025-05-16 08:51:06,513 basehttp 14728 21412 "GET /verificar-permiso-crear-horarios/ HTTP/1.1" 200 30
+INFO 2025-05-16 08:51:06,527 basehttp 14728 6048 "GET /periodo-vigente/ HTTP/1.1" 200 102
+INFO 2025-05-16 08:51:06,593 basehttp 14728 16464 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1453
+INFO 2025-05-16 08:51:18,472 basehttp 14728 31124 "GET /verificar-sesion/ HTTP/1.1" 200 159
+INFO 2025-05-16 08:51:18,480 basehttp 14728 32228 "GET /verificar-sesion/ HTTP/1.1" 200 159
+WARNING 2025-05-16 08:51:18,905 log 14728 31124 Forbidden: /limpiar-horarios/
+WARNING 2025-05-16 08:51:18,953 basehttp 14728 31124 "POST /limpiar-horarios/ HTTP/1.1" 403 44
+INFO 2025-05-16 08:51:18,984 basehttp 14728 32228 "GET /mis-asesorias/ HTTP/1.1" 200 6574
+WARNING 2025-05-16 08:51:19,040 log 14728 38396 Forbidden: /limpiar-horarios/
+WARNING 2025-05-16 08:51:19,061 basehttp 14728 38396 "POST /limpiar-horarios/ HTTP/1.1" 403 44
+INFO 2025-05-16 08:51:19,380 basehttp 14728 31124 "GET /obtener-asignaturas-por-semestre/ HTTP/1.1" 200 136
+INFO 2025-05-16 08:51:19,392 basehttp 14728 32228 "GET /mis-asesorias/ HTTP/1.1" 200 6574
+INFO 2025-05-16 08:51:21,413 basehttp 14728 32228 "GET /obtener-docentes-por-asignatura/4/ HTTP/1.1" 200 272
+INFO 2025-05-16 08:51:23,756 basehttp 14728 32228 "GET /obtener-horarios-disponibles/3/ HTTP/1.1" 200 7665
+INFO 2025-05-16 08:51:43,320 basehttp 14728 9988 "OPTIONS /solicitar-asesoria/ HTTP/1.1" 200 0
+INFO 2025-05-16 08:51:46,420 basehttp 14728 32228 "POST /solicitar-asesoria/ HTTP/1.1" 200 88
+INFO 2025-05-16 08:51:50,215 basehttp 14728 32228 "GET /mis-asesorias/ HTTP/1.1" 200 7454
+INFO 2025-05-16 08:52:00,085 basehttp 14728 32228 "GET /obtener-asignaturas-por-semestre/ HTTP/1.1" 200 136
+INFO 2025-05-16 08:52:06,722 basehttp 14728 40640 "OPTIONS /obtener-asignaturas-docente/ HTTP/1.1" 200 0
+INFO 2025-05-16 08:52:06,869 basehttp 14728 16464 "GET /periodo-vigente/ HTTP/1.1" 200 102
+INFO 2025-05-16 08:52:06,890 basehttp 14728 21412 "GET /verificar-permiso-crear-horarios/ HTTP/1.1" 200 30
+INFO 2025-05-16 08:52:06,924 basehttp 14728 6048 "GET /obtener-asignaturas-docente/ HTTP/1.1" 200 458
+INFO 2025-05-16 08:52:07,055 basehttp 14728 16464 "GET /obtener-asignaturas-docente/ HTTP/1.1" 200 458
+INFO 2025-05-16 08:52:07,797 basehttp 14728 40640 "OPTIONS /obtener-horarios/ HTTP/1.1" 200 0
+INFO 2025-05-16 08:52:07,990 basehttp 14728 35268 "GET /periodo-vigente/ HTTP/1.1" 200 102
+INFO 2025-05-16 08:52:07,990 basehttp 14728 16464 "GET /periodo-vigente/ HTTP/1.1" 200 102
+INFO 2025-05-16 08:52:08,021 basehttp 14728 34084 "GET /periodo-vigente/ HTTP/1.1" 200 102
+INFO 2025-05-16 08:52:08,086 basehttp 14728 21412 "GET /verificar-permiso-crear-horarios/ HTTP/1.1" 200 30
+INFO 2025-05-16 08:52:08,124 basehttp 14728 6048 "GET /obtener-horarios/ HTTP/1.1" 200 7247
+INFO 2025-05-16 08:52:08,263 basehttp 14728 6048 "GET /obtener-horarios/ HTTP/1.1" 200 7247
+INFO 2025-05-16 08:52:09,020 basehttp 14728 6048 "GET /verificar-permiso-crear-horarios/ HTTP/1.1" 200 30
+INFO 2025-05-16 08:52:09,121 basehttp 14728 6048 "GET /periodo-vigente/ HTTP/1.1" 200 102
+INFO 2025-05-16 08:52:14,730 basehttp 14728 6048 "GET /verificar-permiso-crear-horarios/ HTTP/1.1" 200 30
+INFO 2025-05-16 08:52:14,787 basehttp 14728 35268 "GET /periodo-vigente/ HTTP/1.1" 200 102
+INFO 2025-05-16 08:52:14,793 basehttp 14728 16464 "GET /periodo-vigente/ HTTP/1.1" 200 102
+INFO 2025-05-16 08:52:14,848 basehttp 14728 34084 "GET /periodo-vigente/ HTTP/1.1" 200 102
+INFO 2025-05-16 08:52:14,919 basehttp 14728 21412 "GET /obtener-horarios/ HTTP/1.1" 200 7247
+INFO 2025-05-16 08:52:15,062 basehttp 14728 6048 "GET /obtener-horarios/ HTTP/1.1" 200 7247
+INFO 2025-05-16 08:54:51,697 basehttp 14728 27104 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1967
+INFO 2025-05-16 08:59:56,530 basehttp 14728 44936 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1967
+INFO 2025-05-16 09:04:57,057 basehttp 14728 21140 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1967
+INFO 2025-05-16 09:06:54,454 autoreload 14728 11236 C:\Users\Hector\Documents\PROYECTO_TESIS\asesorias-cesmag\backend\usuarios\__init__.py changed, reloading.
+INFO 2025-05-16 09:06:56,732 autoreload 8040 30764 Watching for file changes with StatReloader
+INFO 2025-05-16 09:07:04,048 autoreload 8040 30764 C:\Users\Hector\Documents\PROYECTO_TESIS\asesorias-cesmag\backend\backend\__init__.py changed, reloading.
+INFO 2025-05-16 09:07:05,483 autoreload 8732 18548 Watching for file changes with StatReloader
+INFO 2025-05-16 09:09:57,581 basehttp 8732 24892 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1967
+INFO 2025-05-16 09:14:57,640 basehttp 8732 40928 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1967
+INFO 2025-05-16 09:19:57,803 basehttp 8732 34176 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1967
+INFO 2025-05-16 09:24:57,925 basehttp 8732 14584 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1967
+INFO 2025-05-16 09:29:58,207 basehttp 8732 7356 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1967
+INFO 2025-05-16 09:34:58,505 basehttp 8732 31756 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1967
+INFO 2025-05-16 09:39:58,922 basehttp 8732 20488 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1967
+INFO 2025-05-16 09:44:59,296 basehttp 8732 13968 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1967
+INFO 2025-05-16 09:49:59,538 basehttp 8732 28236 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1453
+INFO 2025-05-16 09:54:59,962 basehttp 8732 40560 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1453
+INFO 2025-05-16 10:00:00,354 basehttp 8732 17300 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1453
+INFO 2025-05-16 10:05:00,817 basehttp 8732 10804 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1453
+INFO 2025-05-16 10:10:00,919 basehttp 8732 17892 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1453
+INFO 2025-05-16 10:12:41,585 basehttp 8732 40096 "GET /verificar-permiso-crear-horarios/ HTTP/1.1" 200 30
+INFO 2025-05-16 10:12:41,596 basehttp 8732 23788 "GET /periodo-vigente/ HTTP/1.1" 200 102
+INFO 2025-05-16 10:12:41,631 basehttp 8732 38504 "GET /obtener-asignaturas-docente/ HTTP/1.1" 200 458
+INFO 2025-05-16 10:12:41,763 basehttp 8732 38504 "GET /obtener-asignaturas-docente/ HTTP/1.1" 200 458
+INFO 2025-05-16 10:12:50,769 basehttp 8732 40096 "GET /periodo-vigente/ HTTP/1.1" 200 102
+INFO 2025-05-16 10:12:50,842 basehttp 8732 23788 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1453
+INFO 2025-05-16 10:12:50,895 basehttp 8732 38504 "GET /verificar-permiso-crear-horarios/ HTTP/1.1" 200 30
+INFO 2025-05-16 10:13:59,871 basehttp 8732 23788 "GET /verificar-sesion/ HTTP/1.1" 200 157
+INFO 2025-05-16 10:13:59,884 basehttp 8732 38504 "GET /verificar-sesion/ HTTP/1.1" 200 157
+WARNING 2025-05-16 10:14:00,271 log 8732 40096 Forbidden: /limpiar-horarios/
+WARNING 2025-05-16 10:14:00,294 basehttp 8732 40096 "POST /limpiar-horarios/ HTTP/1.1" 403 44
+INFO 2025-05-16 10:14:00,371 basehttp 8732 23788 "GET /periodo-vigente/ HTTP/1.1" 200 102
+INFO 2025-05-16 10:14:00,378 basehttp 8732 38504 "GET /verificar-permiso-crear-horarios/ HTTP/1.1" 200 30
+INFO 2025-05-16 10:14:00,492 basehttp 8732 31404 "GET /obtener-asignaturas-docente/ HTTP/1.1" 200 458
+INFO 2025-05-16 10:14:00,504 basehttp 8732 13684 "GET /periodo-vigente/ HTTP/1.1" 200 102
+INFO 2025-05-16 10:14:00,622 basehttp 8732 27100 "GET /verificar-permiso-crear-horarios/ HTTP/1.1" 200 30
+INFO 2025-05-16 10:14:00,782 basehttp 8732 23788 "GET /periodo-vigente/ HTTP/1.1" 200 102
+INFO 2025-05-16 10:14:00,838 basehttp 8732 40096 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1453
+INFO 2025-05-16 10:14:00,879 basehttp 8732 38504 "GET /verificar-permiso-crear-horarios/ HTTP/1.1" 200 30
+INFO 2025-05-16 10:14:01,065 basehttp 8732 27100 "GET /verificar-permiso-crear-horarios/ HTTP/1.1" 200 30
+INFO 2025-05-16 10:14:01,073 basehttp 8732 13684 "GET /periodo-vigente/ HTTP/1.1" 200 102
+INFO 2025-05-16 10:14:01,092 basehttp 8732 23788 "GET /obtener-asignaturas-docente/ HTTP/1.1" 200 458
+WARNING 2025-05-16 10:14:01,097 log 8732 31404 Forbidden: /limpiar-horarios/
+WARNING 2025-05-16 10:14:01,099 basehttp 8732 31404 "POST /limpiar-horarios/ HTTP/1.1" 403 44
+INFO 2025-05-16 10:14:01,163 basehttp 8732 40096 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1453
+INFO 2025-05-16 10:19:00,934 basehttp 8732 3920 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1453
+INFO 2025-05-16 10:24:01,290 basehttp 8732 11072 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1453
+INFO 2025-05-16 10:29:02,796 basehttp 8732 36568 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1453
+INFO 2025-05-16 10:34:03,743 basehttp 8732 17252 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1453
+INFO 2025-05-16 10:39:04,470 basehttp 8732 9752 "GET /asesorias-programadas-docente/ HTTP/1.1" 200 1453
+INFO 2025-05-16 10:42:02,823 autoreload 8732 18548 C:\Users\Hector\Documents\PROYECTO_TESIS\asesorias-cesmag\backend\backend\settings.py changed, reloading.

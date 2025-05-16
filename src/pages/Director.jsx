@@ -40,6 +40,11 @@ const Director = ({
   const [horariosDocentes, setHorariosDocentes] = useState([]);
   const [cargandoHorarios, setCargandoHorarios] = useState(false);
   const [mensajeHorarios, setMensajeHorarios] = useState("");
+  const [filtroCorreoHorarios, setFiltroCorreoHorarios] = useState("");
+  const [vistaExpandida, setVistaExpandida] = useState(false);
+  const [docentesExpandidos, setDocentesExpandidos] = useState({});
+  const [peticionRealizada, setPeticionRealizada] = useState(false);
+  const [actualizandoPermisos, setActualizandoPermisos] = useState(false);
   const [filtrosAreas, setFiltrosAreas] = useState({
     nombre: "",
   });
@@ -71,17 +76,26 @@ const Director = ({
 
   const [filtrosDocentes, setFiltrosDocentes] = useState({
     correo: "",
+    nombre_usuario: "",
   });
   const [nuevoDocente, setNuevoDocente] = useState({
     correo: "",
+    nombre_usuario: "",
     subtipo_docente: "",
   });
   const [filtros, setFiltros] = useState({
     correo: "",
+    nombre_usuario: "",
+    rol: "",
+    semestre: "",
+    grupo: "",
   });
   const [nuevoUsuario, setNuevoUsuario] = useState({
     correo: "",
+    nombre_usuario: "",
     rol: "Estudiante",
+    semestre: "", // Default value
+    grupo: "",    // Default value
   });
 
   // Si no se proporcionan opciones específicas, usar estas opciones predeterminadas
@@ -97,7 +111,7 @@ const Director = ({
   useEffect(() => {
     const eliminarHorariosPasados = async () => {
       try {
-        await fetch("http://localhost:8000/eliminar-horarios-pasados/", {
+        await fetch("http://localhost:8000/limpiar-horarios/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -144,9 +158,11 @@ const Director = ({
     window.scrollTo(0, 0);
   };
 
-  const toggleUserMenu = () => {
+  const toggleUserMenu = (e) => {
+    e.stopPropagation();  // Evita que el click cierre el menú inmediatamente
     setShowUserMenu(!showUserMenu);
   };
+
 
   const handleCrearEstudiante = async (e) => {
     e.preventDefault();
@@ -169,7 +185,10 @@ const Director = ({
         );
         setNuevoUsuario({
           correo: "",
+          nombre_usuario: "",
           rol: "Estudiante",
+          semestre: "",
+          grupo: "",
         });
         // Actualizar la lista de usuarios en segundo plano, pero NO cambiar el modo
         fetch("http://localhost:8000/listar-estudiantes/", {
@@ -203,6 +222,7 @@ const Director = ({
     }
   };
 
+
   const handleEditarEstudiante = async (usuario) => {
     setEstudianteEdicion({ ...usuario, password: "" }); // Add password field
     setModoGestionEstudiantes("editar");
@@ -223,8 +243,11 @@ const Director = ({
           credentials: "include",
           body: JSON.stringify({
             correo: estudianteEdicion.correo,
+            nombre_usuario: estudianteEdicion.nombre_usuario,
             is_active: estudianteEdicion.is_active,
             password: estudianteEdicion.password,
+            semestre: estudianteEdicion.semestre,
+            grupo: estudianteEdicion.grupo,
           }),
         }
       );
@@ -251,6 +274,7 @@ const Director = ({
       }, 3000);
     }
   };
+
 
   const handleListarEstudiantes = async () => {
     try {
@@ -290,6 +314,26 @@ const Director = ({
     if (filtros.correo) {
       usuariosFiltrados = usuariosFiltrados.filter((usuario) =>
         usuario.correo.toLowerCase().includes(filtros.correo.toLowerCase())
+      );
+    }
+    // Filtrar por nombre
+    if (filtros.nombre_usuario) {
+      usuariosFiltrados = usuariosFiltrados.filter((usuario) =>
+        usuario.nombre_usuario.toLowerCase().includes(filtros.nombre_usuario.toLowerCase())
+      );
+    }
+
+    // Filtrar por semestre
+    if (filtros.semestre) {
+      usuariosFiltrados = usuariosFiltrados.filter(
+        (usuario) => usuario.semestre === filtros.semestre
+      );
+    }
+
+    // Filtrar por grupo
+    if (filtros.grupo) {
+      usuariosFiltrados = usuariosFiltrados.filter(
+        (usuario) => usuario.grupo === filtros.grupo
       );
     }
 
@@ -361,6 +405,7 @@ const Director = ({
         );
         setNuevoDocente({
           correo: "",
+          nombre_usuario: "",
           subtipo_docente: "",
         });
         // Actualizar la lista de docentes en segundo plano, pero NO cambiar el modo
@@ -443,6 +488,7 @@ const Director = ({
           credentials: "include",
           body: JSON.stringify({
             correo: docenteEdicion.correo,
+            nombre_usuario: docenteEdicion.nombre_usuario,
             is_active: docenteEdicion.is_active,
             password: docenteEdicion.password,
           }),
@@ -520,6 +566,12 @@ const Director = ({
           .includes(filtrosDocentes.correo.toLowerCase())
       );
     }
+    // Filtrar por nombre
+    if (filtrosDocentes.nombre_usuario) {
+      docentesFiltrados = docentesFiltrados.filter((docente) =>
+        docente.nombre_usuario.toLowerCase().includes(filtrosDocentes.nombre_usuario.toLowerCase())
+      );
+    }
 
     setListaDocentesFiltrada(docentesFiltrados);
   };
@@ -535,6 +587,7 @@ const Director = ({
   const limpiarFiltrosDocentes = () => {
     setFiltrosDocentes({
       correo: "",
+      nombre_usuario: "",
     });
   };
 
@@ -550,7 +603,10 @@ const Director = ({
   const limpiarFiltros = () => {
     setFiltros({
       correo: "",
+      nombre_usuario: "",
       rol: "",
+      semestre: "",
+      grupo: "",
     });
   };
 
@@ -574,6 +630,55 @@ const Director = ({
                 <Search size={20} className="director-search-icon" />
               </div>
             </div>
+            <div className="director-form-group">
+              <label htmlFor="filtroNombre">Nombre:</label>
+              <div className="director-search-input">
+                <input
+                  type="text"
+                  id="filtroNombre"
+                  name="nombre_usuario"
+                  value={filtros.nombre_usuario}
+                  onChange={handleFiltroChange}
+                  placeholder="Buscar por nombre"
+                />
+                <Search size={20} className="director-search-icon" />
+              </div>
+            </div>
+
+            <div className="director-form-group">
+              <label htmlFor="filtroSemestre">Semestre:</label>
+              <select
+                id="filtroSemestre"
+                name="semestre"
+                value={filtros.semestre}
+                onChange={handleFiltroChange}
+              >
+                <option value="">Todos</option>
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                  <option key={num} value={num.toString()}>
+                    {num}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="director-form-group">
+              <label htmlFor="filtroGrupo">Grupo:</label>
+              <select
+                id="filtroGrupo"
+                name="grupo"
+                value={filtros.grupo}
+                onChange={handleFiltroChange}
+              >
+                <option value="">Todos</option>
+                {['A', 'B', 'C', 'D', 'E'].map((letra) => (
+                  <option key={letra} value={letra}>
+                    {letra}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             <button
               type="button"
               className="director-clear-filter"
@@ -591,7 +696,10 @@ const Director = ({
               <tr>
                 <th>ID</th>
                 <th>Correo</th>
+                <th>Nombre</th>
                 <th>Rol</th>
+                <th>Semestre</th>
+                <th>Grupo</th>
                 <th>Estado</th>
                 <th>Acciones</th>
               </tr>
@@ -602,14 +710,16 @@ const Director = ({
                   <tr key={usuarioItem.id}>
                     <td>{usuarioItem.id}</td>
                     <td>{usuarioItem.correo}</td>
+                    <td>{usuarioItem.nombre_usuario}</td>
                     <td>{usuarioItem.rol}</td>
+                    <td>{usuarioItem.semestre}</td>
+                    <td>{usuarioItem.grupo}</td>
                     <td>
                       <span
-                        className={`${
-                          usuarioItem.is_active
-                            ? "director-status-activo"
-                            : "director-status-inactivo"
-                        }`}
+                        className={`${usuarioItem.is_active
+                          ? "director-status-activo"
+                          : "director-status-inactivo"
+                          }`}
                       >
                         {usuarioItem.is_active ? "Activo" : "Inactivo"}
                       </span>
@@ -636,7 +746,7 @@ const Director = ({
                 ))
               ) : (
                 <tr>
-                  <td colSpan="6" className="director-no-results">
+                  <td colSpan="7" className="director-no-results">
                     No se encontraron usuarios con los filtros aplicados
                   </td>
                 </tr>
@@ -668,6 +778,20 @@ const Director = ({
                 <Search size={20} className="director-search-icon" />
               </div>
             </div>
+            <div className="director-form-group">
+              <label htmlFor="filtroNombreDocente">Nombre:</label>
+              <div className="director-search-input">
+                <input
+                  type="text"
+                  id="filtroNombreDocente"
+                  name="nombre_usuario"
+                  value={filtrosDocentes.nombre_usuario}
+                  onChange={handleFiltroDocenteChange}
+                  placeholder="Buscar por nombre"
+                />
+                <Search size={20} className="director-search-icon" />
+              </div>
+            </div>
             <button
               type="button"
               className="director-clear-filter"
@@ -685,6 +809,7 @@ const Director = ({
               <tr>
                 <th>ID</th>
                 <th>Correo</th>
+                <th>Nombre</th>
                 <th>Tipo Docente</th>
                 <th>Estado</th>
                 <th>Acciones</th>
@@ -696,14 +821,14 @@ const Director = ({
                   <tr key={docente.id}>
                     <td>{docente.id}</td>
                     <td>{docente.correo}</td>
+                    <td>{docente.nombre_usuario}</td>
                     <td>{docente.subtipo_docente}</td>
                     <td>
                       <span
-                        className={`${
-                          docente.is_active
-                            ? "director-status-activo"
-                            : "director-status-inactivo"
-                        }`}
+                        className={`${docente.is_active
+                          ? "director-status-activo"
+                          : "director-status-inactivo"
+                          }`}
                       >
                         {docente.is_active ? "Activo" : "Inactivo"}
                       </span>
@@ -1716,7 +1841,7 @@ const Director = ({
                     <td>
                       <ul className="docentes-list">
                         {asignatura.docentes &&
-                        asignatura.docentes.length > 0 ? (
+                          asignatura.docentes.length > 0 ? (
                           asignatura.docentes.map((docente, index) => (
                             <li key={index}>{docente.correo}</li>
                           ))
@@ -2033,11 +2158,10 @@ const Director = ({
       )}
       {mensajeUsuario && (
         <div
-          className={`director-mensaje ${
-            mensajeUsuario.includes("exitosamente")
-              ? "director-mensaje-exito"
-              : "director-mensaje-error"
-          }`}
+          className={`director-mensaje ${mensajeUsuario.includes("exitosamente")
+            ? "director-mensaje-exito"
+            : "director-mensaje-error"
+            }`}
         >
           {mensajeUsuario}
         </div>
@@ -2048,6 +2172,25 @@ const Director = ({
   useEffect(() => {
     cargarDocentesPorSubtipo();
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Si el menú está abierto y se da click en cualquier lado
+      if (showUserMenu) {
+        setShowUserMenu(false);    // Cerrar el menú
+        setShowPerfil(false);      // Cerrar perfil
+        setShowCambiarClave(false); // Cerrar cambiar clave
+        setActiveSection("");      // Volver a mostrar el Carousel
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [showUserMenu]);
+
   const renderSectionContent = () => {
     if (showPerfil) {
       return <Perfil />;
@@ -2056,6 +2199,7 @@ const Director = ({
       return <CambiarClave />;
     }
 
+    // Función para obtener los horarios de los docentes
     // Función para obtener los horarios de los docentes
     const obtenerHorariosDocentes = async () => {
       setCargandoHorarios(true);
@@ -2075,10 +2219,55 @@ const Director = ({
 
         const data = await response.json();
         setHorariosDocentes(data.docentes_horarios);
+        // Añadimos esta línea para marcar que ya se realizó la petición
+        setPeticionRealizada(true);
       } catch (error) {
         setMensajeHorarios(`Error: ${error.message}`);
+        // También marcamos que ya se realizó la petición aunque haya habido un error
+        setPeticionRealizada(true);
       } finally {
         setCargandoHorarios(false);
+      }
+    };
+
+    const actualizarPermisosCreacionHorario = async (docenteId, puedeCrearHorarios) => {
+      try {
+        setActualizandoPermisos(true);
+        const response = await fetch('http://localhost:8000/actualizar-permisos-docente/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            docente_id: docenteId,
+            puede_crear_horarios: puedeCrearHorarios
+          }),
+          credentials: 'include'
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Actualizar el estado local para reflejar el cambio
+          setHorariosDocentes(prevDocentes =>
+            prevDocentes.map(docente =>
+              docente.docente_id === docenteId
+                ? { ...docente, puede_crear_horarios: puedeCrearHorarios }
+                : docente
+            )
+          );
+          setMensajeHorarios("Permisos de creación actualizados correctamente");
+          setTimeout(() => setMensajeHorarios(""), 3000);
+        } else {
+          setMensajeHorarios(`Error: ${data.mensaje}`);
+          setTimeout(() => setMensajeHorarios(""), 3000);
+        }
+      } catch (error) {
+        console.error("Error al actualizar permisos:", error);
+        setMensajeHorarios("Error al actualizar permisos");
+        setTimeout(() => setMensajeHorarios(""), 3000);
+      } finally {
+        setActualizandoPermisos(false);
       }
     };
 
@@ -2143,13 +2332,15 @@ const Director = ({
         return <div className="cargando">Cargando horarios...</div>;
       }
 
-      if (horariosDocentes.length === 0) {
+      // Modificación aquí: necesitamos un estado para saber si ya se hizo una petición
+      // Asumimos que hay un estado llamado 'peticionRealizada' que se actualiza en obtenerHorariosDocentes
+      if (horariosDocentes.length === 0 && peticionRealizada) {
         return (
-          <div className="sin-horarios">
+          <div className="director-horarios-sin-horarios">
             <p>No hay horarios registrados para los docentes a su cargo.</p>
             <button
               onClick={obtenerHorariosDocentes}
-              className="refresh-button"
+              className="director-refresh-button"
             >
               Actualizar
             </button>
@@ -2157,90 +2348,208 @@ const Director = ({
         );
       }
 
-      return (
-        <div className="docentes-horarios-list">
-          {horariosDocentes.map((docente) => (
-            <div key={docente.docente_id} className="docente-horarios-card">
-              <div className="docente-info">
-                <h3>{docente.correo}</h3>
-                <span className="subtipo-badge">{docente.subtipo_docente}</span>
-              </div>
+      // Si no hay horarios pero tampoco se ha hecho una petición aún, mostrar solo el botón
+      if (horariosDocentes.length === 0 && !peticionRealizada) {
+        return (
+          <div className="director-horarios-sin-horarios">
+            <p>Actualiza los horarios de los docentes a su cargo.</p>
+            <button
+              onClick={obtenerHorariosDocentes}
+              className="director-refresh-button"
+            >
+              Actualizar
+            </button>
+          </div>
+        );
+      }
 
-              <div className="horarios-container">
-                <h4>Horarios Registrados</h4>
-                <table className="horarios-table">
-                  <thead>
-                    <tr>
-                      <th>Día</th>
-                      <th>Fecha</th>
-                      <th>Hora Inicio</th>
-                      <th>Hora Fin</th>
-                      <th>Permisos</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {docente.horarios.map((horario) => (
-                      <tr key={horario.id}>
-                        <td>{horario.dia}</td>
-                        <td>{horario.fecha}</td>
-                        <td>{horario.hora_inicio}</td>
-                        <td>{horario.hora_fin}</td>
-                        <td className="permisos-cell">
-                          <div className="permisos-container">
-                            <div className="permiso-item">
-                              <label>
-                                <input
-                                  type="checkbox"
-                                  checked={horario.puede_editar}
-                                  onChange={(e) =>
-                                    actualizarPermisosHorario(
-                                      horario.id,
-                                      e.target.checked,
-                                      horario.puede_eliminar
-                                    )
-                                  }
-                                />
-                                Puede Editar
-                              </label>
-                            </div>
-                            <div className="permiso-item">
-                              <label>
-                                <input
-                                  type="checkbox"
-                                  checked={horario.puede_eliminar}
-                                  onChange={(e) =>
-                                    actualizarPermisosHorario(
-                                      horario.id,
-                                      horario.puede_editar,
-                                      e.target.checked
-                                    )
-                                  }
-                                />
-                                Puede Eliminar
-                              </label>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+      // Filtrar los docentes por correo si hay un filtro
+      const docentesFiltrados = filtroCorreoHorarios
+        ? horariosDocentes.filter(docente =>
+          docente.correo.toLowerCase().includes(filtroCorreoHorarios.toLowerCase())
+        )
+        : horariosDocentes;
+
+      const toggleExpansionDocente = (docenteId) => {
+        setDocentesExpandidos(prev => ({
+          ...prev,
+          [docenteId]: !prev[docenteId]
+        }));
+      };
+
+      const toggleVistaExpandida = () => {
+        setVistaExpandida(!vistaExpandida);
+        // Si cambiamos a vista colapsada, resetear expansiones individuales
+        if (vistaExpandida) {
+          setDocentesExpandidos({});
+        } else {
+          // Si expandimos todo, marcar todos como expandidos
+          const todosExpandidos = {};
+          horariosDocentes.forEach(docente => {
+            todosExpandidos[docente.docente_id] = true;
+          });
+          setDocentesExpandidos(todosExpandidos);
+        }
+      };
+
+      return (
+        <div className="director-docentes-horarios-container">
+          <div className="director-filtros-horarios">
+            <div className="director-buscador-container">
+              <Search size={18} className="director-horarios-search-icon" />
+              <input
+                type="text"
+                placeholder="Buscar docente por correo..."
+                value={filtroCorreoHorarios}
+                onChange={(e) => setFiltroCorreoHorarios(e.target.value)}
+                className="director-buscador-input"
+              />
+              {filtroCorreoHorarios && (
+                <button
+                  onClick={() => setFiltroCorreoHorarios("")}
+                  className="director-clear-search"
+                >
+                  ×
+                </button>
+              )}
             </div>
-          ))}
+
+            <button
+              onClick={toggleVistaExpandida}
+              className={`director-vista-toggle ${vistaExpandida ? 'activa' : ''}`}
+            >
+              {vistaExpandida ? "Colapsar Todos" : "Expandir Todos"}
+            </button>
+          </div>
+
+          {docentesFiltrados.length === 0 ? (
+            <div className="director-horarios-sin-resultados">
+              <p>No se encontraron docentes con ese correo.</p>
+            </div>
+          ) : (
+            <div className="docentes-horarios-list">
+              {docentesFiltrados.map((docente) => {
+                const isExpanded = docentesExpandidos[docente.docente_id] || vistaExpandida;
+
+                return (
+                  <div key={docente.docente_id} className="docente-horarios-card">
+                    <div
+                      className="director-horarios-docente-info-header"
+                      onClick={() => toggleExpansionDocente(docente.docente_id)}
+                    >
+                      <div className="director-horarios-docente-info">
+                        <h3>{docente.correo}</h3>
+                        <span className="subtipo-badge">{docente.subtipo_docente}</span>
+                      </div>
+                      <div className="permisos-globales">
+                        <label className="permiso-creacion">
+                          <input
+                            type="checkbox"
+                            checked={docente.puede_crear_horarios || false}
+                            onChange={(e) => {
+                              e.stopPropagation(); // Prevenir que se expanda al hacer clic en el checkbox
+                              actualizarPermisosCreacionHorario(
+                                docente.docente_id,
+                                e.target.checked
+                              );
+                            }}
+                            onClick={(e) => e.stopPropagation()} // También detener propagación en el click
+                          />
+                          Puede Crear Horarios
+                        </label>
+                      </div>
+                      <button className="director-horarios-toggle-button">
+                        {isExpanded ? "▼" : "►"}
+                      </button>
+                    </div>
+
+                    {isExpanded && (
+                      <div className="horarios-container">
+                        <h4>Horarios Registrados</h4>
+                        {docente.horarios.length > 0 ? (
+                          <table className="horarios-table">
+                            <thead>
+                              <tr>
+                                <th>Día</th>
+                                <th>Fecha</th>
+                                <th>Hora Inicio</th>
+                                <th>Hora Fin</th>
+                                <th>Permisos</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {docente.horarios.map((horario) => (
+                                <tr key={horario.id}>
+                                  <td>{horario.dia}</td>
+                                  <td>{horario.fecha}</td>
+                                  <td>{horario.hora_inicio}</td>
+                                  <td>{horario.hora_fin}</td>
+                                  <td className="permisos-cell">
+                                    <div className="permisos-container">
+                                      <div className="permiso-item">
+                                        <label>
+                                          <input
+                                            type="checkbox"
+                                            checked={horario.puede_editar}
+                                            onChange={(e) =>
+                                              actualizarPermisosHorario(
+                                                horario.id,
+                                                e.target.checked,
+                                                horario.puede_eliminar
+                                              )
+                                            }
+                                          />
+                                          Puede Editar
+                                        </label>
+                                      </div>
+                                      <div className="permiso-item">
+                                        <label>
+                                          <input
+                                            type="checkbox"
+                                            checked={horario.puede_eliminar}
+                                            onChange={(e) =>
+                                              actualizarPermisosHorario(
+                                                horario.id,
+                                                horario.puede_editar,
+                                                e.target.checked
+                                              )
+                                            }
+                                          />
+                                          Puede Eliminar
+                                        </label>
+                                      </div>
+                                    </div>
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        ) : (
+                          <p className="director-horarios-sin-horarios-docente">Este docente no tiene horarios registrados.</p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
 
           {mensajeHorarios && (
             <div
-              className={`mensaje-horarios ${
-                mensajeHorarios.includes("Error") ? "error" : "exito"
-              }`}
+              className={`mensaje-horarios ${mensajeHorarios.includes("Error") ? "error" : "exito"
+                }`}
             >
               {mensajeHorarios}
             </div>
           )}
 
-          <button onClick={obtenerHorariosDocentes} className="refresh-button">
-            Actualizar Horarios
+          <button
+            onClick={obtenerHorariosDocentes}
+            className="refresh-button"
+            disabled={actualizandoPermisos}
+          >
+            {actualizandoPermisos ? "Actualizando..." : "Actualizar Horarios"}
           </button>
         </div>
       );
@@ -2292,6 +2601,21 @@ const Director = ({
                 />
               </div>
               <div className="director-form-group">
+                <label htmlFor="nombre_usuario">Nombre y Apellido</label>
+                <input
+                  type="text"
+                  id="nombre_usuario"
+                  value={nuevoUsuario.nombre_usuario}
+                  onChange={(e) =>
+                    setNuevoUsuario({
+                      ...nuevoUsuario,
+                      nombre_usuario: e.target.value,
+                    })
+                  }
+                  required
+                />
+              </div>
+              <div className="director-form-group">
                 <label htmlFor="rol">Rol</label>
                 <select
                   id="rol"
@@ -2299,6 +2623,45 @@ const Director = ({
                   onChange={handleRolChange}
                 >
                   <option value="Estudiante">Estudiante</option>
+                </select>
+              </div>
+              <div className="director-form-group">
+                <label htmlFor="semestre">Semestre</label>
+                <select
+                  id="semestre"
+                  value={nuevoUsuario.semestre}
+                  onChange={(e) =>
+                    setNuevoUsuario({
+                      ...nuevoUsuario,
+                      semestre: e.target.value,
+                    })
+                  }
+                  required
+                >
+                  <option value="">Seleccione un semestre</option>
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                    <option key={num} value={num.toString()}>
+                      {num}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="director-form-group">
+                <label htmlFor="grupo">Grupo</label>
+                <select
+                  id="grupo"
+                  value={nuevoUsuario.grupo}
+                  onChange={(e) =>
+                    setNuevoUsuario({ ...nuevoUsuario, grupo: e.target.value })
+                  }
+                  required
+                >
+                  <option value="">Seleccione un grupo</option>
+                  {['A', 'B', 'C', 'D', 'E'].map((letra) => (
+                    <option key={letra} value={letra}>
+                      {letra}
+                    </option>
+                  ))}
                 </select>
               </div>
               <button type="submit" className="director-submit-button">
@@ -2324,6 +2687,22 @@ const Director = ({
                 />
               </div>
               <div className="director-form-group">
+                  <label htmlFor="nombre_usuario">Nombre y Apellido</label>
+                  <input
+                    type="text"
+                    id="nombre_usuario"
+                    value={estudianteEdicion.nombre_usuario}
+                    onChange={(e) =>
+                      setEstudianteEdicion({
+                        ...estudianteEdicion,
+                        nombre_usuario: e.target.value,
+                      })
+                   
+                    }
+                    required
+                  />
+                </div>
+              <div className="director-form-group">
                 <label htmlFor="password">Contraseña</label>
                 <div className="password-input-container">
                   <input
@@ -2345,6 +2724,48 @@ const Director = ({
                     {!showPassword ? <EyeOff /> : <Eye />}
                   </button>
                 </div>
+              </div>
+              <div className="director-form-group">
+                <label htmlFor="semestre">Semestre</label>
+                <select
+                  id="semestre"
+                  value={estudianteEdicion.semestre}
+                  onChange={(e) =>
+                    setEstudianteEdicion({
+                      ...estudianteEdicion,
+                      semestre: e.target.value,
+                    })
+                  }
+                  required
+                >
+                  <option value="">Seleccione un semestre</option>
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                    <option key={num} value={num.toString()}>
+                      {num}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="director-form-group">
+                <label htmlFor="grupo">Grupo</label>
+                <select
+                  id="grupo"
+                  value={estudianteEdicion.grupo}
+                  onChange={(e) =>
+                    setEstudianteEdicion({
+                      ...estudianteEdicion,
+                      grupo: e.target.value,
+                    })
+                  }
+                  required
+                >
+                  <option value="">Seleccione un grupo</option>
+                  {['A', 'B', 'C', 'D', 'E'].map((letra) => (
+                    <option key={letra} value={letra}>
+                      {letra}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="director-form-group">
                 <label>
@@ -2382,11 +2803,10 @@ const Director = ({
 
           {mensajeUsuario && (
             <div
-              className={`director-mensaje ${
-                mensajeUsuario.includes("exitosamente")
-                  ? "director-mensaje-exito"
-                  : "director-mensaje-error"
-              }`}
+              className={`director-mensaje ${mensajeUsuario.includes("exitosamente")
+                ? "director-mensaje-exito"
+                : "director-mensaje-error"
+                }`}
             >
               {mensajeUsuario}
             </div>
@@ -2429,6 +2849,21 @@ const Director = ({
                   required
                 />
               </div>
+              <div className="director-form-group">
+                  <label htmlFor="nombre_usuario">Nombre y Apellido</label>
+                  <input
+                    type="text"
+                    id="nombre_usuario"
+                    value={nuevoDocente.nombre_usuario}
+                    onChange={(e) =>
+                      setNuevoDocente({
+                        ...nuevoDocente,
+                        nombre_usuario: e.target.value,
+                      })
+                    }
+                    required
+                  />
+                </div>
               <div className="director-form-group">
                 <label htmlFor="subtipoDocente">Subtipo de Docente</label>
                 <select
@@ -2486,6 +2921,21 @@ const Director = ({
                   required
                 />
               </div>
+              <div className="director-form-group">
+                  <label htmlFor="nombre_usuarioEdit">Nombre y Apellido</label>
+                  <input
+                    type="text"
+                    id="nombre_usuarioEdit"
+                    value={docenteEdicion.nombre_usuario}
+                    onChange={(e) =>
+                      setDocenteEdicion({
+                        ...docenteEdicion,
+                        nombre_usuario: e.target.value,
+                      })
+                    }
+                    required
+                  />
+                </div>
               <div className="director-form-group">
                 <label htmlFor="subtipo">Subtipo de Docente</label>
                 <input
@@ -2555,11 +3005,10 @@ const Director = ({
 
           {mensajeUsuario && (
             <div
-              className={`director-mensaje ${
-                mensajeUsuario.includes("exitosamente")
-                  ? "director-mensaje-exito"
-                  : "director-mensaje-error"
-              }`}
+              className={`director-mensaje ${mensajeUsuario.includes("exitosamente")
+                ? "director-mensaje-exito"
+                : "director-mensaje-error"
+                }`}
             >
               {mensajeUsuario}
             </div>
@@ -2581,67 +3030,16 @@ const Director = ({
         </div>
       ),*/
       "gestion-asignaturas": gestionAsignaturasContent,
-      "gestion-programa": (
-        <div className="director-section-content">
-          <h2>Gestión de Programa</h2>
-          <p>Aquí se gestionará el programa.</p>
-        </div>
-      ),
       "reportes-programa": (
         <div className="director-section-content">
           <h2>Reportes del Programa</h2>
           <p>Visualización de reportes y estadísticas del programa.</p>
         </div>
       ),
-      "cursos-humanidades": (
+      reportes: (
         <div className="director-section-content">
-          <h2>Cursos de Humanidades</h2>
-          <p>Gestión de cursos específicos de humanidades.</p>
-        </div>
-      ),
-      "materiales-didacticos": (
-        <div className="director-section-content">
-          <h2>Materiales Didácticos</h2>
-          <p>Administración de recursos y materiales para asignaturas.</p>
-        </div>
-      ),
-      laboratorios: (
-        <div className="director-section-content">
-          <h2>Gestión de Laboratorios</h2>
-          <p>Administración de laboratorios y prácticas científicas.</p>
-        </div>
-      ),
-      investigacion: (
-        <div className="director-section-content">
-          <h2>Proyectos de Investigación</h2>
-          <p>Gestión de proyectos de investigación científica.</p>
-        </div>
-      ),
-      practicas: (
-        <div className="director-section-content">
-          <h2>Prácticas Científicas</h2>
-          <p>Coordinación de prácticas y actividades científicas.</p>
-        </div>
-      ),
-      "cursos-idiomas": (
-        <div className="director-section-content">
-          <h2>Cursos de Idiomas</h2>
-          <p>Gestión de cursos y niveles de idiomas.</p>
-        </div>
-      ),
-      "recursos-linguisticos": (
-        <div className="director-section-content">
-          <h2>Recursos Lingüísticos</h2>
-          <p>
-            Administración de materiales y recursos para la enseñanza de
-            idiomas.
-          </p>
-        </div>
-      ),
-      intercambios: (
-        <div className="director-section-content">
-          <h2>Programas de Intercambio</h2>
-          <p>Coordinación de programas de intercambio internacionales.</p>
+          <h2>Reportes del Departamento</h2>
+          <p>Aquí son los Reportes de Asesorías - Departamentos -.</p>
         </div>
       ),
     };
@@ -2669,7 +3067,7 @@ const Director = ({
                   className="director-logo-image"
                 />
               </div>
-              <h1 className="director-welcome-text">{welcomeText}</h1>
+              <h1 className="director-welcome-text">{welcomeText}, {usuario?.nombre_usuario}</h1>
               <div className="director-nav-centre-logo-container">
                 <img
                   src={centreLogo}
@@ -2694,7 +3092,8 @@ const Director = ({
                           : {}
                       }
                     >
-                      {option.label}
+                      {option.icon && <option.icon size={18} />}
+                      <span>{option.label}</span>
                     </a>
                   </li>
                 ))}
@@ -2704,9 +3103,9 @@ const Director = ({
         </nav>
 
         <div className="director-user-info">
-          <p>Usuario: {usuario?.correo}</p>
-          <div className="user-actions">
-            <button className="user-icon-button" onClick={toggleUserMenu}>
+          <p>Usuario: {usuario?.nombre_usuario} ({usuario?.correo})</p>
+          <div className="docente-user-actions">
+            <button className="docente-user-icon-button" onClick={(e) => toggleUserMenu(e)}>
               <User size={24} strokeWidth={2} />
             </button>
             <button className="director-logout-button" onClick={confirmLogout}>
@@ -2715,7 +3114,7 @@ const Director = ({
           </div>
         </div>
         {showUserMenu && (
-          <div className="user-menu-dropdown">
+          <div className="docente-user-menu-dropdown">
             <ul>
               <li
                 onClick={() => {

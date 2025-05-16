@@ -1,6 +1,5 @@
 // src/context/AuthContext.js
 import React, { createContext, useState, useEffect, useContext } from 'react';
-
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -52,6 +51,7 @@ export const AuthProvider = ({ children }) => {
         setAutenticado(true);
         setUsuario({
           correo: data.correo,
+          nombre_usuario: data.nombre_usuario,
           rol: data.rol,
           subtipo_director: data.subtipo_director || '' // Añadimos el subtipo de director
         });
@@ -61,7 +61,13 @@ export const AuthProvider = ({ children }) => {
           subtipo_director: data.subtipo_director || '' // Incluimos en el resultado para la redirección
         };
       } else {
-        return { success: false, mensaje: data.mensaje };
+        // Ahora manejamos diferentes tipos de errores según el status
+        if (response.status === 403) {
+          // Status 403 indica cuenta inactiva
+          return { success: false, mensaje: data.mensaje, cuentaInactiva: true };
+        } else {
+          return { success: false, mensaje: data.mensaje };
+        }
       }
     } catch (error) {
       console.error('Error de conexión:', error);

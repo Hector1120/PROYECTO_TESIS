@@ -1,190 +1,242 @@
-/* Estilos para el componente VisualizarHorario */
-.visualizar-horario-container {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 240, 250, 0.95) 100%);
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  padding: 20px;
-  /*min-height: 450px;*/
+/* Estilos para el componente VisualizarHorario - Estilo Google Calendar */
+.docente-visualizar-horario-visualizar-horario-container {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  padding: 16px;
   height: auto;
-  border-top: 5px solid #20386d;
   position: relative;
   overflow: hidden;
-  margin-bottom: 15px;
-  color: #14213d;
-  top: 8%;
-  
+  /*margin-bottom: 40px;*/
+  color: #3c4043;
+  top: 30px;
+  font-family: 'Roboto', Arial, sans-serif;
 }
 
 /* Controles superiores */
-.horario-controles {
+.docente-visualizar-horario-horario-controles {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   flex-wrap: wrap;
   gap: 15px;
 }
 
-.horario-title {
+.docente-visualizar-horario-horario-title {
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
-.horario-title h2 {
-  color: #14213d;
+.docente-visualizar-horario-horario-title h2 {
+  color: #034081;
   font-size: 1.5rem;
   margin: 0;
   padding-bottom: 0;
   border-bottom: none;
+  font-weight: 600;
 }
 
-.horario-navegacion {
+.docente-visualizar-horario-periodo-badge {
+  background: linear-gradient(135deg, #d81020, #f44336);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(216, 16, 32, 0.3);
+}
+.docente-visualizar-horario-periodo-dates {
+  font-weight: bold;
+  color: #034081;
+  position: relative;
+  padding-bottom: 2px;
+}
+.docente-visualizar-horario-fechas-label {
+  color: #034081;
+}
+
+
+.docente-visualizar-horario-periodo-dates::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #d81020;
+  transition: width 0.3s ease;
+}
+
+.docente-visualizar-horario-periodo-dates:hover::after {
+  width: 100%;
+}
+
+.docente-visualizar-horario-horario-navegacion {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
 }
 
-.nav-button {
-  background-color:   #ffffff;
-  border: 1px solid #000000;
-  border-radius: 8px;
-  padding: 8px 10px;
+.docente-visualizar-horario-nav-button {
+  background: linear-gradient(145deg, #14213d, #4361ee);
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  padding: 8px 16px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
   font-size: 0.9rem;
-  color: #14213d;
-  transition: all 0.2s ease;
-  font-weight: bold;
-  
-}
-
-.nav-button:hover {
-  background-color: #14213d;
-  transform: translateY(-2px);
   color: #ffffff;
-  font-weight: bold;
+  transition: all 0.2s ease;
+  font-weight: 600;
+  height: 36px;
 }
 
-.today-button {
-  background-color: #14213d;
+.docente-visualizar-horario-nav-button:hover {
+  background: linear-gradient(145deg, #4361ee, #14213d);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  color: #ffffff;
+}
+
+.docente-visualizar-horario-today-button {
+  background: #d81020;
   color: white;
-  font-weight: bold;
+  font-weight: 600;
+  border: none;
 }
 
-.today-button:hover {
-  background-color: #ffffff;
-  color: #14213d;
-  font-weight: bold;
+.docente-visualizar-horario-today-button:hover {
+  background: #a50e18;
+  color: white;
 }
 
 /* Estilos del calendario */
-.calendario-container {
-  border-radius: 10px;
+.docente-visualizar-horario-calendario-container {
+  border-radius: 8px;
   overflow: hidden;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  height: 380px;
+  border: 1px solid #dadce0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  height: 450px;
   overflow-y: auto;
 }
 
-.calendario-header {
+.docente-visualizar-horario-calendario-header {
   display: flex;
-  background-color: #14213d;
-  border-bottom: 1px solid #e0e0e0;
-  position: sticky;
+  background-color: #ffffff;
+  border-bottom: 1px solid #dadce0;
+  position:sticky;
   top: 0;
   z-index: 10;
 }
 
-.calendario-hora-cell {
-  width: 80px;
-  min-width: 80px;
-  padding: 8px;
+.docente-visualizar-horario-calendario-hora-cell {
+  width: 60px;
+  min-width: 60px;
+  padding: 8px 4px;
   text-align: center;
-  font-weight: bold;
-  color: #14213d;
-  border-right: 1px solid #e0e0e0;
+  font-weight: 400;
+  color: #034081;
+  border-right: 1px solid #dadce0;
+  font-size: 0.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.calendario-day-header {
+.docente-visualizar-horario-calendario-day-header {
   flex: 1;
   text-align: center;
-  padding: 8px;
-  border-right: 1px solid #e0e0e0;
-  background-color: #14213d;
+  padding: 12px 8px;
+  border-right: 1px solid #dadce0;
+  background-color: #ffffff;
 }
 
-.day-name {
-  font-weight: bold;
-  color: #ffffff;
+.docente-visualizar-horario-day-name {
+  font-weight: 500;
+  color: #034081;
+  font-size: 0.95rem;
 }
 
-.day-date {
-  font-size: 0.9rem;
-  color: #ffffff9c;
+.docente-visualizar-horario-day-date {
+  font-size: 1.5rem;
+  color: #034081;
+  font-weight: 400;
+  margin-top: 4px;
 }
 
-.calendario-body {
+.docente-visualizar-horario-calendario-body {
   display: flex;
   flex-direction: column;
 }
 
-.calendario-row {
+.docente-visualizar-horario-calendario-row {
   display: flex;
-  min-height: 60px;
-  border-bottom: 1px solid #e0e0e0;
-  background-color: #ffffff9c;
-  
+  height: 120px;
+  border-bottom: 1px solid #dadce0;
+  background-color: #ffffff;
 }
 
-.calendario-cell {
+.docente-visualizar-horario-calendario-cell {
   flex: 1;
   position: relative;
-  border-right: 1px solid #e0e0e0;
-  min-height: 70px;
-  background-color: #ffffff9c;
+  border-right: 1px solid #dadce0;
+  min-height: 48px;
+  transition: background-color 0.2s;
+}
+
+.docente-visualizar-horario-calendario-cell:hover {
+  background-color: #f8f9fa;
 }
 
 /* Estilos para bloques de horario */
-.bloque-horario {
+.docente-visualizar-horario-bloque-horario {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 90%;
-  height: 90%;
-  background-color: #14213d;
-  border-left: 4px solid #fca311;
-  padding: 4px;
+  top: 2px;
+  left: 2px;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  background-color: #c2e7ff;
+  border-left: 4px solid #ff0000;
+  border-radius: 4px;
+  /*padding: 4px;*/
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: transform 0.1s, box-shadow 0.1s;
 }
 
-.bloque-content {
+.docente-visualizar-horario-bloque-horario:hover {
+  transform: scale(1.01);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 5;
+}
+
+.docente-visualizar-horario-bloque-content {
   display: flex;
   flex-direction: column;
   font-size: 0.85rem;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
 }
 
-.bloque-hora {
-  font-weight: bold;
+.docente-visualizar-horario-bloque-hora {
+  font-weight: 600;
   color: #ffffff;
 }
 
-.bloque-periodo {
-  color: #ffffff9c;
-  font-size: 0.6rem;
+.docente-visualizar-horario-bloque-periodo {
+  color: #ffffff;
+  font-size: 0.7rem;
 }
 
 /* Estado de carga y errores */
-.loading-container {
+.docente-visualizar-horario-loading-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -192,12 +244,12 @@
   height: 300px;
 }
 
-.loading-spinner {
+.docente-visualizar-horario-loading-spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid rgba(58, 134, 255, 0.3);
+  border: 3px solid rgba(26, 115, 232, 0.2);
   border-radius: 50%;
-  border-top: 4px solid #4361ee;
+  border-top: 3px solid #1a73e8;
   animation: spin 1s linear infinite;
   margin-bottom: 15px;
 }
@@ -207,22 +259,326 @@
   100% { transform: rotate(360deg); }
 }
 
-.error-message, .no-horarios-message {
+.docente-visualizar-horario-error-message, .no-horarios-message {
   text-align: center;
   padding: 30px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
   margin-top: 20px;
 }
 
-.error-message p {
-  color: #e63946;
+.docente-visualizar-horario-error-message p {
+  color: #d93025;
   margin: 5px 0;
 }
 
-.no-horarios-message p {
-  color: #666;
+.docente-visualizar-horario-no-horarios-message p {
+  color: #5f6368;
   margin: 5px 0;
+}
+
+/* Estilos mejorados para el modal de Editar Horario */
+.docente-visualizar-horario-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(32, 33, 36, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 1000;
+  backdrop-filter: blur(3px);
+  padding-top: 80px;
+  padding-bottom: 20px;
+  overflow-y: auto;
+}
+
+.docente-visualizar-horario-modal-content {
+  background-color: #ffffff;
+  /*padding: 28px;*/
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 12px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 520px;
+  max-height: calc(100vh - 60px);
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  animation: slide-up 0.3s ease;
+  margin-bottom: 20px;
+  overflow-x: hidden;
+}
+
+.docente-visualizar-horario-modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.docente-visualizar-horario-modal-content::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.docente-visualizar-horario-modal-content::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.docente-visualizar-horario-modal-content h3 {
+  margin-top: 0;
+  padding-bottom: 10px;
+  margin-bottom: 24px;
+  color: #034081;
+  font-weight: bold;
+  font-size: 1.4rem;
+  border-bottom: 2px solid #034081;
+  text-align: center;
+}
+
+.docente-visualizar-horario-body.no-scroll {
+  overflow: hidden;
+}
+
+.docente-visualizar-horario-form-group {
+  margin-bottom: 20px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.docente-visualizar-horario-form-group:hover {
+  transform: translateX(3px);
+}
+
+.docente-visualizar-horario-form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #034081;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.docente-visualizar-horario-form-group:hover label {
+  color: #a50e18;
+}
+
+.docente-visualizar-horario-form-hint {
+  display: block;
+  margin-top: 6px;
+  color: #727a70;
+  font-size: 0.82rem;
+  font-style: italic;
+  padding-left: 2px;
+}
+
+.docente-visualizar-horario-form-group select,
+.docente-visualizar-horario-form-group input {
+  width: 60%;
+  padding: 12px 14px;
+  border: 1.5px solid #dadce0;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #034081;
+  transition: all 0.3s;
+  background-color: #fff;
+}
+.docente-visualizar-horario-form-group select:hover,
+.docente-visualizar-horario-form-group input:hover {
+ color: #a50e18;
+}
+/*
+.form-group select,
+.form-group input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid #dadce0;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #3c4043;
+  transition: all 0.3s;
+}*/
+
+.docente-visualizar-horario-form-group select:focus,
+.docente-visualizar-horario-form-group input:focus {
+  border-color: #034081;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+  transform: translateY(-2px);
+}
+
+.docente-visualizar-horario-form-group input:hover:not(:disabled),
+.docente-visualizar-horario-form-group select:hover:not(:disabled) {
+  border-color: #a50e18;
+  box-shadow: 0 0 0 3px rgba(238, 11, 11, 0.2);
+
+}
+
+.docente-visualizar-horario-readonly-field {
+  background-color: #f8f9fa !important;
+  border-left: 4px solid #dadce0 !important;
+  font-style: italic;
+  color: #5f6368 !important;
+}
+
+.docente-visualizar-horario-form-group select:disabled,
+.docente-visualizar-horario-form-group input:disabled {
+  background-color: #f1f3f4;
+  color: #80868b;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.docente-visualizar-horario-form-group input[type="date"],
+.docente-visualizar-horario-form-group input[type="time"] {
+  font-family: 'Roboto', Arial, sans-serif;
+  cursor: pointer;
+  position: relative;
+  padding-right: 30px;
+}
+
+.docente-visualizar-horario-form-group input[type="date"]::-webkit-calendar-picker-indicator,
+.docente-visualizar-horario-form-group input[type="time"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  filter: invert(60%) sepia(9%) saturate(200%) hue-rotate(179deg) brightness(96%) contrast(94%);
+}
+
+.docente-visualizar-horario-form-group input[type="date"]:hover::-webkit-calendar-picker-indicator,
+.docente-visualizar-horario-form-group input[type="time"]:hover::-webkit-calendar-picker-indicator {
+  filter: invert(36%) sepia(80%) saturate(1836%) hue-rotate(199deg) brightness(96%) contrast(90%);
+}
+
+/* Botones de acción */
+.docente-visualizar-horario-form-actions {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.docente-visualizar-horario-btn-primary,
+.docente-visualizar-horario-btn-danger,
+.docente-visualizar-horario-btn-secondary {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+  font-size: 0.95rem;
+  min-width: 130px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.docente-visualizar-horario-btn-primary {
+  background: linear-gradient(145deg, #14213d, #4361ee);
+  color: white;
+  font-weight: 600;
+}
+
+.docente-visualizar-horario-btn-primary:hover {
+  background: linear-gradient(145deg, #4361ee, #14213d);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+  font-weight: 600;
+}
+
+.docente-visualizar-horario-btn-danger {
+  background-color: #d81020;
+  font-weight: 600;
+  color: white;
+}
+
+.docente-visualizar-horario-btn-danger:hover {
+  background-color: #a50e18;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.docente-visualizar-horario-btn-secondary {
+  background: linear-gradient(145deg, #14213d, #4361ee);
+  color: white;
+  border: 1px solid #034081;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.docente-visualizar-horario-btn-secondary:hover {
+  background: linear-gradient(145deg, #4361ee, #14213d);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Mensaje de no permisos */
+.docente-visualizar-horario-permiso-mensaje {
+  background-color: #d81020;
+  border-left: 4px solid #034081;
+  color: #ffffff;
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 24px;
+  font-size: 0.95rem;
+  text-align: center;
+  width: 92%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(251, 188, 4, 0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(251, 188, 4, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(251, 188, 4, 0); }
+}
+
+/* Animación de entrada desde abajo */
+@keyframes slide-up {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Animación de salida hacia arriba */
+.docente-visualizar-horario-modal-closing {
+  animation: slide-out 0.3s ease forwards;
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+}
+
+/* Para asegurarnos que la barra de navegación tenga mayor z-index */
+header, nav, .navbar, .header, .nav-bar {
+  z-index: 1001; /* Mayor que el del modal */
+  position: relative; /* Asegurar que el z-index se aplique */
 }
 
 /* Responsive design */
@@ -232,187 +588,99 @@
     align-items: flex-start;
   }
   
-  .calendario-container {
+  .docente-visualizar-horario-calendario-container {
     height: 500px;
   }
   
-  .calendario-hora-cell {
-    width: 60px;
-    min-width: 60px;
-    font-size: 0.8rem;
-  }
-  
-  .calendario-day-header {
-    padding: 5px;
-  }
-  
-  .day-name {
-    font-size: 0.9rem;
-  }
-  
-  .day-date {
+  .docente-visualizar-horario-calendario-hora-cell {
+    width: 50px;
+    min-width: 50px;
     font-size: 0.75rem;
   }
   
-  .bloque-content {
+  .docente-visualizar-horario-day-name {
+    font-size: 0.85rem;
+  }
+  
+  .docente-visualizar-horario-day-date {
+    font-size: 1.2rem;
+  }
+  
+  .docente-visualizar-horario-bloque-content {
     font-size: 0.75rem;
+  }
+  
+  .docente-visualizar-horario-modal-content {
+    width: 90%;
+    padding: 20px;
+    max-width: none;
+  }
+  
+  .docente-visualizar-horario-form-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .docente-visualizar-horario-btn-primary,
+  .docente-visualizar-horario-btn-danger,
+  .docente-visualizar-horario-btn-secondary {
+    width: 100%;
+    padding: 14px;
+  }
+  
+  .docente-visualizar-horario-modal-content h3 {
+    font-size: 1.2rem;
   }
 }
 
 @media (max-width: 480px) {
-  .horario-navegacion {
+  .docente-visualizar-horario-horario-navegacion {
     width: 100%;
     justify-content: space-between;
   }
   
-  .nav-button {
+  .docente-visualizar-horario-nav-button {
     padding: 6px 10px;
     font-size: 0.8rem;
   }
   
-  .calendario-hora-cell {
+  .docente-visualizar-horario-calendario-hora-cell {
     width: 40px;
     min-width: 40px;
   }
   
-  .calendario-row {
-    min-height: 45px;
+  .docente-visualizar-horario-calendario-row {
+    height: 40px;
+    min-height: 40px;
   }
   
-  .calendario-cell {
-    min-height: 45px;
+  .docente-visualizar-horario-calendario-cell {
+    min-height: 40px;
   }
-}
+  
+  .docente-visualizar-horario-modal-overlay {
+    padding-top: 40px;
+  }
+  
 
-/*Nuevos estilos
-/* Estilos adicionales para la edición de horarios */
-
-/* Hacer que los bloques sean clickeables */
-.bloque-content {
-  cursor: pointer;
-  transition: background-color 0.2s;
-  padding: 4px 6px;
-  border-radius: 4px;
-  background-color: rgba(65, 105, 225, 0.7);
-  color: white;
-}
-
-.bloque-content:hover {
-  background-color: rgba(65, 105, 225, 0.9);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-/* Modal de edición */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 500px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.modal-content h3 {
-  margin-top: 0;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: 500;
-  color: #555;
-}
-
-.form-group select,
-.form-group input {
-  width: 100%;
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-.form-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.btn-primary,
-.btn-danger,
-.btn-secondary {
-  padding: 8px 15px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s;
-}
-
-.btn-primary {
-  background-color: #4169e1;
-  color: white;
-}
-
-.btn-primary:hover {
-  background-color: #3558c1;
-}
-
-.btn-danger {
-  background-color: #dc3545;
-  color: white;
-}
-
-.btn-danger:hover {
-  background-color: #bd2130;
-}
-
-.btn-secondary {
-  background-color: #6c757d;
-  color: white;
-}
-
-.btn-secondary:hover {
-  background-color: #5a6268;
-}
-
-/* Mensaje de no permisos */
-.permiso-mensaje {
-  background-color: #fff3cd;
-  border: 1px solid #ffeeba;
-  color: #856404;
-  padding: 10px;
-  border-radius: 4px;
-  margin-top: 15px;
-  font-size: 0.9rem;
-  text-align: center;
-}
-
-/* Deshabilitar campos cuando no hay permisos */
-select:disabled,
-input:disabled {
-  background-color: #f2f2f2;
-  cursor: not-allowed;
+  .docente-visualizar-horario-modal-content {
+    width: 95%;
+    padding: 16px;
+    border-radius: 10px;
+  }
+  
+  .docente-visualizar-horario-form-group input {
+    padding: 10px 12px;
+  }
+  
+  .docente-visualizar-horario-permiso-mensaje {
+    padding: 12px;
+    font-size: 0.85rem;
+  }
+  
+  .docente-visualizar-horario-btn-primary,
+  .docente-visualizar-horario-btn-danger,
+  .docente-visualizar-horario-btn-secondary {
+    width: 100%;
+  }
 }

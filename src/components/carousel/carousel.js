@@ -7,7 +7,7 @@ import "./carousel.css";
 
 const images = [
     { id: 1, src: "/images/carrusel5.jpg" },
-    { id: 2, src: "/images/carrusel1.jpg" },
+    { id: 2, src: "/images/carrusel1.png" },
     { id: 3, src: "/images/carrusel6.webp" },
     { id: 4, src: "/images/carrusel4.jpg" },
     { id: 5, src: "/images/carrusel3.webp" },

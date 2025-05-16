@@ -1,5 +1,5 @@
-
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -47,6 +47,7 @@ html, body {
   padding: 0 1rem;
   box-sizing: border-box;
 }
+
 .estudiante-top-row {
   display: flex;
   align-items: center;
@@ -74,15 +75,18 @@ html, body {
   flex-grow: 1;
   animation: shine 1.5s infinite;
 }
+
 @keyframes shine {
   0% {
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5);
   }
+
   50% {
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 1);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 1);
   }
+
   100% {
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5);
   }
 }
 
@@ -101,7 +105,7 @@ html, body {
   margin: 0;
 }
 
-.estudiante-nav-options li a {
+/*.estudiante-nav-options li a {
   color: #e8e9e4;
   text-decoration: none;
   padding: 8px 14px;
@@ -114,35 +118,68 @@ html, body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-weight: bold;
   border: 2px solid transparent;
+}*/
+.estudiante-nav-options li a {
+  color: #e8e9e4;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  display: flex;
+  /* Cambiado a flex */
+  align-items: center;
+  /* Centra verticalmente el icono y el texto */
+  background-color: #d81020;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  border: 2px solid transparent;
 }
 
-.estudiante-nav-options li a:hover, .estudiante-nav-options li a.estudiante-active {
-  background-color: #034081;
-  transform: translateY(-4px); /* Aumenta el desplazamiento al hacer hover */
-  border: 2px solid #e8e9e4; /* Borde visible al hacer hover */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Aumenta la sombra al hacer hover */
-  animation: pulse 0.5s infinite; /* Añade una animación de pulso */
+.estudiante-nav-options li a svg {
+  /* Asegúrate de que el icono sea un SVG */
+  margin-right: 8px;
+  /* Espacio entre el icono y el texto */
 }
+
+.estudiante-nav-options li a:hover,
+.estudiante-nav-options li a.estudiante-active {
+  background-color: #034081;
+  transform: translateY(-4px);
+  /* Aumenta el desplazamiento al hacer hover */
+  border: 2px solid #e8e9e4;
+  /* Borde visible al hacer hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Aumenta la sombra al hacer hover */
+  animation: pulse 0.5s infinite;
+  /* Añade una animación de pulso */
+}
+
 @keyframes pulse {
   0% {
-      transform: scale(1);
+    transform: scale(1);
   }
+
   50% {
-      transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+    transform: scale(1.05);
+    /* Aumenta ligeramente el tamaño */
   }
+
   100% {
-      transform: scale(1);
+    transform: scale(1);
   }
 }
 
 .estudiante-nav-options li a.estudiante-active {
   border-bottom: 3px solid #e8e9e4;
 }
+
 @media (min-width: 768px) and (max-width: 1400px) {
   .estudiante-nav-options {
     gap: 8px;
   }
-  
+
   .estudiante-nav-options li a {
     padding: 6px 10px;
     font-size: 0.85rem;
@@ -162,6 +199,7 @@ html, body {
   height: 60px;
   object-fit: contain;
 }
+
 .estudiante-options-row {
   width: 100%;
   display: flex;
@@ -214,17 +252,21 @@ html, body {
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
-  padding-top: 40px; /* Maintain top padding */
-  padding-right: 10px; /* Maintain right padding */
-  padding-left: 10px; /* Maintain left padding */
-  padding-bottom: 100px; /* Add extra space at the bottom */
+  padding-top: 40px;
+  /* Maintain top padding */
+  padding-right: 10px;
+  /* Maintain right padding */
+  padding-left: 10px;
+  /* Maintain left padding */
+  padding-bottom: 100px;
+  /* Add extra space at the bottom */
   color: white;
   width: 100%;
   box-sizing: border-box;
   position: relative;
 }
 
-.estudiante-content-area > div {
+.estudiante-content-area>div {
   width: 100%;
   max-width: 1000px;
   z-index: 5;
@@ -289,6 +331,7 @@ html, body {
   background-color: #e53935;
 }
 
+/*
 .estudiante-section-content {
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 10px;
@@ -302,6 +345,993 @@ html, body {
   position: relative;
   z-index: 5;
   top: 10%;
+}*/
+.estudiante-section-content {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 245, 255, 0.9));
+  border-radius: 15px;
+  padding: 30px;
+  margin: 20px 0;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  color: #333;
+  transform: translateY(0);
+  transition: all 0.4s ease-in-out;
+  border-left: 5px solid #034081;
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.estudiante-section-content h2 {
+  color: #034081;
+  font-size: 2.0rem;
+  margin-bottom: 25px;
+  position: relative;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.estudiante-section-content h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  height: 3px;
+  background-color: #d81020;
+  border-radius: 3px;
+}
+
+.estudiante-success-message,
+.estudiante-error-message {
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  position: relative;
+  animation: slideIn 0.5s ease-out, pulse 2s infinite;
+  display: flex;
+  align-items: center;
+}
+
+.estudiante-success-message {
+  background-color: rgba(76, 175, 80, 0.15);
+  color: #2e7d32;
+  border-left: 5px solid #2e7d32;
+}
+
+.estudiante-error-message {
+  background-color: rgba(244, 67, 54, 0.15);
+  color: #c62828;
+  border-left: 5px solid #c62828;
+}
+
+.estudiante-success-message::before,
+.estudiante-error-message::before {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.estudiante-success-message::before {
+  content: '✓';
+}
+
+.estudiante-error-message::before {
+  content: '✕';
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(3, 64, 129, 0.2);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(3, 64, 129, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(3, 64, 129, 0);
+  }
+}
+
+/* Estilos específicos para formularios */
+.estudiante-form {
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.estudiante-form:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  transform: translateY(-5px);
+}
+
+.estudiante-form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.estudiante-form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #034081;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.estudiante-form-group:hover label {
+  color: #a50e18;
+}
+
+.estudiante-form-group select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #cfd8dc;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #034081;
+  background-color: #fff;
+  transition: all 0.3s;
+}
+
+.estudiante-form-group textarea {
+  width: 96%;
+  /*padding: 12px 15px;*/
+  border: 2px solid #cfd8dc;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #034081;
+  background-color: #fff;
+  transition: all 0.3s;
+}
+
+.estudiante-form-group select:focus,
+.estudiante-form-group textarea:focus {
+  border-color: #034081;
+  box-shadow: 0 0 0 2px rgba(3, 64, 129, 0.2);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.estudiante-form-group select:hover,
+.estudiante-form-group textarea:hover {
+  color: #a50e18;
+}
+
+.estudiante-form-group textarea:hover:not(:disabled),
+.estudiante-form-group select:hover:not(:disabled) {
+  border-color: #a50e18;
+  box-shadow: 0 0 0 3px rgba(238, 11, 11, 0.2);
+
+}
+
+.estudiante-form-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23546e7a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  padding-right: 40px;
+}
+
+.estudiante-form-group select option {
+  padding: 10px;
+}
+
+.estudiante-submit-button {
+  background: linear-gradient(135deg, #034081, #1565c0);
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(3, 64, 129, 0.2);
+  display: block;
+  margin: 30px auto 10px;
+  width: 80%;
+  max-width: 300px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.estudiante-submit-button:hover {
+  background: linear-gradient(135deg, #1565c0, #0d47a1);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(3, 64, 129, 0.3);
+}
+
+.estudiante-submit-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(3, 64, 129, 0.3);
+}
+
+.estudiante-submit-button:disabled {
+  background: linear-gradient(135deg, #b0bec5, #90a4ae);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.estudiante-submit-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.estudiante-submit-button:focus:not(:active)::after {
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+
+  20% {
+    transform: scale(25, 25);
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}
+
+/* Estilos para "Mis Asesorías" */
+.estudiante-refresh-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.estudiante-refresh-button:hover {
+  background-color: #388e3c;
+  transform: translateY(-2px);
+}
+
+.estudiante-refresh-button:active {
+  transform: translateY(1px);
+}
+
+.estudiante-refresh-button::before {
+  content: '↻';
+  margin-right: 8px;
+  font-size: 1.2rem;
+}
+
+.estudiante-asesorias-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.estudiante-asesoria-card {
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border-top: 5px solid #ccc;
+  animation: cardAppear 0.5s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.estudiante-asesoria-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.estudiante-asesoria-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.estudiante-asesoria-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.estudiante-asesoria-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.estudiante-asesoria-card:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+@keyframes cardAppear {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.estudiante-asesoria-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.estudiante-asesoria-card.estudiante-estado-solicitada {
+  border-top-color: #f9a825;
+  background: linear-gradient(to bottom, rgba(255, 248, 225, 0.6), rgba(255, 255, 255, 0.9));
+}
+
+.estudiante-asesoria-card.estudiante-estado-aprobada {
+  border-top-color: #43a047;
+  background: linear-gradient(to bottom, rgba(232, 245, 233, 0.6), rgba(255, 255, 255, 0.9));
+}
+
+.estudiante-asesoria-card.estudiante-estado-rechazada {
+  border-top-color: #e53935;
+  background: linear-gradient(to bottom, rgba(255, 235, 238, 0.6), rgba(255, 255, 255, 0.9));
+}
+
+.estudiante-asesoria-card.estudiante-estado-cancelada {
+  border-top-color: #757575;
+  background: linear-gradient(to bottom, rgba(238, 238, 238, 0.6), rgba(255, 255, 255, 0.9));
+}
+
+.estudiante-asesoria-card.estudiante-estado-completada {
+  border-top-color: #1e88e5;
+  background: linear-gradient(to bottom, rgba(227, 242, 253, 0.6), rgba(255, 255, 255, 0.9));
+}
+
+.estudiante-asesoria-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.estudiante-asesoria-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #034081;
+  max-width: 70%;
+}
+
+.estudiante-estado-badge {
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.estudiante-estado-badge.estudiante-estado-solicitada {
+  background-color: #fff8e1;
+  color: #f57f17;
+}
+
+.estudiante-estado-badge.estudiante-estado-aprobada {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.estudiante-estado-badge.estudiante-estado-rechazada {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.estudiante-estado-badge.estudiante-estado-cancelada {
+  background-color: #eeeeee;
+  color: #424242;
+}
+
+.estudiante-estado-badge.estudiante-estado-completada {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.estudiante-asesoria-details {
+  background-color: #f9f9f9;
+  border-left: 4px solid #3498db;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.estudiante-modal-content .loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.estudiante-modal-footer {
+  padding: 15px 25px;
+  background-color: #f8f9fa;
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  border-top: 1px solid #eee;
+}
+
+.estudiante-modal-cancel,
+.estudiante-modal-confirm {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 1rem;
+  border: none;
+}
+
+.estudiante-modal-cancel {
+  background-color: #d81020;
+  color: #ffffff;
+}
+
+.estudiante-modal-cancel:hover {
+  background-color: #a50e18;
+  color: #ffffff;
+}
+
+.estudiante-modal-confirm {
+  background-color: #034081;
+  color: white;
+}
+
+.estudiante-modal-confirm:hover:not(:disabled) {
+  background-color: #02315f;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.estudiante-modal-confirm:disabled {
+  background-color: #90a4ae;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.estudiante-modal-content .loading-spinner {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 2s linear infinite;
+  margin-right: 10px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Iconos en el modal */
+.estudiante-modal-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* Campo de texto para motivo de cancelación */
+.estudiante-modal-content .estudiante-form-group {
+  margin-bottom: 20px;
+}
+
+.estudiante-modal-content label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #444;
+}
+
+.estudiante-modal-content textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.estudiante-modal-content textarea:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+/* Contenedor de botones */
+.estudiante-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+/* Botones del modal */
+.estudiante-modal-buttons button {
+  padding-left: 45px;
+  padding-right: 45px;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  font-size: 14px;
+}
+
+.estudiante-asesoria-details p strong {
+  color: #263238;
+  font-weight: 600;
+}
+
+/*.estudiante-cancel-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 15px;
+}*/
+.estudiante-cancel-button {
+  background-color: #d81020;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: flex;
+  /* Cambio aquí */
+  align-items: center;
+  /* Centrar verticalmente */
+  justify-content: center;
+  /* Centrar horizontalmente */
+  width: 100%;
+  margin-top: 15px;
+  gap: 8px;
+  /* Opcional: espacio entre el icono y el texto */
+}
+
+
+.estudiante-cancel-button:hover {
+  background-color: #a50e18;
+  transform: translateY(-2px);
+}
+
+.estudiante-cancel-button:active {
+  transform: translateY(1px);
+}
+
+.estudiante-back-button {
+  background-color: #034081;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: flex;
+  /* Cambio aquí */
+  align-items: center;
+  /* Centrar verticalmente */
+  justify-content: center;
+  /* Centrar horizontalmente */
+  width: 50%;
+  margin-top: 0;
+  gap: 8px;
+  /* Opcional: espacio entre el icono y el texto */
+  height: 50px;
+}
+
+
+.estudiante-back-button:hover {
+  background-color: #034081d5;
+  transform: translateY(-2px);
+}
+
+.estudiante-back-button:active {
+  transform: translateY(1px);
+}
+
+/* Estilo para el overlay del modal */
+.estudiante-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(3px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Contenedor principal del modal */
+.estudiante-modal {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 500px;
+  overflow: hidden;
+  transform: translateY(0);
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+/* Encabezado del modal */
+.estudiante-modal-header {
+  padding: 20px;
+  background: linear-gradient(135deg, #034081, #0277bd);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.estudiante-modal-header h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.estudiante-modal-close {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.estudiante-modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg);
+}
+
+/* Cuerpo del modal */
+.estudiante-modal-body {
+  padding: 25px;
+}
+
+.estudiante-modal-body p {
+  margin-bottom: 20px;
+  color: #555;
+  font-size: 1.1rem;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.estudiante-modal-content {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  padding: 30px;
+  width: 90%;
+  max-width: 500px;
+  animation: modal-appear 0.3s ease-out forwards;
+  position: relative;
+  border-top: 5px solid #e74c3c;
+  /* Borde rojo en la parte superior */
+}
+
+@keyframes modal-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.estudiante-modal-content h3 {
+  color: #d81020;
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.estudiante-modal-content h3::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e74c3c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'%3E%3C/line%3E%3Cline x1='6' y1='6' x2='18' y2='18'%3E%3C/line%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Texto de confirmación */
+.estudiante-modal-content p {
+  margin-bottom: 15px;
+  color: #333;
+  line-height: 1.6;
+  font-weight: 600;
+}
+
+.estudiante-modal-content p strong {
+  border-radius: 5px;
+  background-color: #4ade80;
+  color: #333;
+  font-weight: 600;
+}
+
+
+.estudiante-confirm-button {
+  background-color: #d81020;
+  color: white;
+}
+
+.estudiante-confirm-button:hover {
+  background-color: #a50e18;
+  box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+.estudiante-confirm-button:disabled {
+  background-color: #e57373;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+
+/* Mejoras de usabilidad y estados vacíos */
+.estudiante-no-data {
+  text-align: center;
+  padding: 30px 20px;
+  color: #64748b;
+  font-style: italic;
+  background-color: #f8fafc;
+  border-radius: 10px;
+  margin: 10px 0;
+  border: 2px dashed #cbd5e0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 150px;
+}
+
+.estudiante-no-data:before {
+  content: "🗓️";
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+/* Animaciones adicionales */
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+.estudiante-shake {
+  animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .estudiante-asesorias-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .estudiante-modal-content {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .estudiante-modal-buttons {
+    flex-direction: column;
+  }
+
+  .estudiante-confirm-button,
+  .estudiante-cancel-button {
+    margin-right: 0;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  .estudiante-section-content {
+    padding: 20px 15px;
+  }
+}
+
+/* Tooltips informativos */
+[data-tooltip] {
+  position: relative;
+  cursor: help;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #212121;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+[data-tooltip]:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Agregar indicadores de estado dinámicos */
+.estudiante-asesoria-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+}
+
+.estudiante-asesoria-card.estudiante-estado-solicitada::before {
+  border-left: 50px solid transparent;
+  border-right: 0 solid transparent;
+  border-top: 50px solid #f9a825;
+}
+
+.estudiante-asesoria-card.estudiante-estado-aprobada::before {
+  border-left: 50px solid transparent;
+  border-right: 0 solid transparent;
+  border-top: 50px solid #43a047;
+}
+
+.estudiante-asesoria-card.estudiante-estado-rechazada::before {
+  border-left: 50px solid transparent;
+  border-right: 0 solid transparent;
+  border-top: 50px solid #e53935;
+}
+
+.estudiante-asesoria-card.estudiante-estado-cancelada::before {
+  border-left: 50px solid transparent;
+  border-right: 0 solid transparent;
+  border-top: 50px solid #757575;
+}
+
+.estudiante-asesoria-card.estudiante-estado-completada::before {
+  border-left: 50px solid transparent;
+  border-right: 0 solid transparent;
+  border-top: 50px solid #1e88e5;
 }
 
 .estudiante-welcome-content {
@@ -337,4 +1367,1074 @@ html, body {
   text-align: center;
   margin: 0 20px;
   color: #ffffff;
+}
+
+/* Nuevos estilos para el menú de usuario */
+.estudiante-docente-user-actions {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.estudiante-docente-user-icon-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-right: 15px;
+  color: #034081;
+  position: relative;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.estudiante-docente-user-icon-button:hover {
+  background-color: rgba(3, 64, 129, 0.1);
+  transform: scale(1.1);
+}
+
+.estudiante-docente-user-menu-dropdown {
+  position: absolute;
+  top: 160px;
+  right: 30px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  width: 200px;
+  overflow: hidden;
+  animation: dropdownFadeIn 0.3s ease-out;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.estudiante-docente-user-menu-dropdown ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.estudiante-docente-user-menu-dropdown li {
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  background-color: #034081;
+}
+
+.estudiante-docente-user-menu-dropdown li:hover {
+  background-color: #034081ce;
+  color: #ffffff;
+}
+
+.estudiante-docente-user-menu-dropdown li span {
+  margin-left: 10px;
+}
+
+
+
+/* Estilos para el calendario */
+.estudiante-calendar-toggle {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+}
+
+.estudiante-calendar-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #034081;
+  color: #ffffff;
+  border: 1px solid #c7d2fe;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.estudiante-calendar-toggle-btn:hover {
+  background-color: #a50e18;
+  transform: translateY(-2px);
+}
+
+.estudiante-calendar-container {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.estudiante-calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.estudiante-calendar-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #034081;
+  text-transform: capitalize;
+}
+
+.estudiante-calendar-nav-btn {
+  background: none;
+  border: none;
+  color: #034081;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.estudiante-calendar-nav-btn:hover {
+  background-color: #eef2ff;
+}
+
+.estudiante-calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #034081;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 10px;
+}
+
+.estudiante-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  text-align: center;
+}
+
+.estudiante-calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  position: relative;
+  cursor: default;
+  color: #034081;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.estudiante-calendar-day.empty {
+  background: none;
+}
+
+.estudiante-calendar-day.available {
+  cursor: pointer;
+  font-weight: 600;
+  color: #ffffff;
+  border-color: #000000;
+  background-color: #034081;
+}
+
+.estudiante-calendar-day.available:hover {
+  background-color: #034081ad;
+  transform: scale(1.05);
+  color: #ffffff;
+}
+
+.estudiante-calendar-day.selected {
+  background-color: #a50e18;
+  color: #ffffff;
+  font-weight: 600;
+  border-color: #000000;
+}
+
+.estudiante-calendar-day.selected:hover {
+  background-color: #d81020;
+  color: #ffffff;
+}
+
+.disponible-indicator {
+  position: absolute;
+  bottom: 3px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #4ade80;
+}
+
+.estudiante-time-slots {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.estudiante-time-slots h4 {
+  margin: 0 0 15px 0;
+  font-size: 1rem;
+  color: #374151;
+}
+
+.estudiante-time-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.estudiante-time-slot {
+  padding: 10px;
+  background-color: #f3f4f6;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+  font-size: 0.85rem;
+  color: #ffffff;
+  background-color: #034081;
+}
+
+.estudiante-time-slot:hover {
+  background-color: #0b61bd;
+  border-color: #034081;
+  transform: translateY(-3px)
+}
+
+.estudiante-time-slot.selected {
+  background-color: #a50e18;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.estudiante-time-slot.selected:hover {
+  background-color: #d81020;
+  border-color: #a50e18;
+}
+
+.estudiante-horario-list {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.estudiante-horario-item {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Estilos para la vista de lista de horarios */
+.estudiante-horario-list {
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  padding: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e0 #f8fafc;
+}
+
+/* Estilos responsive */
+@media (max-width: 768px) {
+  .estudiante-horario-item {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas:
+      "dia"
+      "fecha"
+      "hora"
+      "lugar";
+    gap: 8px;
+    padding: 14px;
+  }
+
+  .estudiante-horario-time {
+    text-align: left;
+    justify-content: flex-start;
+  }
+
+  .estudiante-horario-day {
+    font-size: 1rem;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.estudiante-horario-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.estudiante-horario-list::-webkit-scrollbar-track {
+  background: #f8fafc;
+  border-radius: 10px;
+}
+
+.estudiante-horario-list::-webkit-scrollbar-thumb {
+  background-color: #cbd5e0;
+  border-radius: 10px;
+}
+
+.estudiante-horario-item {
+  display: grid;
+  grid-template-columns: 100px 1fr 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "dia fecha hora"
+    "lugar lugar lugar";
+  padding: 16px;
+  margin: 8px 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #f8fafc;
+  border-left: 4px solid transparent;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+}
+
+.estudiante-horario-item:hover {
+  background-color: #f1f5f9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid #3b82f6;
+}
+
+.estudiante-horario-item.selected {
+  background-color: #eff6ff;
+  border-left: 4px solid #2563eb;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+}
+
+.estudiante-horario-day {
+  grid-area: dia;
+  font-weight: 700;
+  color: #1e40af;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+}
+
+.estudiante-horario-date {
+  grid-area: fecha;
+  color: #334155;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+}
+
+.estudiante-horario-time {
+  grid-area: hora;
+  color: #1e40af;
+  font-weight: 600;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 0.95rem;
+}
+
+
+/* Estilos responsive */
+@media (max-width: 768px) {
+  .estudiante-time-slots-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  .estudiante-horario-item {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .estudiante-horario-time {
+    text-align: left;
+  }
+}
+
+/* Estrellas de calificación */
+.estudiante-calificacion-stars {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 30px 0;
+}
+
+.estudiante-calificacion-stars .star {
+  color: #e0e0e0;
+  cursor: pointer;
+  font-size: 2.8rem;
+  transition: all 0.2s;
+  transform: scale(1);
+}
+
+.estudiante-calificacion-stars .star:hover {
+  transform: scale(1.2);
+}
+
+.estudiante-calificacion-stars .star.filled {
+  color: #FFC107;
+  text-shadow: 0 0 10px rgba(255, 193, 7, 0.4);
+  transform: scale(1.1);
+}
+
+/* Botón de calificar */
+.estudiante-rate-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.estudiante-rate-button:hover {
+  background-color: #45a049;
+}
+
+/* Información de calificación */
+.estudiante-calificacion-info {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  border-left: 4px solid #4CAF50;
+}
+
+/* Estilos para los bloques de horario */
+.horario-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.horario-bloque {
+  background-color: #f0f7ff;
+  border: 1px solid #d0e3ff;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.9em;
+  color: #2c5282;
+  display: inline-flex;
+  align-items: center;
+}
+
+.horario-bloque-consecutivo {
+  background-color: #ebf8ff;
+  border-color: #bee3f8;
+  color: #2b6cb0;
+}
+
+.horario-separador {
+  color: #718096;
+  margin: 0 4px;
+}
+
+/*.estudiante-info-label.horario-label {
+  align-self: flex-start;
+}*/
+/* Contenedor principal de información de horario */
+.horario-info {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.horario-display {
+  flex: 1;
+}
+
+/* Badge para indicar múltiples bloques */
+.horario-bloque-badge {
+  background-color: #4299e1;
+  color: white;
+  border-radius: 10px;
+  padding: 0 6px;
+  font-size: 0.7em;
+  margin-left: 6px;
+}
+
+/* Efectos hover para mejor interactividad */
+.horario-bloque:hover {
+  background-color: #e1effe;
+  transform: translateY(-1px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+
+
+/* Estilos para el Modal de Calificación de Asesoría */
+
+/* Estilos generales del modal */
+/* Estilos para el Modal de Calificación de Asesoría */
+
+/* Overlay del modal */
+.estudiante-calificacion-asesoria-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+/* Contenedor principal del modal */
+.estudiante-calificacion-asesoria-modal {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 800px;
+  height: auto;
+  max-height: 95vh;
+  display: flex;
+  flex-direction: column;
+  animation: modal-fade-in 0.3s ease-out;
+  overflow-y: auto;
+}
+
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Cabecera del modal */
+.estudiante-calificacion-asesoria-modal-header {
+  background: linear-gradient(135deg, #14213d, #0277bd);
+  color: #fff;
+  padding: 15px 20px;
+  border-radius: 12px 12px 0 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.estudiante-calificacion-asesoria-modal-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Cuerpo del modal */
+.estudiante-calificacion-asesoria-modal-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Sección de información de asesoría */
+.estudiante-calificacion-asesoria-info-container {
+  background-color: #fffffffa;
+  border-radius: 8px;
+  padding: 15px;
+  border: 1px solid #e6e9f0;
+  border-left: 4px solid #a50e18;
+}
+
+.estudiante-calificacion-asesoria-info-container h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #034081;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.estudiante-calificacion-asesoria-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.estudiante-calificacion-asesoria-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.estudiante-calificacion-asesoria-info-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.estudiante-calificacion-asesoria-info-label {
+  font-weight: 600;
+  color: #034081;
+  font-size: 0.8rem;
+}
+
+.info-label {
+  font-weight: 600;
+  color: #1e40af;
+  margin-right: 4px;
+}
+
+.estudiante-calificacion-asesoria-info-value {
+  color: #a50e18;
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+/* Sección de calificación */
+.estudiante-calificacion-asesoria-section {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e6e9f0;
+}
+
+.estudiante-calificacion-asesoria-section h4 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: #034081;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.estudiante-calificacion-asesoria-section p {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #a50e18;
+  font-size: 0.9rem;
+}
+
+/* Estrellas de calificación */
+.estudiante-calificacion-asesoria-stars {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.estudiante-calificacion-asesoria-stars .star {
+  font-size: 26px;
+  cursor: pointer;
+  color: #ddd;
+  transition: color 0.2s ease;
+  margin-right: 4px;
+}
+
+.estudiante-calificacion-asesoria-stars .star:hover,
+.estudiante-calificacion-asesoria-stars .star.filled {
+  color: #ffc107;
+}
+
+.estudiante-calificacion-asesoria-rating-text {
+  margin-left: 8px;
+  font-size: 0.85rem;
+  color: #034081;
+}
+
+/* Campo de comentario */
+.estudiante-calificacion-asesoria-form-group {
+  margin-bottom: 10px;
+}
+
+.estudiante-calificacion-asesoria-form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #034081;
+  font-size: 0.9rem;
+}
+
+.estudiante-calificacion-asesoria-form-group textarea {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: border-color 0.3s;
+  height: 80px;
+  /* altura fija más compacta */
+}
+
+.estudiante-calificacion-asesoria-form-group textarea:focus {
+  outline: none;
+  border-color: #4e54c8;
+  box-shadow: 0 0 0 2px rgba(78, 84, 200, 0.2);
+}
+
+.estudiante-calificacion-asesoria-form-group textarea::placeholder {
+  color: #aaa;
+}
+
+/* Pie del modal */
+.estudiante-calificacion-asesoria-modal-footer {
+  padding: 15px 20px;
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #eee;
+  flex-shrink: 0;
+}
+
+/* Botón de envío */
+.estudiante-calificacion-asesoria-modal-confirm {
+  background: linear-gradient(135deg, #14213d, #0277bd);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.estudiante-calificacion-asesoria-modal-confirm:hover:not(:disabled) {
+  background: linear-gradient(135deg, #a50e18, #d81020);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(78, 84, 200, 0.3);
+}
+
+.estudiante-calificacion-asesoria-modal-confirm:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.estudiante-calificacion-asesoria-modal-confirm:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Estilos responsive */
+@media (max-width: 768px) {
+  .estudiante-calificacion-asesoria-modal {
+    width: 95%;
+  }
+
+  .estudiante-calificacion-asesoria-info-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .estudiante-calificacion-asesoria-modal-header h3 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .estudiante-calificacion-asesoria-info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.estudiante-horario-lugar {
+  grid-area: lugar;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #e2e8f0;
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+.estudiante-time-slot-lugar {
+  display: block;
+  font-size: 0.8em;
+  margin-top: 3px;
+  color: #ffffff;
+}
+
+/*----*/
+/* Estilos para la asistencia del docente y el modal relacionado */
+
+/* Estilos para la info de asistencia en la tarjeta */
+.asistencia-docente-info {
+  margin: 5px 0;
+}
+
+.asistencia-estado {
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.asistencia-estado.asistio {
+  background-color: rgba(0, 128, 0, 0.15);
+  color: #006400;
+}
+
+.asistencia-estado.no-asistio {
+  background-color: rgba(255, 0, 0, 0.15);
+  color: #8b0000;
+}
+
+/* Botón de registrar asistencia */
+.estudiante-reg-asistencia-button {
+  background-color: #4a6fa5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  transition: background-color 0.2s;
+}
+
+.estudiante-reg-asistencia-button:hover {
+  background-color: #3b5c8c;
+}
+
+/* Estilos para el modal de asistencia */
+.estudiante-asistencia-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.estudiante-asistencia-modal {
+  background-color: white;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.estudiante-asistencia-modal-header {
+  padding: 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.estudiante-asistencia-modal-header h3 {
+  margin: 0;
+  color: #333;
+}
+
+.estudiante-asistencia-modal-body {
+  padding: 16px;
+}
+
+.estudiante-asistencia-info-container {
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  padding: 12px;
+  border-radius: 6px;
+}
+
+.estudiante-asistencia-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.estudiante-asistencia-info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.estudiante-asistencia-info-label {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.estudiante-asistencia-info-value {
+  font-size: 1rem;
+}
+
+.estudiante-asistencia-section h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.estudiante-asistencia-bloques {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.estudiante-asistencia-bloque-item {
+  background-color: #f5f5f5;
+  padding: 12px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bloque-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.bloque-asistencia {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Switch de asistencia */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 24px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.asistencia-text {
+  font-weight: 500;
+}
+
+.asistencia-nota {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #fff3cd;
+  border-left: 4px solid #ffc107;
+  color: #856404;
+  border-radius: 4px;
+}
+
+.estudiante-asistencia-modal-footer {
+  padding: 16px;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.estudiante-asistencia-modal-cancel,
+.estudiante-asistencia-modal-confirm {
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.estudiante-asistencia-modal-cancel {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #333;
+}
+
+.estudiante-asistencia-modal-cancel:hover {
+  background-color: #e8e8e8;
+}
+
+.estudiante-asistencia-modal-confirm {
+  background-color: #4a6fa5;
+  border: none;
+  color: white;
+}
+
+.estudiante-asistencia-modal-confirm:hover {
+  background-color: #3b5c8c;
+}
+
+.estudiante-asistencia-modal-confirm:disabled {
+  background-color: #a0a0a0;
+  cursor: not-allowed;
 }

@@ -8,6 +8,11 @@ import {
   Shield,
   AlertCircle,
   Info,
+  BookOpen,
+  Users,
+  GraduationCap
+
+  //Briefcase,
 } from "lucide-react";
 import "../styles/PagePerfil.css";
 import { useAuth } from "../context/AuthContext"; // Assuming you have an AuthContext
@@ -71,15 +76,80 @@ const Perfil = () => {
 
     try {
       const date = new Date(dateString);
-      return new Intl.DateTimeFormat("es-ES", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      }).format(date);
+
+      const options = { month: "long" };
+      const month = new Intl.DateTimeFormat("es-ES", options).format(date);
+      const day = date.getDate();
+      const year = date.getFullYear();
+
+      let hours = date.getHours();
+      const minutes = date.getMinutes().toString().padStart(2, '0');
+      const ampm = hours >= 12 ? 'pm' : 'am';
+
+      hours = hours % 12;
+      hours = hours ? hours : 12; // 0 -> 12
+
+      return `${month.charAt(0).toUpperCase() + month.slice(1)} ${day} ${year} ${hours}:${minutes} ${ampm}`;
     } catch (e) {
       return dateString;
+    }
+  };
+
+
+  // Render role-specific information
+  const renderRoleSpecificInfo = () => {
+    if (!perfil) return null;
+
+    switch (perfil.rol) {
+      case "Estudiante":
+        return (
+          <>
+            <div className="perfil-item">
+              <div className="perfil-item-icon">
+                <BookOpen size={20} strokeWidth={2} />
+              </div>
+              <div className="perfil-item-content">
+                <span className="perfil-label">Semestre</span>
+                <p className="perfil-value">{perfil.semestre || "No especificado"}</p>
+              </div>
+            </div>
+            <div className="perfil-item">
+              <div className="perfil-item-icon">
+                <Users size={20} strokeWidth={2} />
+              </div>
+              <div className="perfil-item-content">
+                <span className="perfil-label">Grupo</span>
+                <p className="perfil-value">{perfil.grupo || "No especificado"}</p>
+              </div>
+            </div>
+          </>
+        );
+      case "Docente":
+        return (
+          <div className="perfil-item">
+            <div className="perfil-item-icon">
+              <GraduationCap size={20} strokeWidth={2} />
+            </div>
+            <div className="perfil-item-content">
+              <span className="perfil-label">Tipo de Docente</span>
+              <p className="perfil-value">{perfil.subtipo_docente || "No especificado"}</p>
+            </div>
+          </div>
+        );
+      case "Director":
+        return (
+          <div className="perfil-item">
+            <div className="perfil-item-icon">
+              <GraduationCap size={20} strokeWidth={2} />
+            </div>
+            <div className="perfil-item-content">
+              <span className="perfil-label">Tipo de Director</span>
+              <p className="perfil-value">{perfil.subtipo_director || "No especificado"}</p>
+            </div>
+          </div>
+        );
+      default:
+        return null;
     }
   };
 
@@ -114,7 +184,9 @@ const Perfil = () => {
           <div className="perfil-avatar">
             <UserCircle size={80} strokeWidth={1.5} className="perfil-icon" />
           </div>
-          <h2 className="perfil-title">¡Bienvenido a tu Perfil!</h2>
+          <h2 className="perfil-title">
+            ¡Bienvenido a tu Perfil, {perfil?.nombre_usuario || usuario?.nombre_usuario || "Usuario"}!
+          </h2>
           <p className="perfil-subtitle">
             <Info /> Información de tu cuenta
           </p>
@@ -133,6 +205,16 @@ const Perfil = () => {
 
           <div className="perfil-item">
             <div className="perfil-item-icon">
+              <UserCircle size={20} strokeWidth={2} />
+            </div>
+            <div className="perfil-item-content">
+              <span className="perfil-label">Nombre y Apellido</span>
+              <p className="perfil-value">{perfil?.nombre_usuario || "No especificado"}</p>
+            </div>
+          </div>
+
+          <div className="perfil-item">
+            <div className="perfil-item-icon">
               <Shield size={20} strokeWidth={2} />
             </div>
             <div className="perfil-item-content">
@@ -140,6 +222,9 @@ const Perfil = () => {
               <p className="perfil-value">{perfil.rol}</p>
             </div>
           </div>
+
+          {/* Información específica según el rol */}
+          {renderRoleSpecificInfo()}
 
           <div className="perfil-item">
             <div className="perfil-item-icon">
@@ -158,9 +243,8 @@ const Perfil = () => {
             <div className="perfil-item-content">
               <span className="perfil-label">Estado de Cuenta</span>
               <span
-                className={`perfil-status ${
-                  perfil.is_active ? "status-active" : "status-inactive"
-                }`}
+                className={`perfil-status ${perfil.is_active ? "status-active" : "status-inactive"
+                  }`}
               >
                 {perfil.is_active ? "Activo" : "Inactivo"}
               </span>

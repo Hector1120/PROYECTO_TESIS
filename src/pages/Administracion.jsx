@@ -5,8 +5,8 @@ import "../styles/PageAdmin.css";
 import logoImage from "../assets/logo_cesmag.png";
 import centreLogo from "../assets/logo2.png";
 import Carousel from "../components/carousel/carousel";
-import { Eye, EyeOff, Search } from "lucide-react";
-import { User, UserCircle, Lock } from "lucide-react";
+import { Eye, EyeOff, Search, Calendar } from "lucide-react";
+import { User, UserCircle, Lock, UserCog, CalendarClock } from "lucide-react";
 import Perfil from "./Perfil";
 import CambiarClave from "./CambiarClave";
 
@@ -19,12 +19,22 @@ const Administracion = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showPerfil, setShowPerfil] = useState(false);
   const [showCambiarClave, setShowCambiarClave] = useState(false);
+  const [gruposDisponibles, setGruposDisponibles] = useState(['A', 'B', 'C', 'D', 'E']); // Puedes inicializar con los grupos que ya existen
+  // Estados para filtros de periodos
+  const [filtrosPeriodo, setFiltrosPeriodo] = useState({
+    codigo: ""
+  });
+  const [listaPeriodosFiltrada, setListaPeriodosFiltrada] = useState([]);
 
+  // Estados para usuarios
   const [nuevoUsuario, setNuevoUsuario] = useState({
+    nombre_usuario: "",
     correo: "",
     rol: "Estudiante",
     subtipo_director: "",
     subtipo_docente: "",
+    semestre: "",   // Nuevo campo
+    grupo: ""       // Nuevo campo
   });
   const [mensajeUsuario, setMensajeUsuario] = useState("");
   const [listaUsuarios, setListaUsuarios] = useState([]);
@@ -33,8 +43,24 @@ const Administracion = () => {
   const [usuarioEdicion, setUsuarioEdicion] = useState(null);
   const [filtros, setFiltros] = useState({
     correo: "",
+    nombre_usuario: "",
     rol: "",
+    semestre: "",
+    grupo: "",
   });
+
+  // Estados para periodos
+  const [modoGestionPeriodos, setModoGestionPeriodos] = useState("");
+  const [listaPeriodos, setListaPeriodos] = useState([]);
+  const [nuevoPeriodo, setNuevoPeriodo] = useState({
+    codigo: "",
+    fecha_inicio: "",
+    fecha_fin: "",
+    activo: true,
+  });
+  const [periodoEdicion, setPeriodoEdicion] = useState(null);
+  const [periodoOriginal, setPeriodoOriginal] = useState(null);
+  const [mensajePeriodo, setMensajePeriodo] = useState("");
 
   // Lista de subtipos de directores
   const subtiposDirector = [
@@ -70,6 +96,7 @@ const Administracion = () => {
     }
   }, [listaUsuarios]);
 
+  // Funciones para gestión de usuarios
   const handleEditarUsuario = async (usuario) => {
     setUsuarioEdicion({ ...usuario, password: "" }); // Add password field
     setModoGestionUsuarios("editar");
@@ -97,6 +124,23 @@ const Administracion = () => {
       return;
     }
 
+    // Prepara el cuerpo de la solicitud
+    const requestBody = {
+      correo: usuarioEdicion.correo,
+      nombre_usuario: usuarioEdicion.nombre_usuario,
+      rol: usuarioEdicion.rol,
+      is_active: usuarioEdicion.is_active,
+      password: usuarioEdicion.password,
+      subtipo_director: usuarioEdicion.subtipo_director || "",
+      subtipo_docente: usuarioEdicion.subtipo_docente || ""
+    };
+
+    // Si es estudiante, incluir semestre y grupo
+    if (usuarioEdicion.rol === "Estudiante") {
+      requestBody.semestre = usuarioEdicion.semestre || "";
+      requestBody.grupo = usuarioEdicion.grupo || "";
+    }
+
     try {
       const response = await fetch(
         `http://localhost:8000/usuarios/${usuarioEdicion.id}/`,
@@ -106,14 +150,7 @@ const Administracion = () => {
             "Content-Type": "application/json",
           },
           credentials: "include",
-          body: JSON.stringify({
-            correo: usuarioEdicion.correo,
-            rol: usuarioEdicion.rol,
-            is_active: usuarioEdicion.is_active,
-            password: usuarioEdicion.password,
-            subtipo_director: usuarioEdicion.subtipo_director || "", // Include subtipo_director in the request
-            subtipo_docente: usuarioEdicion.subtipo_docente || "", // Include subtipo_docente in the request
-          }),
+          body: JSON.stringify(requestBody),
         }
       );
 
@@ -184,7 +221,13 @@ const Administracion = () => {
       [name]: value,
     });
   };
-
+  const handleFiltroPeriodoChange = (e) => {
+    const { name, value } = e.target;
+    setFiltrosPeriodo({
+      ...filtrosPeriodo,
+      [name]: value
+    });
+  };
   const aplicarFiltros = () => {
     let usuariosFiltrados = [...listaUsuarios];
 
@@ -194,6 +237,12 @@ const Administracion = () => {
         usuario.correo.toLowerCase().includes(filtros.correo.toLowerCase())
       );
     }
+    // Filtrar por nombre
+    if (filtros.nombre_usuario) {
+      usuariosFiltrados = usuariosFiltrados.filter((usuario) =>
+        usuario.nombre_usuario.toLowerCase().includes(filtros.nombre_usuario.toLowerCase())
+      );
+    }
 
     // Filtrar por rol
     if (filtros.rol) {
@@ -201,19 +250,74 @@ const Administracion = () => {
         (usuario) => usuario.rol === filtros.rol
       );
     }
+    // Filtrar por semestre
+    if (filtros.semestre) {
+      usuariosFiltrados = usuariosFiltrados.filter(
+        (usuario) => usuario.semestre === filtros.semestre
+      );
+    }
+    // Filtrar por grupo
+    if (filtros.grupo) {
+      usuariosFiltrados = usuariosFiltrados.filter(
+        (usuario) => usuario.grupo === filtros.grupo
+      );
+    }
 
     setListaUsuariosFiltrada(usuariosFiltrados);
   };
+  const aplicarFiltrosPeriodo = () => {
+    let periodosFiltrados = [...listaPeriodos];
+
+    // Filtrar por código
+    if (filtrosPeriodo.codigo) {
+      periodosFiltrados = periodosFiltrados.filter((periodo) =>
+        periodo.codigo.toLowerCase().includes(filtrosPeriodo.codigo.toLowerCase())
+      );
+    }
+
+    setListaPeriodosFiltrada(periodosFiltrados);
+  };
+
+  useEffect(() => {
+    aplicarFiltrosPeriodo();
+  }, [filtrosPeriodo, listaPeriodos]);
 
   // Aplicar filtros cada vez que cambian los filtros o la lista de usuarios
   useEffect(() => {
     aplicarFiltros();
   }, [filtros, listaUsuarios]);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Si el menú está abierto y se da click en cualquier lado
+      if (showUserMenu) {
+        setShowUserMenu(false);    // Cerrar el menú
+        setShowPerfil(false);      // Cerrar perfil
+        setShowCambiarClave(false); // Cerrar cambiar clave
+        setActiveSection("");      // Volver a mostrar el Carousel
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [showUserMenu]);
+
+
   const limpiarFiltros = () => {
     setFiltros({
       correo: "",
+      nombre_usuario: "",
       rol: "",
+      semestre: "",
+      grupo: "",
+    });
+  };
+  const limpiarFiltrosPeriodo = () => {
+    setFiltrosPeriodo({
+      codigo: ""
     });
   };
 
@@ -238,6 +342,20 @@ const Administracion = () => {
               </div>
             </div>
             <div className="admin-form-group">
+              <label htmlFor="filtroNombre">Nombre:</label>
+              <div className="admin-search-input">
+                <input
+                  type="text"
+                  id="filtroNombre"
+                  name="nombre_usuario"
+                  value={filtros.nombre_usuario}
+                  onChange={handleFiltroChange}
+                  placeholder="Buscar por nombre"
+                />
+                <Search size={20} className="admin-search-icon" />
+              </div>
+            </div>
+            <div className="admin-form-group">
               <label htmlFor="filtroRol">Rol:</label>
               <select
                 id="filtroRol"
@@ -250,6 +368,38 @@ const Administracion = () => {
                 <option value="Docente">Docente</option>
                 <option value="Administrador">Administrador</option>
                 <option value="Director">Director</option>
+              </select>
+            </div>
+            <div className="admin-form-group">
+              <label htmlFor="filtroSemestre">Semestre:</label>
+              <select
+                id="filtroSemestre"
+                name="semestre"
+                value={filtros.semestre}
+                onChange={handleFiltroChange}
+              >
+                <option value="">Todos los semestres</option>
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                  <option key={num} value={num.toString()}>
+                    {num}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="admin-form-group">
+              <label htmlFor="filtroGrupo">Grupo:</label>
+              <select
+                id="filtroGrupo"
+                name="grupo"
+                value={filtros.grupo}
+                onChange={handleFiltroChange}
+              >
+                <option value="">Todos los grupos</option>
+                {gruposDisponibles.map((grupo) => (
+                  <option key={grupo} value={grupo}>
+                    {grupo}
+                  </option>
+                ))}
               </select>
             </div>
             <button
@@ -269,9 +419,12 @@ const Administracion = () => {
               <tr>
                 <th>ID</th>
                 <th>Correo</th>
+                <th>Nombre</th>
                 <th>Rol</th>
                 <th>Tipo Director</th>
                 <th>Tipo Docente</th>
+                <th>Semestre</th>  {/* Nueva columna */}
+                <th>Grupo</th>     {/* Nueva columna */}
                 <th>Estado</th>
                 <th>Acciones</th>
               </tr>
@@ -282,16 +435,18 @@ const Administracion = () => {
                   <tr key={usuarioItem.id}>
                     <td>{usuarioItem.id}</td>
                     <td>{usuarioItem.correo}</td>
+                    <td>{usuarioItem.nombre_usuario}</td>
                     <td>{usuarioItem.rol}</td>
                     <td>{usuarioItem.subtipo_director || "-"}</td>
                     <td>{usuarioItem.subtipo_docente || "-"}</td>
+                    <td>{usuarioItem.rol === "Estudiante" ? (usuarioItem.semestre || "-") : "-"}</td>
+                    <td>{usuarioItem.rol === "Estudiante" ? (usuarioItem.grupo || "-") : "-"}</td>
                     <td>
                       <span
-                        className={`${
-                          usuarioItem.is_active
-                            ? "admin-status-activo"
-                            : "admin-status-inactivo"
-                        }`}
+                        className={`${usuarioItem.is_active
+                          ? "admin-status-activo"
+                          : "admin-status-inactivo"
+                          }`}
                       >
                         {usuarioItem.is_active ? "Activo" : "Inactivo"}
                       </span>
@@ -318,7 +473,7 @@ const Administracion = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="7" className="admin-no-results">
+                  <td colSpan="10" className="admin-no-results">  {/* Actualizar el colSpan a 10 */}
                     No se encontraron usuarios con los filtros aplicados
                   </td>
                 </tr>
@@ -330,6 +485,366 @@ const Administracion = () => {
     );
   };
 
+  // Funciones para periodos
+  const handleCrearPeriodo = async (e) => {
+    e.preventDefault();
+    setMensajePeriodo("");
+
+    // Validaciones básicas
+    if (!nuevoPeriodo.fecha_inicio || !nuevoPeriodo.fecha_fin) {
+      setMensajePeriodo("Todos los campos son obligatorios");
+      setTimeout(() => {
+        setMensajePeriodo("");
+      }, 3000);
+      return;
+    }
+
+    // Validar que la fecha de fin sea posterior a la fecha de inicio
+    if (new Date(nuevoPeriodo.fecha_fin) <= new Date(nuevoPeriodo.fecha_inicio)) {
+      setMensajePeriodo("La fecha de fin debe ser posterior a la fecha de inicio");
+      setTimeout(() => {
+        setMensajePeriodo("");
+      }, 3000);
+      return;
+    }
+
+    // Obtener objetos de fecha para trabajar con ellos
+    const fechaInicio = new Date(nuevoPeriodo.fecha_inicio);
+    const fechaFin = new Date(nuevoPeriodo.fecha_fin);
+
+    // Validar que ambas fechas pertenezcan al mismo año
+    if (fechaInicio.getFullYear() !== fechaFin.getFullYear()) {
+      setMensajePeriodo("Las fechas de inicio y fin deben pertenecer al mismo año académico");
+      setTimeout(() => {
+        setMensajePeriodo("");
+      }, 3000);
+      return;
+    }
+
+    // Obtener año de la fecha de inicio (no el año actual)
+    const añoFecha = fechaInicio.getFullYear();
+
+    // Determinar semestre basado en las fechas
+    const semestre = (fechaInicio.getMonth() < 6 && fechaFin.getMonth() < 6) ? 1 : 2;
+
+    // Generar código automáticamente basado en el año de las fechas
+    const codigoGenerado = `${añoFecha}-${semestre}`;
+
+    // Verificar si el código proporcionado coincide con la lógica
+    if (nuevoPeriodo.codigo && nuevoPeriodo.codigo !== codigoGenerado) {
+      setMensajePeriodo(`El código debe ser ${codigoGenerado} basado en las fechas proporcionadas`);
+      setTimeout(() => {
+        setMensajePeriodo("");
+      }, 3000);
+      return;
+    }
+
+    // Usar el código generado si no se proporcionó uno
+    const periodoData = {
+      ...nuevoPeriodo,
+      codigo: nuevoPeriodo.codigo || codigoGenerado
+    };
+
+    try {
+      const response = await fetch("http://localhost:8000/crear-periodo/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(periodoData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMensajePeriodo("Periodo creado exitosamente");
+        setNuevoPeriodo({
+          codigo: "",
+          fecha_inicio: "",
+          fecha_fin: "",
+          activo: true,
+        });
+        await handleListarPeriodos();
+      } else {
+        setMensajePeriodo(data.mensaje || "Error al crear periodo");
+      }
+
+      setTimeout(() => {
+        setMensajePeriodo("");
+      }, 3000);
+    } catch (error) {
+      setMensajePeriodo("Error de conexión");
+      console.error("Error:", error);
+      setTimeout(() => {
+        setMensajePeriodo("");
+      }, 3000);
+    }
+  };
+
+  const handleListarPeriodos = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/listar-periodos/", {
+        method: "GET",
+        credentials: "include",
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setListaPeriodos(data);
+        setListaPeriodosFiltrada(data);
+        setModoGestionPeriodos("listar");
+      } else {
+        setMensajePeriodo("Error al obtener la lista de periodos");
+        setTimeout(() => {
+          setMensajePeriodo("");
+        }, 3000);
+      }
+    } catch (error) {
+      setMensajePeriodo("Error de conexión");
+      console.error("Error:", error);
+      setTimeout(() => {
+        setMensajePeriodo("");
+      }, 3000);
+    }
+  };
+
+  const handleEditarPeriodo = (periodo) => {
+    setPeriodoEdicion({ ...periodo });
+    setPeriodoOriginal({ ...periodo });
+    setModoGestionPeriodos("editar");
+  };
+
+  const handleSubmitEdicionPeriodo = async (e) => {
+    e.preventDefault();
+    setMensajePeriodo("");
+
+    // Validaciones básicas
+    if (!periodoEdicion.codigo || !periodoEdicion.fecha_inicio || !periodoEdicion.fecha_fin) {
+      setMensajePeriodo("Todos los campos son obligatorios");
+      setTimeout(() => {
+        setMensajePeriodo("");
+      }, 3000);
+      return;
+    }
+
+    // Solo realizar las validaciones de fecha si estas se están modificando
+    // comparando con las fechas originales del periodo
+    const fechasModificadas = periodoEdicion.fecha_inicio !== periodoOriginal?.fecha_inicio ||
+      periodoEdicion.fecha_fin !== periodoOriginal?.fecha_fin;
+
+    if (fechasModificadas) {
+      // Validar que la fecha de fin sea posterior a la fecha de inicio
+      if (new Date(periodoEdicion.fecha_fin) <= new Date(periodoEdicion.fecha_inicio)) {
+        setMensajePeriodo("La fecha de fin debe ser posterior a la fecha de inicio");
+        setTimeout(() => {
+          setMensajePeriodo("");
+        }, 3000);
+        return;
+      }
+
+      // Obtener objetos de fecha para trabajar con ellos
+      const fechaInicio = new Date(periodoEdicion.fecha_inicio);
+      const fechaFin = new Date(periodoEdicion.fecha_fin);
+
+      // Validar que ambas fechas pertenezcan al mismo año
+      if (fechaInicio.getFullYear() !== fechaFin.getFullYear()) {
+        setMensajePeriodo("Las fechas de inicio y fin deben pertenecer al mismo año académico");
+        setTimeout(() => {
+          setMensajePeriodo("");
+        }, 3000);
+        return;
+      }
+
+      // Obtener año de la fecha de inicio
+      const añoFecha = fechaInicio.getFullYear();
+
+      // Determinar semestre basado en las fechas
+      const semestre = (fechaInicio.getMonth() < 6 && fechaFin.getMonth() < 6) ? 1 : 2;
+
+      // Generar código que debería tener basado en las fechas
+      const codigoGenerado = `${añoFecha}-${semestre}`;
+
+      // Validar código contra el generado según las fechas
+      if (periodoEdicion.codigo !== codigoGenerado) {
+        setMensajePeriodo(`El código debe ser ${codigoGenerado} basado en las fechas proporcionadas`);
+        setTimeout(() => {
+          setMensajePeriodo("");
+        }, 3000);
+        return;
+      }
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:8000/detalle-periodo/${periodoEdicion.id}/`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(periodoEdicion),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMensajePeriodo("Periodo actualizado exitosamente");
+        await handleListarPeriodos();
+        setModoGestionPeriodos("listar");
+        setPeriodoEdicion(null);
+      } else {
+        setMensajePeriodo(data.mensaje || "Error al actualizar periodo");
+      }
+
+      setTimeout(() => {
+        setMensajePeriodo("");
+      }, 3000);
+    } catch (error) {
+      setMensajePeriodo("Error de conexión");
+      console.error("Error:", error);
+      setTimeout(() => {
+        setMensajePeriodo("");
+      }, 3000);
+    }
+  };
+
+  const handleEliminarPeriodo = async (periodo) => {
+    const confirmacion = window.confirm(
+      `¿Estás seguro de eliminar el periodo ${periodo.codigo} ?`
+    );
+
+    if (confirmacion) {
+      try {
+        const response = await fetch(
+          `http://localhost:8000/detalle-periodo/${periodo.id}/`,
+          {
+            method: "DELETE",
+            credentials: "include",
+          }
+        );
+
+        const data = await response.json();
+
+        if (response.ok) {
+          setMensajePeriodo("Periodo eliminado exitosamente");
+          await handleListarPeriodos();
+        } else {
+          setMensajePeriodo(data.mensaje || "Error al eliminar periodo");
+        }
+
+        setTimeout(() => {
+          setMensajePeriodo("");
+        }, 3000);
+      } catch (error) {
+        setMensajePeriodo("Error de conexión");
+        console.error("Error:", error);
+        setTimeout(() => {
+          setMensajePeriodo("");
+        }, 3000);
+      }
+    }
+  };
+
+  const renderListaPeriodos = () => {
+    return (
+      <div className="admin-users-list-container">
+        <div className="admin-search-form">
+          <h3>Filtrar Periodos</h3>
+          <div className="admin-search-fields">
+            <div className="admin-form-group">
+              <label htmlFor="filtroCodigo">Código:</label>
+              <div className="admin-search-input">
+                <input
+                  type="text"
+                  id="filtroCodigo"
+                  name="codigo"
+                  value={filtrosPeriodo.codigo}
+                  onChange={handleFiltroPeriodoChange}
+                  placeholder="Buscar por código"
+                />
+                <Search size={20} className="admin-search-icon" />
+              </div>
+            </div>
+            <button
+              type="button"
+              className="admin-clear-filter"
+              onClick={limpiarFiltrosPeriodo}
+            >
+              Limpiar Filtros
+            </button>
+          </div>
+        </div>
+
+        <div className="admin-users-table-container">
+          <p>Total de periodos mostrados: {listaPeriodosFiltrada.length}</p>
+          <table className="admin-users-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Código</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Fin</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {listaPeriodosFiltrada.length > 0 ? (
+                listaPeriodosFiltrada.map((periodoItem) => (
+                  <tr key={periodoItem.id}>
+                    <td>{periodoItem.id}</td>
+                    <td>{periodoItem.codigo}</td>
+                    <td>{new Date(periodoItem.fecha_inicio).toLocaleDateString('es-ES', { timeZone: 'UTC' })}</td>
+                    <td>{new Date(periodoItem.fecha_fin).toLocaleDateString('es-ES', { timeZone: 'UTC' })}</td>
+                    <td>
+                      <span
+                        className={`${periodoItem.activo
+                          ? "admin-status-activo"
+                          : "admin-status-inactivo"
+                          }`}
+                      >
+                        {periodoItem.activo ? "Activo" : "Inactivo"}
+                      </span>
+                    </td>
+                    <td>
+                      <div className="admin-table-actions">
+                        <button
+                          className="admin-edit-button"
+                          onClick={() => handleEditarPeriodo(periodoItem)}
+                          title="Editar Periodo"
+                        >
+                          ✏️
+                        </button>
+                        <button
+                          className="admin-delete-button"
+                          onClick={() => handleEliminarPeriodo(periodoItem)}
+                          title="Eliminar Periodo"
+                        >
+                          🗑️
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="7" className="admin-no-results">
+                    No se encontraron periodos con los filtros aplicados
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
+  };
+
+  // Funciones generales
   const handleLogout = async () => {
     await logout();
     navigate("/");
@@ -348,13 +863,15 @@ const Administracion = () => {
 
   const handleSectionClick = (section) => {
     setModoGestionUsuarios("");
+    setModoGestionPeriodos("");
     setActiveSection(activeSection === section ? "" : section);
     setShowPerfil(false);
     setShowCambiarClave(false);
     window.scrollTo(0, 0);
   };
 
-  const toggleUserMenu = () => {
+  const toggleUserMenu = (e) => {
+    e.stopPropagation();  // Evita que el click cierre el menú inmediatamente
     setShowUserMenu(!showUserMenu);
   };
 
@@ -398,6 +915,7 @@ const Administracion = () => {
         );
         setNuevoUsuario({
           correo: "",
+          nombre_usuario: "",
           rol: "Estudiante",
           subtipo_director: "",
           subtipo_docente: "",
@@ -560,7 +1078,6 @@ const Administracion = () => {
                 Listar Usuarios
               </button>
             </div>
-
             {modoGestionUsuarios === "añadir" && (
               <form onSubmit={handleCrearUsuario} className="admin-user-form">
                 <div className="admin-form-group">
@@ -573,6 +1090,21 @@ const Administracion = () => {
                       setNuevoUsuario({
                         ...nuevoUsuario,
                         correo: e.target.value,
+                      })
+                    }
+                    required
+                  />
+                </div>
+                <div className="admin-form-group">
+                  <label htmlFor="nombre_usuario">Nombre y Apellido</label>
+                  <input
+                    type="text"
+                    id="nombre_usuario"
+                    value={nuevoUsuario.nombre_usuario}
+                    onChange={(e) =>
+                      setNuevoUsuario({
+                        ...nuevoUsuario,
+                        nombre_usuario: e.target.value,
                       })
                     }
                     required
@@ -634,6 +1166,52 @@ const Administracion = () => {
                     </select>
                   </div>
                 )}
+                {nuevoUsuario.rol === "Estudiante" && (
+                  <>
+                    <div className="admin-form-group">
+                      <label htmlFor="semestre">Semestre</label>
+                      <select
+                        id="semestre"
+                        value={nuevoUsuario.semestre}
+                        onChange={(e) =>
+                          setNuevoUsuario({
+                            ...nuevoUsuario,
+                            semestre: e.target.value,
+                          })
+                        }
+                        required
+                      >
+                        <option value="">Seleccione un semestre</option>
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                          <option key={num} value={num.toString()}>
+                            {num}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="admin-form-group">
+                      <label htmlFor="grupo">Grupo</label>
+                      <select
+                        id="grupo"
+                        value={nuevoUsuario.grupo}
+                        onChange={(e) =>
+                          setNuevoUsuario({
+                            ...nuevoUsuario,
+                            grupo: e.target.value,
+                          })
+                        }
+                        required
+                      >
+                        <option value="">Seleccione un grupo</option>
+                        {gruposDisponibles.map((grupo) => (
+                          <option key={grupo} value={grupo}>
+                            {grupo}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </>
+                )}
 
                 <button type="submit" className="admin-submit-button">
                   Crear Usuario
@@ -653,6 +1231,21 @@ const Administracion = () => {
                       setUsuarioEdicion({
                         ...usuarioEdicion,
                         correo: e.target.value,
+                      })
+                    }
+                    required
+                  />
+                </div>
+                <div className="admin-form-group">
+                  <label htmlFor="nombre_usuario">Nombre y Apellido</label>
+                  <input
+                    type="text"
+                    id="nombre_usuario"
+                    value={usuarioEdicion.nombre_usuario}
+                    onChange={(e) =>
+                      setUsuarioEdicion({
+                        ...usuarioEdicion,
+                        nombre_usuario: e.target.value,
                       })
                     }
                     required
@@ -718,7 +1311,7 @@ const Administracion = () => {
                         >
                           {subtipo}{" "}
                           {subtiposUsados[subtipo] &&
-                          usuarioEdicion.subtipo_director !== subtipo
+                            usuarioEdicion.subtipo_director !== subtipo
                             ? "(Ya asignado)"
                             : ""}
                         </option>
@@ -747,6 +1340,53 @@ const Administracion = () => {
                     </select>
                   </div>
                 )}
+                {usuarioEdicion && usuarioEdicion.rol === "Estudiante" && (
+                  <>
+                    <div className="admin-form-group">
+                      <label htmlFor="semestre_edicion">Semestre</label>
+                      <select
+                        id="semestre_edicion"
+                        value={usuarioEdicion.semestre || ""}
+                        onChange={(e) =>
+                          setUsuarioEdicion({
+                            ...usuarioEdicion,
+                            semestre: e.target.value,
+                          })
+                        }
+                        required
+                      >
+                        <option value="">Seleccione un semestre</option>
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                          <option key={num} value={num.toString()}>
+                            {num}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="admin-form-group">
+                      <label htmlFor="grupo_edicion">Grupo</label>
+                      <select
+                        id="grupo_edicion"
+                        value={usuarioEdicion.grupo || ""}
+                        onChange={(e) =>
+                          setUsuarioEdicion({
+                            ...usuarioEdicion,
+                            grupo: e.target.value,
+                          })
+                        }
+                        required
+                      >
+                        <option value="">Seleccione un grupo</option>
+                        {gruposDisponibles.map((grupo) => (
+                          <option key={grupo} value={grupo}>
+                            {grupo}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </>
+                )}
+
 
                 <div className="admin-form-group">
                   <label>
@@ -785,13 +1425,210 @@ const Administracion = () => {
 
             {mensajeUsuario && (
               <div
-                className={`admin-mensaje ${
-                  mensajeUsuario.includes("exitosamente")
-                    ? "admin-mensaje-exito"
-                    : "admin-mensaje-error"
-                }`}
+                className={`admin-mensaje ${mensajeUsuario.includes("exitosamente")
+                  ? "admin-mensaje-exito"
+                  : "admin-mensaje-error"
+                  }`}
               >
                 {mensajeUsuario}
+              </div>
+            )}
+          </div>
+        );
+      case "gestion-periodos":
+        return (
+          <div className="admin-section-content">
+            <h2>Gestión de Periodos</h2>
+            <div className="admin-user-management-buttons">
+              <button
+                onClick={() => setModoGestionPeriodos("añadir")}
+                className={
+                  modoGestionPeriodos === "añadir" ? "admin-active-button" : ""
+                }
+              >
+                Añadir Periodo
+              </button>
+              <button
+                onClick={handleListarPeriodos}
+                className={
+                  modoGestionPeriodos === "listar" ? "admin-active-button" : ""
+                }
+              >
+                Listar Periodos
+              </button>
+            </div>
+            {modoGestionPeriodos === "añadir" && (
+              <form onSubmit={handleCrearPeriodo} className="admin-user-form">
+                <div className="admin-form-group">
+                  <label htmlFor="codigo">Código de Periodo(formato: AAAA-S)</label>
+                  <input
+                    type="text"
+                    id="codigo"
+                    value={nuevoPeriodo.codigo}
+                    onChange={(e) =>
+                      setNuevoPeriodo({
+                        ...nuevoPeriodo,
+                        codigo: e.target.value,
+                      })
+                    }
+                    placeholder="Ejemplo: 2025-1"
+                    required
+                  />
+                </div>
+                <div className="admin-form-group">
+                  <label htmlFor="fecha_inicio">Fecha de Inicio</label>
+                  <div className="admin-date-input">
+                    <input
+                      type="date"
+                      id="fecha_inicio"
+                      value={nuevoPeriodo.fecha_inicio}
+                      onChange={(e) =>
+                        setNuevoPeriodo({
+                          ...nuevoPeriodo,
+                          fecha_inicio: e.target.value,
+                        })
+                      }
+                      required
+                    />
+                    <Calendar size={20} className="admin-calendar-icon" />
+                  </div>
+                </div>
+                <div className="admin-form-group">
+                  <label htmlFor="fecha_fin">Fecha de Fin</label>
+                  <div className="admin-date-input">
+                    <input
+                      type="date"
+                      id="fecha_fin"
+                      value={nuevoPeriodo.fecha_fin}
+                      onChange={(e) =>
+                        setNuevoPeriodo({
+                          ...nuevoPeriodo,
+                          fecha_fin: e.target.value,
+                        })
+                      }
+                      required
+                    />
+                    <Calendar size={20} className="admin-calendar-icon" />
+                  </div>
+                </div>
+                <div className="admin-form-group">
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={nuevoPeriodo.activo}
+                      onChange={(e) =>
+                        setNuevoPeriodo({
+                          ...nuevoPeriodo,
+                          activo: e.target.checked,
+                        })
+                      }
+                    />
+                    Periodo Activo
+                  </label>
+                </div>
+                <button type="submit" className="admin-submit-button">
+                  Crear Periodo
+                </button>
+              </form>
+            )}
+
+            {modoGestionPeriodos === "editar" && periodoEdicion && (
+              <form onSubmit={handleSubmitEdicionPeriodo} className="admin-user-form">
+                <div className="admin-form-group">
+                  <label htmlFor="codigo">Código de Periodo (formato: AAAA-S)</label>
+                  <input
+                    type="text"
+                    id="codigo"
+                    value={periodoEdicion.codigo}
+                    onChange={(e) =>
+                      setPeriodoEdicion({
+                        ...periodoEdicion,
+                        codigo: e.target.value,
+                      })
+                    }
+                    placeholder="Ejemplo: 2025-1"
+                    required
+                  />
+                </div>
+                <div className="admin-form-group">
+                  <label htmlFor="fecha_inicio_edicion">Fecha de Inicio</label>
+                  <div className="admin-date-input">
+                    <input
+                      type="date"
+                      id="fecha_inicio_edicion"
+                      value={periodoEdicion.fecha_inicio}
+                      onChange={(e) =>
+                        setPeriodoEdicion({
+                          ...periodoEdicion,
+                          fecha_inicio: e.target.value,
+                        })
+                      }
+                      required
+                    />
+                    <Calendar size={20} className="admin-calendar-icon" />
+                  </div>
+                </div>
+                <div className="admin-form-group">
+                  <label htmlFor="fecha_fin_edicion">Fecha de Fin</label>
+                  <div className="admin-date-input">
+                    <input
+                      type="date"
+                      id="fecha_fin_edicion"
+                      value={periodoEdicion.fecha_fin}
+                      onChange={(e) =>
+                        setPeriodoEdicion({
+                          ...periodoEdicion,
+                          fecha_fin: e.target.value,
+                        })
+                      }
+                      required
+                    />
+                    <Calendar size={20} className="admin-calendar-icon" />
+                  </div>
+                </div>
+                <div className="admin-form-group">
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={periodoEdicion.activo}
+                      onChange={(e) =>
+                        setPeriodoEdicion({
+                          ...periodoEdicion,
+                          activo: e.target.checked,
+                        })
+                      }
+                    />
+                    Periodo Activo
+                  </label>
+                </div>
+                <div className="admin-form-buttons">
+                  <button type="submit" className="admin-submit-button">
+                    Guardar Cambios
+                  </button>
+                  <button
+                    type="button"
+                    className="admin-cancel-button"
+                    onClick={() => {
+                      setModoGestionPeriodos("listar");
+                      setPeriodoEdicion(null);
+                    }}
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              </form>
+            )}
+
+            {modoGestionPeriodos === "listar" && renderListaPeriodos()}
+
+            {mensajePeriodo && (
+              <div
+                className={`admin-mensaje ${mensajePeriodo.includes("exitosamente")
+                  ? "admin-mensaje-exito"
+                  : "admin-mensaje-error"
+                  }`}
+              >
+                {mensajePeriodo}
               </div>
             )}
           </div>
@@ -837,7 +1674,20 @@ const Administracion = () => {
                       activeSection === "gestion-usuarios" ? "admin-active" : ""
                     }
                   >
+                    <UserCog size={18} />
                     Gestión de Usuarios
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    onClick={() => handleSectionClick("gestion-periodos")}
+                    className={
+                      activeSection === "gestion-periodos" ? "admin-active" : ""
+                    }
+                  >
+                    <CalendarClock size={18} />
+                    Gestión de Periodos
                   </a>
                 </li>
                 {/* Aquí puedes agregar más opciones de menú según necesites */}
@@ -847,9 +1697,9 @@ const Administracion = () => {
         </nav>
 
         <div className="admin-user-info">
-          <p>Usuario: {usuario?.correo}</p>
-          <div className="user-actions">
-            <button className="user-icon-button" onClick={toggleUserMenu}>
+          <p>Usuario: {usuario?.nombre_usuario} ({usuario?.correo})</p>
+          <div className="docente-user-actions">
+            <button className="docente-user-icon-button" onClick={(e) => toggleUserMenu(e)}>
               <User size={24} strokeWidth={2} />
             </button>
             <button className="admin-logout-button" onClick={confirmLogout}>
@@ -858,7 +1708,7 @@ const Administracion = () => {
           </div>
         </div>
         {showUserMenu && (
-          <div className="user-menu-dropdown">
+          <div className="docente-user-menu-dropdown">
             <ul>
               <li
                 onClick={() => {

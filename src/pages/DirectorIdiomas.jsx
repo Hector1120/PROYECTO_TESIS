@@ -1,14 +1,13 @@
 import React from 'react';
 import Director from './Director';
+import {GraduationCap, CalendarDays, BookOpen, FileBarChart2 } from "lucide-react";
 
 const DirectorIdiomas = () => {
   const navbarOptions = [
-    { id: 'gestion-docentes', label: 'Gestión de Docentes',  },
-    { id: 'gestion-horarios', label: 'Gestión de Horarios'},
-    { id: 'gestion-asignaturas', label: 'Gestión de Asignaturas',  },
-    { id: 'cursos-idiomas', label: 'Cursos de Idiomas' },
-    { id: 'recursos-linguisticos', label: 'Recursos Lingüísticos'},
-    { id: 'intercambios', label: 'Programas de Intercambio'}
+    { id: 'gestion-docentes', label: 'Gestión de Docentes', icon: GraduationCap },
+    { id: 'gestion-horarios', label: 'Gestión de Horarios', icon: CalendarDays},
+    { id: 'gestion-asignaturas', label: 'Gestión de Asignaturas', icon: BookOpen },
+    { id: 'reportes', label: 'Reportes del Departamento', icon: FileBarChart2 },
   ];
 
   const welcomeText = "Bienvenido Director de Idiomas";

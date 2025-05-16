@@ -18,7 +18,7 @@ html, body {
 }
 
 
-.background-image {
+.docente-background-image {
   width: 100%;
   min-height: 100vh; /* Changed from height: 100% to min-height: 100vh */
   background-image: url('../assets/fondo2.png');
@@ -43,7 +43,7 @@ html, body {
 }
 
 /* Contenedor para los elementos de la barra */
-.navbar-content {
+.docente-navbar-content {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -123,6 +123,11 @@ html, body {
   gap: 12px;
   max-width: 100%;
 }
+.docente-nav-options a.docente-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  position: relative;
+}
 
 .docente-nav-options li {
   margin: 0;
@@ -136,11 +141,15 @@ html, body {
   transition: all 0.3s ease;
   font-size: 0.9rem;
   white-space: nowrap;
-  display: block;
+  display: flex;
+  align-items: center;
   background-color: #d81020;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-weight: bold;
   border: 2px solid transparent;
+}
+.docente-nav-options li a svg { /* Asegúrate de que el icono sea un SVG */
+  margin-right: 8px; /* Espacio entre el icono y el texto */
 }
 
 .docente-nav-options li a:hover, 
@@ -178,7 +187,7 @@ html, body {
 }
 
 /* User info and logout button */
-.user-info {
+.docente-user-info {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -193,7 +202,7 @@ html, body {
   justify-content: flex-start;
 }
 
-.user-info p {
+.docente-user-info p {
   margin: 0 15px 0 0;
   font-size: 1rem; /* Reducido para ahorrar espacio vertical */
   color: #034081;
@@ -201,7 +210,7 @@ html, body {
 }
 
 
-.logout-button {
+.docente-logout-button {
   background-color: #d81020;
   color: white;
   border: none;
@@ -217,12 +226,12 @@ html, body {
   
 }
 
-.logout-button:hover {
+.docente-logout-button:hover {
   background-color: #a50e18;
   transform: translateY(-2px);
 }
 
-.content-area {
+.docente-content-area {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -238,7 +247,7 @@ html, body {
   position: relative;
 }
 
-.logout-confirmation {
+.docente-logout-confirmation {
   position: fixed;
   top: 0;
   left: 0;
@@ -251,12 +260,12 @@ html, body {
   z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
 }
 
-.confirmation-logo {
+.docente-confirmation-logo {
   width: 200px; /* Ajusta el tamaño a 80 píxeles */
   margin-bottom: 5px; /* Espacio entre el logo y el texto */
 }
 
-.confirmation-content {
+.docente-confirmation-content {
   background: rgb(8, 72, 102); /* Fondo blanco para la ventana */
   padding: 20px;
   border-radius: 8px; /* Bordes redondeados */
@@ -264,14 +273,14 @@ html, body {
   text-align: center; /* Centrar el texto */
 }
 
-.confirmation-content p {
+.docente-confirmation-content p {
   margin-bottom: 20px; /* Espacio entre el texto y los botones */
   font-size: 16px; /* Tamaño de fuente */
   color: #ffffff;
   font-weight: bold;
 }
 
-.confirmation-content button {
+.docente-confirmation-content button {
   margin: 0 10px; /* Espacio entre los botones */
   padding: 10px 20px; /* Espaciado interno */
   border: none; /* Sin borde */
@@ -283,22 +292,22 @@ html, body {
   font-weight: bold;
 }
 
-.confirmation-content button:hover {
+.docente-confirmation-content button:hover {
   background-color: #4361ee; /* Color de fondo al pasar el mouse */
 }
 
-.confirmation-content button:last-child {
+.docente-confirmation-content button:last-child {
   background-color: #a50e18; /* Color de fondo para el botón "No" */
   color: white; /* Color del texto */
   font-weight: bold;
 }
 
-.confirmation-content button:last-child:hover {
+.docente-confirmation-content button:last-child:hover {
   background-color: #e53935; /* Color de fondo al pasar el mouse sobre "No" */
 }
 
 /* Section content styles */
-.section-content {
+.docente-section-content {
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 10px;
   padding: 20px;
@@ -306,23 +315,23 @@ html, body {
   width: 100%;
   max-width: 1000px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  color: #333;
+  color: #034081;
   box-sizing: border-box;
   position: relative; /* Added position relative */
   z-index: 5; /* Added z-index */
   top: 10%;
 }
 
-.section-content h2 {
-  color: #14213d;
-  border-bottom: 2px solid #14213d;
+.docente-section-content h2 {
+  color: #034081;
+  border-bottom: 2px solid #034081;
   padding-bottom: 10px;
   margin-top: 0;
   margin-bottom: 15px;
 }
 
 
-.welcome-content {
+.docente-welcome-content {
   width: 100%;
   max-width: 1200px;
   display: flex;
@@ -334,247 +343,662 @@ html, body {
 /* =================================================== */
 
 /* Estilos generales de la sección de horario */
-.horario-section {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 240, 250, 0.95) 100%);
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  padding: 20px;
-  min-height: 450px;
-  border-top: 5px solid #20386d;
+/* Estilos mejorados para la sección de registrar horario */
+.docente-horario-section {
+  background: linear-gradient(to bottom right, #ffffff, #f7f9fc);
+  border-radius: 16px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.18);
+  padding: 30px;
+  min-height: 480px;
+  border-top: 6px solid #034081;
   position: relative;
-  overflow: visible; /* Changed from hidden to visible */
-  margin-bottom: 15px;
-
-  z-index: 5; /* Added z-index */
+  overflow: visible;
+  margin-bottom: 20px;
+  z-index: 5;
+  transition: all 0.3s ease;
 }
 
-.horario-section::before {
+.docente-horario-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
+}
+
+.docente-horario-section::before {
   content: '';
   position: absolute;
   top: 0;
   right: 0;
-  width: 100px;
-  height: 100px;
-  background: radial-gradient(circle, rgba(58, 134, 255, 0.1) 0%, rgba(58, 134, 255, 0) 70%);
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(216, 16, 32, 0.08) 0%, rgba(216, 16, 32, 0) 70%);
+  z-index: 0;
+}
+
+.docente-horario-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(3, 64, 129, 0.08) 0%, rgba(3, 64, 129, 0) 70%);
   z-index: 0;
 }
 
 /* Cabecera de la sección */
-.horario-header {
+.docente-horario-header {
   display: flex;
   flex-direction: column;
-  margin-bottom: 15px; /* Reducido para ahorrar espacio vertical */
-}
-
-.horario-header h2 {
-  color: #14213d;
-  font-size: 1.5rem; /* Reducido para ahorrar espacio vertical */
-  margin: 0 0 10px 0;
-  padding-bottom: 8px;
-  border-bottom: 3px solid #20386d;
+  margin-bottom: 26px;
   position: relative;
 }
 
-.horario-header h2::after {
+.docente-horario-header::after {
+  content: '📅';
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 24px;
+  opacity: 0.5;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.docente-horario-header h2 {
+  color: #034081;
+  font-size: 2rem;
+  margin: 0 0 15px 0;
+  padding-bottom: 12px;
+  border-bottom: 3px solid #d81020;
+  position: relative;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.docente-horario-header h2:hover {
+  color: #d81020;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.docente-horario-header h2::after {
   content: '';
   position: absolute;
   left: 0;
   bottom: -3px;
-  width: 60px;
+  width: 80px;
   height: 3px;
-  background-color: #fca311;
+  background-color: #034081;
+  transition: width 0.3s ease;
+}
+
+.docente-horario-header h2:hover::after {
+  width: 120px;
 }
 
 /* Información del periodo */
-.periodo-info {
+.docente-periodo-info {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 5px;
+  gap: 14px;
+  margin-bottom: 12px;
+  background: rgba(3, 64, 129, 0.04);
+  padding: 12px 16px;
+  border-radius: 12px;
+  border-left: 4px solid #034081;
+  animation: fadeIn 0.5s ease-out;
 }
 
-.periodo-badge {
-  background-color: #20386d;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.docente-periodo-badge {
+  background: linear-gradient(135deg, #d81020, #f44336);
   color: white;
   font-weight: bold;
-  padding: 5px 12px;
+  padding: 8px 16px;
   border-radius: 20px;
-  font-size: 0.9rem;
-  box-shadow: 0 3px 6px rgba(58, 134, 255, 0.3);
+  font-size: 0.95rem;
+  box-shadow: 0 4px 8px rgba(216, 16, 32, 0.3);
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
 }
 
-.periodo-info p {
+.docente-periodo-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(216, 16, 32, 0.4);
+}
+
+.docente-periodo-info p {
   margin: 0;
-  color: #555;
-  font-size: 0.9rem;
+  color: #034081;
+  font-size: 1rem;
 }
 
-.periodo-dates {
+.docente-periodo-dates {
   font-weight: bold;
-  color: #14213d;
+  color: #034081;
+  position: relative;
+  padding-bottom: 2px;
 }
+
+.docente-periodo-dates::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #d81020;
+  transition: width 0.3s ease;
+}
+
+.docente-periodo-dates:hover::after {
+  width: 100%;
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/*.docente-mensaje-notificacion {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 12px 20px;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  max-width: 400px;
+  font-weight: 500;
+  opacity: 0;
+  animation: fadeInScale 0.4s ease-out forwards;
+}*/
+.docente-mensaje-notificacion {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 16px 24px;
+  border-radius: 8px;
+  background-color: #d81020;
+  color: #ffffff; /* Texto blanco */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  max-width: 400px;
+  font-weight: 600;
+  font-size: 16px;
+  text-align: center;
+  opacity: 0;
+  animation: fadeInScale 0.4s ease-out forwards;
+}
+
+
+/*animation: fadeIn 0.3s, fadeOut 0.3s 2.7s;*/
+
+
+.docente-mensaje-notificacion.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-left: 4px solid #dc3545;
+}
+
+.docente-mensaje-notificacion.exito {
+  background-color: #d4edda;
+  color: #155724;
+  border-left: 4px solid #28a745;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-20px); }
+}
+
 
 /* Estilos del formulario */
-.horario-form {
+.docente-horario-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 24px;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 1;
+  max-width: 900px; /* Limitar el ancho máximo del formulario aumentado */
+  margin: 0 auto; /* Centrar el formulario */
 }
 
-.form-group {
+
+@media (max-width: 768px) {
+  .docente-time-input-wrapper {
+    max-width: 100%; /* En móviles, usar el ancho completo disponible */
+  }
+  
+  .docente-time-inputs {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+.docente-form-group {
   position: relative;
   margin-bottom: 0;
+  transition: all 0.3s ease;
+  
 }
 
-.label-text {
+.docente-form-group:hover {
+  transform: translateX(5px);
+}
+
+.docente-label-text {
   display: block;
   font-weight: 600;
-  margin-bottom: 5px;
-  color: #14213d;
-  font-size: 0.95rem;
+  margin-bottom: 8px;
+  color: #034081;
+  font-size: 1.05rem;
+  transition: all 0.3s ease;
+  position: relative;
+  padding-left: 14px;
 }
 
-.form-control {
-  width: 95%;
-  padding: 10px;
+.docente-label-text::before {
+  content: '▶';
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 0.7rem;
+  color: #d81020;
+  transition: all 0.3s ease;
+}
+
+.docente-label-text:hover {
+  color: #d81020;
+  transform: translateX(3px);
+}
+
+.docente-label-text:hover::before {
+  transform: translateX(3px);
+}
+
+.docente-form-control {
+  width: 96%;
+  padding: 14px;
   border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 0.95rem;
+  border-radius: 10px;
+  font-size: 1rem;
   transition: all 0.3s ease;
   background-color: white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.form-control:focus {
-  border-color: #20386d;
-  box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.25);
-  outline: none;
-}
-
-/* Select con estilo personalizado */
-select.form-control {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2314213d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  padding-right: 40px;
-}
-
-/* Contenedor para los inputs de tiempo */
-.time-inputs {
-  display: flex;
-  gap: 15px;
-}
-
-.time-inputs .form-group {
-  flex: 1;
-}
-
-.time-input-wrapper {
+  color: #034081;
   position: relative;
 }
 
-.time-icon {
+
+.docente-form-control:hover {
+  border-color: #d81020;
+  box-shadow: 0 0 0 3px rgba(216, 16, 32, 0.1);
+}
+
+.docente-form-control:focus {
+  border-color: #034081;
+  box-shadow: 0 0 0 4px rgba(3, 64, 129, 0.15);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+/* Select con estilo personalizado */
+select.docente-form-control {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23034081' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  cursor: pointer;
+}
+
+select.docente-form-control:hover {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23d81020' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+/* Contenedor para los inputs de tiempo */
+.docente-time-inputs {
+  display: flex;
+  gap: 25px;
+}
+
+.docente-time-inputs .docente-form-group {
+  flex: 1;
+}
+
+/* Ajuste para hacer los inputs de hora más estrechos */
+/* Inputs de tiempo */
+.docente-time-input-wrapper {
+  position: relative;
+  max-width: 100%;
+}
+
+.docente-time-input-wrapper .docente-form-control {
+  width: 87%;
+  
+}
+
+.docente-time-icon {
   position: absolute;
-  right: 10px;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
-  color: #14213d;
-  opacity: 0.6;
+  color: #034081;
+  opacity: 0.7;
   pointer-events: none;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
-/* Información adicional sobre horarios */
-.horario-info {
-  background-color: rgba(252, 163, 17, 0.1);
-  border-left: 4px solid #fca311;
-  padding: 10px;
-  border-radius: 0 8px 8px 0;
+
+.docente-lock-icon {
+  margin-left: 5px;
+  font-size: 14px;
+}
+.docente-no-permission {
   display: flex;
-  gap: 10px;
-  margin-top: 5px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 30px;
+  margin: 20px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
-.info-icon {
-  font-size: 1.1rem;
-  color: #fca311;
-  flex-shrink: 0;
+.docente-no-permission-icon {
+  color: #e67e22;
+  margin-bottom: 15px;
 }
 
-.info-text p {
-  margin: 0 0 3px 0;
-  color: #555;
-  font-size: 0.85rem;
-  line-height: 1.3;
-}
-
-.info-text p:last-child {
-  margin-bottom: 0;
-}
-
-.info-text strong {
-  color: #14213d;
-  font-weight: 600;
-}
-
-/* Botón de envío */
-.submit-button {
+.docente-refresh-permissions-button {
+  width: 200px;
   background: linear-gradient(145deg, #14213d, #4361ee);
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 600;
+  border-radius: 5px;
+  padding: 12px; /* un poco más de espacio */
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
+  text-align: center;
+  font-size: 16px; /* ← Tamaño de texto aumentado */
+}
+
+.docente-refresh-button-content {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  margin-top: 8px;
-  box-shadow: 0 4px 12px rgba(58, 134, 255, 0.3);
-  align-self: center;
-  min-width: 180px;
+  gap: 10px; /* Espacio entre ícono y texto */
 }
 
-.submit-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(58, 134, 255, 0.4);
+.docente-refresh-permissions-button:hover {
   background: linear-gradient(145deg, #4361ee, #14213d);
 }
 
-.submit-button:active {
-  transform: translateY(-1px);
+.docente-no-permission-message h3 {
+  color: #495057;
+  margin-bottom: 10px;
 }
 
-.button-icon {
-  font-size: 1rem;
+.docente-no-permission-message p {
+  color: #6c757d;
+}
+
+.docente-time-input-wrapper:hover .docente-time-icon {
+  color: #d81020;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: translateY(-50%) scale(1); }
+  50% { transform: translateY(-50%) scale(1.1); }
+  100% { transform: translateY(-50%) scale(1); }
+}
+
+/* Información adicional sobre horarios */
+.docente-horario-info {
+  background-color: rgba(3, 64, 129, 0.05);
+  border-left: 4px solid #034081;
+  padding: 16px;
+  border-radius: 0 12px 12px 0;
+  display: flex;
+  gap: 14px;
+  margin-top: 15px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.docente-horario-info::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(3, 64, 129, 0.05) 0%, rgba(3, 64, 129, 0) 100%);
+  z-index: -1;
+}
+
+.docente-horario-info:hover {
+  background-color: rgba(3, 64, 129, 0.08);
+  transform: translateX(5px);
+}
+
+.docente-info-icon {
+  font-size: 1.5rem;
+  color: #d81020;
+  flex-shrink: 0;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.docente-info-text {
+  margin: 0 0 5px 0;
+  color: #034081;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.docente-info-text p {
+  margin: 0 0 8px 0;
+  color: #034081;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  position: relative;
+  padding-left: 16px;
+  transition: all 0.3s ease;
+}
+
+.docente-info-text p::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #d81020;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.docente-info-text p:hover {
+  transform: translateX(3px);
+  color: #023169;
+}
+
+.docente-info-text p:last-child {
+  margin-bottom: 0;
+}
+
+.docente-info-text strong {
+  color: #d81020;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 1px;
+}
+
+.docente-info-text strong::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #d81020;
+  transition: width 0.3s ease;
+}
+
+.docente-info-text strong:hover::after {
+  width: 100%;
+}
+
+/* Botón de envío */
+.docente-submit-button {
+  background: linear-gradient(135deg, #034081, #0253a7);
+  color: white;
+  border: none;
+  padding: 14px 30px;
+  border-radius: 30px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 22px;
+  box-shadow: 0 6px 15px rgba(3, 64, 129, 0.3);
+  align-self: center;
+  min-width: 220px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.docente-submit-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.5s ease;
+}
+
+.docente-submit-button:hover {
+  background: linear-gradient(135deg, #d81020, #f44336);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(216, 16, 32, 0.4);
+}
+
+.docente-submit-button:hover::before {
+  left: 100%;
+}
+
+.docente-submit-button:active {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(216, 16, 32, 0.3);
+}
+
+.docente-button-icon {
+  font-size: 1.2rem;
+  background: rgba(255, 255, 255, 0.2);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.docente-submit-button:hover .docente-button-icon {
+  transform: rotate(360deg);
+}
+
+/* Animación para el formulario completo */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.docente-horario-form > * {
+  animation: fadeInUp 0.5s ease forwards;
+  opacity: 0;
+}
+
+.docente-horario-form > *:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.docente-horario-form > *:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.docente-horario-form > *:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.docente-horario-form > *:nth-child(4) {
+  animation-delay: 0.4s;
 }
 
 /* Responsive para la sección de horario */
 @media (max-width: 768px) {
-  .horario-section {
-    padding: 15px;
+  .docente-horario-section {
+    padding: 22px;
   }
   
-  .time-inputs {
+  .docente-time-inputs {
     flex-direction: column;
-    gap: 10px;
+    gap: 16px;
   }
   
-  .submit-button {
+  .docente-submit-button {
     width: 100%;
   }
 
-  .horario-header h2 {
-    font-size: 1.3rem;
+  .docente-horario-header h2 {
+    font-size: 1.6rem;
   }
 }
 
-.footer-bar {
+.docente-footer-bar {
   width: 100%;
   background-color: #034081;
   color: #333;
@@ -587,13 +1011,13 @@ select.form-control {
   z-index: 10;
 }
 
-.footer-logo {
+.docente-footer-logo {
   height: 40px; /* Ajusta el tamaño según sea necesario */
   max-width: 100px; /* Ajusta el tamaño según sea necesario */
   margin: 0 10px; /* Espacio entre los logos */
 }
 
-.footer-text {
+.docente-footer-text {
   font-size: 1rem;
   font-weight: bold;
   text-align: center;
@@ -602,20 +1026,20 @@ select.form-control {
 }
 
 /* Added specific style to ensure VisualizarHorario component is visible */
-.content-area > div {
+.docente-content-area > div {
   width: 100%;
   max-width: 1000px;
   z-index: 5;
 }
 
-.user-actions {
+/*.docente-user-actions {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-left: auto;
 }
 
-.user-icon-button {
+.docente-user-icon-button {
   background-color: rgba(5, 84, 255, 0.1);
   color: #034081;
   border: none;
@@ -628,14 +1052,14 @@ select.form-control {
   transition: all 0.3s ease;
 }
 
-.user-icon-button:hover {
+.docente-user-icon-button:hover {
   background-color: rgba(5, 1, 247, 0.2);
   transform: scale(1.1);
 }
 
-.user-menu-dropdown {
+.docente-user-menu-dropdown {
   position: absolute;
-  top: 120px; /* Adjust based on your navbar height */
+  top: 120px;  Adjust based on your navbar height 
   right: 20px;
   background-color: white;
   border-radius: 8px;
@@ -645,13 +1069,13 @@ select.form-control {
   font-weight: bold;
 }
 
-.user-menu-dropdown ul {
+.docente-user-menu-dropdown ul {
   list-style: none;
   padding: 10px 0;
   margin: 0;
 }
 
-.user-menu-dropdown ul li {
+.docente-user-menu-dropdown ul li {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -660,15 +1084,4200 @@ select.form-control {
   transition: background-color 0.3s ease;
 }
 
-.user-menu-dropdown ul li svg {
+.docente-user-menu-dropdown ul li svg {
   color: #164971;
   margin-right: 10px;
 }
 
-.user-menu-dropdown ul li:hover {
+.docente-user-menu-dropdown ul li:hover {
   background-color: #f0f0f0;
 }
 
-.user-menu-dropdown ul li span {
+.docente-user-menu-dropdown ul li span {
   flex-grow: 1;
+}*/
+
+.docente-user-actions {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.docente-user-icon-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-right: 15px;
+  color: #034081;
+  position: relative;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.docente-user-icon-button:hover {
+  background-color: rgba(3, 64, 129, 0.1);
+  transform: scale(1.1);
+}
+
+.docente-user-menu-dropdown {
+  position: absolute;
+  top: 160px;
+  right: 30px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  width: 200px;
+  overflow: hidden;
+  animation: dropdownFadeIn 0.3s ease-out;
+}
+
+@keyframes dropdownFadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.docente-user-menu-dropdown ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.docente-user-menu-dropdown li {
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  background-color: #034081;
+}
+
+.docente-user-menu-dropdown li:hover {
+  background-color: #034081ce;
+  color: #ffffff;
+}
+
+.docente-user-menu-dropdown li span {
+  margin-left: 10px;
+}
+
+/* Estilos para la sección de asesorías */
+/*.docente-asesorias-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.docente-asesoria-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.2s;
+}
+
+.docente-asesoria-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.docente-asesoria-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.docente-asesoria-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 18px;
+}
+
+.docente-asesoria-fecha {
+  color: #666;
+  font-size: 14px;
+}
+
+.docente-estudiante-info {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+}
+
+.docente-estudiante-info h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #444;
+  font-size: 16px;
+}
+
+.docente-estudiante-info p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.docente-asesoria-details {
+  padding-top: 10px;
+}
+
+.docente-no-asesorias {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.docente-filter-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+}
+
+.docente-asesorias-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.docente-asesoria-nav-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.docente-asesoria-nav-button:hover {
+  background-color: #e0e0e0;
+}
+
+.docente-asesoria-nav-button.active {
+  background-color: #00447c;
+  color: white;
+  border-color: #00447c;
+}
+.docente-asistencia-container,
+.docente-historial-container,
+.docente-reporte-container {
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}*/
+
+/* Estilos para la sección de asistencia */
+/*.docente-asistencia-container {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.docente-asistencia-form {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+.docente-form-group {
+  margin-bottom: 15px;
+}
+
+.docente-form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.docente-form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.docente-calificacion-info {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #e9ecef;
+  border-radius: 6px;
+}
+
+.docente-calificacion-estrellas {
+  font-size: 1.5rem;
+  color: #ffc107;
+  margin: 5px 0;
+}
+*/
+/* Mejoras para los checkboxes */
+/*.docente-form-group label input[type="checkbox"] {
+  margin-right: 8px;
+  transform: scale(1.2);
+}*/
+
+
+
+
+/*GESTIÓN DE ASESORÍAS*/
+
+/* Estilos generales de la sección de asesorías */
+.docente-asesorias-section {
+  background-color: #f9fafb;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  padding: 24px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Header de la sección */
+.docente-asesorias-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.docente-asesorias-title-container h2 {
+  font-size: 24px;
+  color: #034081;
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.docente-asesorias-subtitle {
+  display: flex;
+  align-items: center;
+  color: #64748b;
+  font-size: 15px;
+  gap: 6px;
+}
+
+/* Estadísticas */
+.docente-asesorias-stats {
+  display: flex;
+  gap: 16px;
+}
+
+.docente-stat-card {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  padding: 12px 18px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.docente-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.docente-stat-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background-color: #034081;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+}
+
+.docente-stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.docente-stat-value {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.docente-stat-label {
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* Navegación entre secciones */
+.docente-asesorias-nav {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e2e8f0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.docente-asesorias-nav::-webkit-scrollbar {
+  height: 4px;
+}
+
+.docente-asesorias-nav::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 4px;
+}
+
+.docente-asesoria-nav-button {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(145deg, #14213d, #4361ee);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  white-space: nowrap;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.docente-asesoria-nav-button:hover {
+  background: linear-gradient(145deg, #4361ee, #14213d);
+  color: #ffffff;
+}
+
+.docente-asesoria-nav-button.active {
+  background: linear-gradient(135deg, #a50e18, #d81020);
+  color: white;
+}
+
+.docente-nav-button-icon {
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+}
+
+/* Sección de contenido */
+.docente-asesorias-content {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+}
+
+/* Vista de estudiantes */
+.docente-view-header {
+  margin-bottom: 20px;
+}
+
+.docente-view-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.docente-view-title h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #034081;
+  margin: 0;
+}
+
+.docente-view-description {
+  color: #64748b;
+  font-size: 14px;
+  margin: 0 0 16px 0;
+}
+
+.docente-filter-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 16px;
+  align-items: flex-end;
+}
+
+.docente-filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.docente-filter-field label {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.docente-input-with-icon {
+  position: relative;
+}
+
+.docente-input-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748b;
+}
+
+.docente-form-control {
+  transition: all 0.3s ease;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+
+/*.docente-asesorias-refresh-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: linear-gradient(145deg, #14213d, #4361ee);
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: auto;
+}
+
+.docente-asesorias-refresh-button:hover {
+  background: linear-gradient(145deg, #4361ee, #14213d);
+  color: #ffffff;
+}*/
+
+
+/* Grid de asesorías */
+.docente-asesorias-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.docente-asesoria-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  border-top: 5px solid #034081;
+  padding: 20px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.docente-asesoria-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+
+/* Header con asignatura y fecha */
+.docente-asesoria-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.docente-asignatura-badge {
+  background-color: #d81020;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(216, 16, 32, 0.2);
+  letter-spacing: 0.3px;
+}
+
+.docente-asesoria-fecha {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #475569;
+  font-size: 14px;
+  background-color: #f8fafc;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.docente-asesoria-fecha svg {
+  color: #034081;
+}
+
+.docente-asesoria-time {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #000000;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+/* Información del estudiante */
+.docente-estudiante-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  margin-bottom: 20px;
+  background-color: #f8fafc;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+.docente-estudiante-info:hover {
+  background-color: #f1f5f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.docente-estudiante-avatar {
+  width: 48px;
+  height: 48px;
+  background-color: #034081;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 3px 6px rgba(3, 64, 129, 0.3);
+}
+
+.docente-estudiante-details {
+  flex: 1;
+}
+
+.docente-estudiante-details h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 8px 0;
+}
+
+
+.docente-estudiante-metadata {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.docente-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #034081;
+  color: #ffffff;
+  font-size: 13px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(3, 64, 129, 0.2);
+  transition: all 0.2s ease;
+}
+
+.docente-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(3, 64, 129, 0.3);
+}
+
+
+.docente-asesoria-details h5 {
+  font-size: 15px;
+  color: #1e293b;
+  margin: 0 0 10px 0;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.docente-asesoria-details h5::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 14px;
+  background-color: #d81020;
+  border-radius: 2px;
+}
+
+.docente-asesoria-details p {
+  color: #475569;
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.6;
+  padding: 0 0 0 12px;
+  border-left: 2px solid #e2e8f0;
+}
+
+/* Estado vacío */
+.docente-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+  text-align: center;
+  background-color: #f8fafc;
+  border-radius: 12px;
+  margin: 20px 0;
+  border: 1px dashed #cbd5e1;
+}
+
+.docente-empty-state h4 {
+  font-size: 20px;
+  color: #1e293b;
+  margin: 0 0 10px 0;
+  font-weight: 600;
+}
+
+
+.docente-empty-state p {
+  color: #64748b;
+  font-size: 16px;
+  max-width: 450px;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.docente-empty-icon {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background-color: #f1f5f9;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  box-shadow: 0 0 0 8px rgba(241, 245, 249, 0.5);
+}
+
+/* Vista de asistencia */
+.docente-asesorias-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.docente-asistencia-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  padding: 18px;
+  transition: box-shadow 0.2s;
+}
+
+.docente-asistencia-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.docente-asistencia-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.docente-asistencia-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.docente-asistencia-fecha {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #64748b;
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+
+.docente-asistencia-status {
+  display: flex;
+  align-items: center;
+}
+
+.docente-status-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.docente-status-badge.success {
+  background-color: #dcfce7;
+  color: #16a34a;
+}
+
+.docente-status-badge.pending {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.docente-asistencia-content {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 992px) {
+  .docente-asistencia-content {
+    grid-template-columns: 1fr;
+  }
+}
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .docente-filter-buttons {
+    flex-wrap: wrap;
+  }
+  
+  .docente-filter-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+.docente-estudiante-profile {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.docente-estudiante-profile .docente-estudiante-avatar {
+  width: 48px;
+  height: 48px;
+}
+
+.docente-asistencia-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.docente-asistencia-switch {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.docente-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.docente-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.docente-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e2e8f0;
+  transition: .3s;
+  border-radius: 24px;
+}
+
+.docente-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+input:checked + .docente-slider {
+  background-color: #10b981;
+}
+
+input:focus + .docente-slider {
+  box-shadow: 0 0 1px #10b981;
+}
+
+input:checked + .docente-slider:before {
+  transform: translateX(20px);
+}
+
+.docente-switch-label {
+  font-size: 14px;
+  color: #475569;
+  font-weight: 500;
+}
+
+.docente-form-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.docente-form-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.docente-tab-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.docente-tab-header label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #475569;
+}
+
+.docente-form-textarea {
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #1e293b;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+}
+
+.docente-form-textarea:focus {
+  border-color: #0284c7;
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.2);
+}
+
+.docente-calificacion-panel {
+  background-color: #f8fafc;
+  border-radius: 8px;
+  padding: 14px;
+  margin-top: 10px;
+}
+
+.docente-calificacion-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.docente-calificacion-header h4 {
+  font-size: 14px;
+  color: #475569;
+  margin: 0;
+  font-weight: 500;
+}
+
+.docente-calificacion-estrellas {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.docente-calificacion-comentario {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.docente-calificacion-comentario p {
+  margin: 0;
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+/* Vista de historial */
+.docente-filtros-avanzados {
+  background-color: #f8fafc;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.docente-filtros-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.docente-filtros-header h4 {
+  font-size: 15px;
+  color: #475569;
+  margin: 0;
+  font-weight: 500;
+}
+
+.docente-filtros-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.docente-filtro-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-end;
+}
+
+.docente-date-range {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.docente-date-separator {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.docente-checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.docente-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.docente-checkbox-mark {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #cbd5e1;
+  border-radius: 4px;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.docente-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.docente-checkbox input:checked ~ .docente-checkbox-mark {
+  background-color: #0284c7;
+  border-color: #0284c7;
+}
+
+.docente-checkbox-mark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 5px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.docente-checkbox input:checked ~ .docente-checkbox-mark:after {
+  display: block;
+}
+
+.docente-checkbox span {
+  font-size: 14px;
+  color: #475569;
+}
+
+.docente-filter-actions {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
+.docente-filter-buttons {
+  display: flex;
+  gap: 8px;
+  margin-right: 12px;
+}
+
+.docente-filter-button {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background: linear-gradient(145deg, #14213d, #4361ee);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.docente-filter-button:hover {
+  background: linear-gradient(145deg, #4361ee, #14213d);
+  border-color: #cbd5e1;
+  color: #ffffff;
+}
+
+.docente-filter-button.active {
+  background: linear-gradient(135deg, #a50e18, #d81020);
+  color: white;
+}
+
+.docente-filter-button.active:hover {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+
+.docente-apply-filters-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #0284c7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.docente-apply-filters-button:hover {
+  background-color: #0369a1;
+}
+
+.docente-clear-filters-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f1f5f9;
+  color: #64748b;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.docente-clear-filters-button:hover {
+  background-color: #e2e8f0;
+  color: #475569;
+}
+
+/* Vista de reporte */
+.docente-reporte-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.docente-reporte-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.docente-reporte-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.docente-reporte-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  background-color: #e0f2fe;
+  color: #0284c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.docente-reporte-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.docente-reporte-details h4 {
+  font-size: 16px;
+  color: #1e293b;
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.docente-reporte-details p {
+  color: #64748b;
+  font-size: 14px;
+  margin: 0 0 16px 0;
+  flex-grow: 1;
+}
+
+.docente-reporte-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f1f5f9;
+  color: #475569;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  justify-content: center;
+}
+
+.docente-reporte-button:hover {
+  background-color: #0284c7;
+  color: white;
+}
+
+.docente-reporte-personalizado {
+  background-color: #f8fafc;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.docente-reporte-personalizado-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.docente-reporte-personalizado-header h4 {
+  font-size: 16px;
+  color: #1e293b;
+  margin: 0;
+  font-weight: 600;
+}
+
+.docente-reporte-personalizado-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.docente-formato-options {
+  display: flex;
+  gap: 16px;
+}
+
+.docente-radio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.docente-radio-mark {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #cbd5e1;
+  border-radius: 50%;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.docente-radio input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.docente-radio input:checked ~ .docente-radio-mark {
+  border-color: #0284c7;
+}
+
+.docente-radio-mark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  top: 3px;
+  left: 3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #0284c7;
+}
+
+.docente-radio input:checked ~ .docente-radio-mark:after {
+  display: block;
+}
+
+.docente-radio span {
+  font-size: 14px;
+  color: #475569;
+}
+
+.docente-generate-report-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #0284c7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.docente-generate-report-button:hover {
+  background-color: #0369a1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .docente-asesorias-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .docente-asesorias-stats {
+    width: 100%;
+  }
+  
+  .docente-stat-card {
+    flex: 1;
+  }
+  
+  .docente-filtro-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .docente-filter-field {
+    width: 100%;
+  }
+  
+  .docente-filter-actions {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .docente-apply-filters-button,
+  .docente-clear-filters-button {
+    flex: 1;
+  }
+}
+
+/* Animaciones y transiciones adicionales */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.docente-asesoria-card, 
+.docente-asistencia-card, 
+.docente-reporte-card {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Tema claro/oscuro */
+@media (prefers-color-scheme: dark) {
+  .docente-asesorias-section {
+    background-color: #1e293b;
+  }
+  
+  .docente-asesorias-title-container h2 {
+    color: #f1f5f9;
+  }
+  
+  .docente-asesorias-subtitle {
+    color: #cbd5e1;
+  }
+  
+  .docente-stat-card {
+    background-color: #334155;
+  }
+  
+  .docente-stat-value {
+    color: #f1f5f9;
+  }
+  
+  .docente-stat-label {
+    color: #cbd5e1;
+  }
+  
+  /* Continúa adaptando los demás elementos para el tema oscuro según sea necesario */
+}
+
+
+
+/* Estilos para la vista de asistencia */
+/*.docentes-asesorias-asistencia-view {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}*/
+.docentes-asesorias-asistencia-view {
+  max-width: 1100px;
+  margin: 0 auto;
+  background-color: #f8fafc;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+}
+.docentes-asesorias-asistencia-view {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.docentes-asesorias-asistencia-header {
+  margin-bottom: 32px;
+  background: linear-gradient(135deg, #034081, #14213d);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.docentes-asesorias-asistencia-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.docentes-asesorias-asistencia-title h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+}
+.docentes-asesorias-asistencia-title svg {
+  background-color: #ffffff;
+  padding: 4px;
+  border-radius: 6px;
+  color: #034081;
+}
+
+.docentes-asesorias-asistencia-description {
+  color: #e2e8f0;
+  font-size: 15px;
+  margin-bottom: 24px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
+/* Filtros */
+.docentes-asesorias-asistencia-filter-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.docentes-asesorias-asistencia-filter-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.docentes-asesorias-asistencia-filter-button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+}
+
+.docentes-asesorias-asistencia-filter-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.docentes-asesorias-asistencia-filter-button.active {
+  background: linear-gradient(135deg, #d81020, #a50e18);
+  box-shadow: 0 2px 8px rgba(216, 16, 32, 0.4);
+  transform: translateY(-2px);
+}
+
+.docentes-asesorias-asistencia-refresh-button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+}
+
+.docentes-asesorias-asistencia-refresh-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+.docentes-asesorias-asistencia-refresh-button.active {
+  background: linear-gradient(135deg, #d81020, #a50e18);
+  box-shadow: 0 2px 8px rgba(216, 16, 32, 0.4);
+}
+.docentes-asesorias-asistencia-refresh-button svg {
+  animation: spin 5s linear infinite;
+  animation-play-state: paused;
+}
+.docentes-asesorias-asistencia-refresh-button:hover svg {
+  animation-play-state: running;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Tarjetas de asesorías */
+.docentes-asesorias-asistencia-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.docentes-asesorias-asistencia-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: none;
+  overflow: hidden;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.docentes-asesorias-asistencia-card {
+  animation: fadeIn 0.5s ease-out;
+}
+.docentes-asesorias-asistencia-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.docentes-asesorias-asistencia-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  background: linear-gradient(145deg, #14213d, #034081);
+  border-bottom: none;
+  position: relative;
+  overflow: hidden;
+}
+.docentes-asesorias-asistencia-card-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+  pointer-events: none;
+}
+.docentes-asesorias-asistencia-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.docentes-asesorias-asistencia-asignatura-badge {
+  background: linear-gradient(135deg, #d81020, #a50e18);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 6px rgba(216, 16, 32, 0.3);
+}
+
+.docentes-asesorias-asistencia-fecha {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+}
+.docentes-asesorias-asistencia-fecha svg {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.docentes-asesorias-asistencia-status {
+  display: flex;
+  align-items: center;
+}
+
+.docentes-asesorias-asistencia-status-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.docentes-asesorias-asistencia-status-badge.success {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.docentes-asesorias-asistencia-status-badge.pending {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Contenido de la tarjeta */
+.docentes-asesorias-asistencia-content {
+  padding: 24px;
+}
+
+.docentes-asesorias-asistencia-profile {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.docentes-asesorias-asistencia-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #4361ee, #034081);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(3, 64, 129, 0.3);
+}
+.docentes-asesorias-asistencia-details {
+  flex: 1;
+}
+
+.docentes-asesorias-asistencia-details h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.docentes-asesorias-asistencia-metadata {
+  display: flex;
+  gap: 10px;
+}
+
+.docentes-asesorias-asistencia-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #ffffff;
+  background-color: #4361ee;
+  padding: 4px 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(67, 97, 238, 0.2);
+}
+
+.docentes-asesorias-section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #034081;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e2e8f0;
+}
+.docentes-asesorias-section-title svg {
+  color: #d81020;
+}
+.docentes-asesorias-asistencia-general {
+  background-color: #f8fafc;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Formulario de asistencia */
+.docentes-asesorias-asistencia-form {
+  margin-top: 16px;
+}
+
+.docentes-asesorias-asistencia-switch {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.docentes-asesorias-asistencia-switch-label {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 26px;
+}
+
+.docentes-asesorias-asistencia-switch-label input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.docentes-asesorias-asistencia-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #cbd5e1;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.docentes-asesorias-asistencia-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+input:checked + .docentes-asesorias-asistencia-slider {
+  background-color: #10b981;
+}
+
+input:checked + .docentes-asesorias-asistencia-slider:before {
+  transform: translateX(26px);
+}
+
+.docentes-asesorias-asistencia-switch-text {
+  font-size: 14px;
+  color: #334155;
+  font-weight: 500;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Pestañas del formulario */
+.docentes-asesorias-asistencia-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.docentes-asesorias-asistencia-tab {
+  background: linear-gradient(145deg, #a50e18, #d81020);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(165, 14, 24, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.docentes-asesorias-asistencia-tab:hover {
+  transform: translateY(-3px);
+}
+
+.docentes-asesorias-asistencia-tab-header,
+.docentes-asesorias-tab-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.docentes-asesorias-asistencia-textarea {
+  width: 97%;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  font-family: inherit;
+  font-size: 14px;
+  resize: vertical;
+  min-height: 80px;
+  transition: all 0.3s ease;
+}
+
+.docentes-asesorias-asistencia-textarea:focus {
+  outline: none;
+  border-color: #4361ee;
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+}
+
+.docentes-asesorias-bloques-section {
+  margin-top: 30px;
+  background-color: #f8fafc;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.docentes-asesorias-bloques-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+.docentes-asesorias-bloque-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.docentes-asesorias-bloque-card:hover {
+  border-color: #4361ee;
+  box-shadow: 0 4px 12px rgba(67, 97, 238, 0.15);
+}
+.docentes-asesorias-bloque-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  background-color: #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+}
+.docentes-asesorias-bloque-fecha {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 500;
+  flex-wrap: wrap;
+}
+.docentes-asesorias-bloque-fecha svg {
+  color: #4361ee;
+}
+.docentes-asesorias-bloque-switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.docentes-asesorias-bloque-content {
+  padding: 16px;
+}
+.docentes-asesorias-bloque-form-field {
+  margin-bottom: 16px;
+}
+
+.docentes-asesorias-bloque-form-field:last-child {
+  margin-bottom: 0;
+}
+.docentes-asesorias-bloques-empty {
+  padding: 24px;
+  background-color: #f1f5f9;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #64748b;
+  font-size: 15px;
+}
+
+.docentes-asesorias-bloques-empty svg {
+  color: #d81020;
+}
+
+
+/* Calificación */
+.docentes-asesorias-asistencia-calificacion {
+  margin-top: 24px;
+  padding: 20px;
+  background: linear-gradient(145deg, #034081, #14213d);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(3, 64, 129, 0.2);
+}
+
+.docentes-asesorias-asistencia-calificacion-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  color: #ffffff;
+}
+
+.docentes-asesorias-asistencia-calificacion-header h4 {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.docentes-asesorias-asistencia-calificacion-header svg {
+  color: #f59e0b;
+}
+
+.docentes-asesorias-asistencia-estrellas {
+  font-size: 22px;
+  letter-spacing: 4px;
+  margin-bottom: 12px;
+}
+
+.docentes-asesorias-asistencia-comentario {
+  display: flex;
+  gap: 10px;
+  color: #e2e8f0;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+}
+.docentes-asesorias-asistencia-comentario svg {
+  color: #60a5fa;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* Estado vacío */
+.docentes-asesorias-asistencia-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.docentes-asesorias-asistencia-empty-icon {
+  color: #cbd5e1;
+  margin-bottom: 16px;
+}
+
+.docentes-asesorias-asistencia-empty h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.docentes-asesorias-asistencia-empty p {
+  color: #64748b;
+  font-size: 14px;
+  max-width: 400px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .docentes-asesorias-asistencia-filter-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .docentes-asesorias-asistencia-refresh-button {
+    margin-left: 0;
+    margin-top: 10px;
+    justify-content: center;
+  }
+  
+  .docentes-asesorias-asistencia-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .docentes-asesorias-asistencia-header-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .docentes-asesorias-asistencia-profile {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .docentes-asesorias-asistencia-metadata {
+    justify-content: center;
+  }
+  
+  .docentes-asesorias-bloques-list {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 480px) {
+  .docentes-asesorias-asistencia-filter-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .docentes-asesorias-asistencia-filter-button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/*###*/
+/* Estilos para los bloques de horario */
+.docentes-asesorias-bloque-hora {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #e0f2fe;
+  color: #0369a1;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 8px;
+}
+.docentes-asesorias-bloque-hora svg {
+  color: #0284c7;
+}
+.docente-asesoria-bloques {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 16px;
+  background-color: #f1f5fe;
+  border-radius: 10px;
+  border-left: 5px solid #034081;
+}
+
+.docente-asesoria-bloques-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #034081;
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed rgba(3, 64, 129, 0.2);
+}
+
+
+.docente-asesoria-bloque {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  color: #1e293b;
+  font-size: 14px;
+}
+
+.docente-asesoria-bloque:hover {
+  transform: translateX(5px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fafbff;
+}
+
+.docente-asesoria-bloque-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background-color: #034081;
+  color: white;
+  border-radius: 50%;
+  font-size: 12px;
+  box-shadow: 0 2px 5px rgba(3, 64, 129, 0.3);
+}
+
+
+.docente-hora-formato {
+  font-family: 'JetBrains Mono', monospace, 'Inter', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Tiempo único (no en bloques) */
+.docente-asesoria-time {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background-color: #f1f5fe;
+  border-radius: 10px;
+  color: #1e293b;
+  font-size: 15px;
+  margin-bottom: 20px;
+  border-left: 5px solid #034081;
+  transition: all 0.2s ease;
+}
+
+.docente-asesoria-time:hover {
+  transform: translateX(5px);
+  background-color: #e6eeff;
+}
+
+
+/* Estilos para bloques próximos */
+.docente-asesoria-bloque.proxima {
+  border-left: 4px solid #d81020;
+  background-color: #fff8f8;
+}
+
+
+.docente-asesoria-bloque.proxima:hover {
+  background-color: #fff0f0;
+}
+
+.docente-asesoria-bloque.proxima .docente-asesoria-bloque-icon {
+  background-color: #d81020;
+}
+
+/* Espacio para elementos adicionales si se necesitaran en el futuro */
+
+/* Estilo para la hora */
+.docente-hora-formato {
+  font-family: 'JetBrains Mono', monospace, 'Inter', sans-serif;
+  font-weight: 500;
+}
+
+/* Animación para bloques próximos */
+@keyframes pulso {
+  0% { box-shadow: 0 0 0 0 rgba(216, 16, 32, 0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(216, 16, 32, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(216, 16, 32, 0); }
+}
+
+.docente-asesoria-bloque.urgente {
+  animation: pulso 2s infinite;
+  border-left: 4px solid #d81020;
+  background-color: #fff8f8;
+}
+.docente-asesoria-bloque.urgente .docente-asesoria-bloque-icon {
+  background-color: #d81020;
+  animation: pulso 2s infinite;
+}
+
+
+/*---*/
+/* Contenedor principal del formulario */
+.docente-form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+@media (min-width: 768px) {
+  .docente-form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .docente-time-container {
+    grid-column: span 2;
+  }
+}
+
+
+/* Grupo del día */
+.docente-day-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Contenedor de horario */
+.docente-time-container {
+  background: rgba(3, 64, 129, 0.03);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(3, 64, 129, 0.1);
+}
+
+.docente-time-header {
+  margin-bottom: 15px;
+}
+
+.docente-time-header .docente-label-text {
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.docente-time-inputs {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+/* Inputs de horario compactos */
+.docente-time-inputs-compact {
+  display: flex;
+  gap: 15px;
+  flex: 2;
+}
+.docente-time-inputs-compact .docente-form-group {
+  flex: 1;
+  min-width: 120px;
+}
+
+/* Etiquetas de tiempo compactas */
+.docente-time-label {
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  display: block;
+  color: #034081;
+}
+
+
+
+
+
+.docente-location-input-wrapper {
+  position: relative;
+}
+
+.docente-location-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #034081;
+  opacity: 0.7;
+  font-size: 1.2rem;
+}
+
+
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.docente-horario-form > * {
+  animation: fadeInUp 0.5s ease forwards;
+  opacity: 0;
+}
+
+/* Retrasos para las animaciones */
+.docente-day-group { animation-delay: 0.1s; }
+.docente-time-container { animation-delay: 0.2s; }
+.docente-location-group { animation-delay: 0.3s; }
+.docente-horario-info { animation-delay: 0.4s; }
+.docente-submit-button { animation-delay: 0.5s; }
+
+
+/* Estilos para la nueva disposición */
+.docente-schedule-row {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.docente-day-time-group {
+  display: flex;
+  align-items: flex-end;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+/* Contenedor combinado de día y horario */
+.docente-day-time-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;
+  background: rgba(3, 64, 129, 0.03);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(3, 64, 129, 0.1);
+  margin-bottom: 0;
+}
+
+.docente-day-select {
+  min-width: 180px;
+  flex: 1;
+}
+
+.docente-time-group {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.docente-time-separator {
+  color: #666;
+  font-size: 0.9rem;
+  padding-bottom: 8px;
+  margin: 0 5px;
+}
+
+.docente-time-label {
+  display: block;
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+
+/* Grupo de ubicación */
+.docente-location-group {
+  background: rgba(3, 64, 129, 0.03);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(3, 64, 129, 0.1);
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+  .docente-day-time-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .docente-time-inputs-compact {
+    width: 100%;
+  }
+  
+  .docente-time-inputs-compact .docente-form-group {
+    min-width: unset;
+  }
+}
+
+/*-----------*/
+/* Añadir estos estilos a PageDocente.css */
+
+/* Estilos para el botón de exportación */
+.docente-view-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.docente-export-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.docente-export-button:hover {
+  background-color: #45a049;
+}
+
+.docente-export-button:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
+.docente-export-button svg {
+  stroke-width: 2px;
+}
+
+/* Estilos para el modal de detalles de asesoría - Agregar a PageDocente.css */
+
+/* Estilos del modal */
+.docente-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.docente-modal {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 700px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s ease-out;
+}
+
+.docente-modal-lg {
+  max-width: 800px;
+}
+
+.docente-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.docente-modal-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.docente-modal-close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  padding: 5px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.docente-modal-close:hover {
+  background-color: #f3f3f3;
+  color: #333;
+}
+
+.docente-modal-content {
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.docente-modal-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.docente-modal-footer {
+  padding: 16px 20px;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* Estilos para detalles */
+.docente-detail-section {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.docente-detail-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.docente-detail-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.docente-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.docente-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.docente-detail-label {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.docente-detail-text-content {
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  padding: 12px 16px;
+  color: #333;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Estilos para horarios */
+.docente-horarios-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.docente-horario-item {
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  padding: 12px 16px;
+  gap: 8px;
+}
+
+.docente-horario-fecha,
+.docente-horario-horas {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #333;
+}
+
+.docente-horario-dia {
+  color: #666;
+  margin-left: 4px;
+}
+
+/* Estilos para calificación */
+.docente-calificacion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.docente-stars {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.docente-rating-value {
+  margin-left: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.docente-rating-comment {
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-style: italic;
+}
+
+.docente-rating-comment p {
+  margin: 0 0 8px 0;
+}
+
+.docente-rating-comment small {
+  color: #666;
+  display: block;
+  text-align: right;
+}
+
+/* Botones del modal */
+.docente-btn-primary,
+.docente-btn-secondary {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.docente-btn-primary {
+  background-color: #3d98b3;
+  color: white;
+  border: none;
+}
+
+.docente-btn-primary:hover {
+  background-color: #2c7a93;
+}
+
+.docente-btn-secondary {
+  background-color: #f3f3f3;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.docente-btn-secondary:hover {
+  background-color: #e7e7e7;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Estilos adicionales para los badges de estado */
+.docente-status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.docente-status-finalizada {
+  background-color: #e1f5ea;
+  color: #0d8744;
+}
+
+.docente-status-en-curso {
+  background-color: #e6f0ff;
+  color: #1a56db;
+}
+
+.docente-status-pendiente {
+  background-color: #fff8e6;
+  color: #b45309;
+}
+
+.docente-status-cancelada {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.docente-status-asistio {
+  background-color: #e1f5ea;
+  color: #0d8744;
+}
+
+.docente-status-no-asistio {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Spinner para estados de carga */
+.docente-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/*------------*/
+/* Estilos principales para el historial de asesorías */
+.docente-historial-asesorias-view {
+  max-width: 1100px;
+  margin: 0 auto;
+  background-color: #f8fafc;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Header principal */
+.docente-historial-asesorias-view-header {
+  margin-bottom: 32px;
+  background: linear-gradient(135deg, #034081, #14213d);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.docente-historial-asesorias-view-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+  pointer-events: none;
+}
+
+
+.docente-historial-asesorias-view-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.docente-historial-asesorias-view-title h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  margin: 0;
+}
+
+.docente-historial-asesorias-view-title svg {
+  background-color: #ffffff;
+  padding: 4px;
+  border-radius: 6px;
+  color: #034081;
+}
+
+.docente-historial-asesorias-view-description {
+  color: #034081;
+  font-size: 15px;
+  margin: 12px 0 24px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
+/* Botón de exportación */
+.docente-historial-asesorias-export-button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+}
+
+.docente-historial-asesorias-export-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+
+.docente-historial-asesorias-export-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Filtros avanzados */
+
+/* Checkboxes */
+
+
+.docente-historial-asesorias-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Botones de filtros */
+
+
+
+
+
+/* Estado de carga */
+.docente-historial-asesorias-loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.docente-historial-asesorias-spinner {
+  color: #034081;
+  animation: spin 1.5s linear infinite;
+  margin-bottom: 16px;
+}
+.docente-historial-asesorias-loading-state p {
+  color: #64748b;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Tabla de asesorías */
+
+.docente-historial-asesorias-table-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.5s ease-out;
+}
+
+.docente-historial-asesorias-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.docente-historial-asesorias-table thead {
+background: linear-gradient(145deg, #14213d, #034081);
+color: #ffffff;
+}
+
+.docente-historial-asesorias-table thead tr {
+  background: linear-gradient(145deg, #14213d, #034081);
+  color: #ffffff;
+}
+
+.docente-historial-asesorias-table th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.docente-historial-asesorias-table tbody tr {
+  border-bottom: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+
+.docente-historial-asesorias-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.docente-historial-asesorias-table td {
+  padding: 16px;
+  font-size: 14px;
+  color: #334155;
+}
+.docente-historial-asesorias-table tbody tr:last-child {
+border-bottom: none;
+}
+
+/* Insignias de estado */
+.docente-historial-asesorias-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.docente-historial-asesorias-status-completada {
+  background-color: #e6f4ea;
+  color: #1e7e34;
+}
+
+.docente-historial-asesorias-status-cancelada {
+  background-color: #feeaea;
+  color: #d32f2f;
+}
+
+.docente-historial-asesorias-status-asistio {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+.docente-historial-asesorias-status-no-asistio {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+.docente-historial-asesorias-status-pendiente {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+/* Botones de acción */
+.docente-historial-asesorias-action-button {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+}
+
+.docente-historial-asesorias-view-button {
+  background: linear-gradient(135deg, #034081, #14213d);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(3, 64, 129, 0.3);
+}
+
+
+.docente-historial-asesorias-view-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(3, 64, 129, 0.4);
+}
+
+/* Paginación */
+.docente-historial-asesorias-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+}
+
+.docente-historial-asesorias-pagination-info {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.docente-historial-asesorias-pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.docente-historial-asesorias-pagination-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+
+.docente-historial-asesorias-pagination-button:hover:not(:disabled) {
+  background-color: #f1f5f9;
+  color: #0f172a;
+  border-color: #cbd5e1;
+}
+
+.docente-historial-asesorias-pagination-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.docente-historial-asesorias-pagination-current {
+  padding: 0 12px;
+  font-size: 14px;
+  color: #334155;
+  font-weight: 500;
+}
+
+
+/* Estado vacío */
+.docente-historial-asesorias-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.5s ease-out;
+}
+
+.docente-historial-asesorias-empty-icon {
+  color: #cbd5e1;
+  margin-bottom: 16px;
+}
+
+
+.docente-historial-asesorias-empty-state h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.docente-historial-asesorias-empty-state p {
+  color: #64748b;
+  font-size: 15px;
+  max-width: 400px;
+  margin-bottom: 20px;
+}
+
+.docente-historial-asesorias-export-info {
+  padding: 12px 16px;
+  background-color: #f1f5f9;
+  border-radius: 8px;
+  color: #475569;
+  font-size: 13px;
+}
+
+.docente-historial-bloques-asistencia {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.docente-historial-bloque-asistencia-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.docente-historial-bloque-hora {
+  font-weight: 500;
+  color: #475569;
+  white-space: nowrap;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.docente-historial-asesorias-view-actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+.docente-historial-asesorias-view-header {
+flex-direction: column;
+align-items: flex-start;
+gap: 16px;
+}.docente-historial-asesorias-view-actions {
+width: 100%;
+}
+.docente-historial-asesorias-export-button {
+width: 100%;
+justify-content: center;
+}
+.docente-historial-asesorias-table-container {
+overflow-x: auto;
+}
+.docente-historial-asesorias-pagination {
+flex-direction: column;
+gap: 16px;
+}
+}
+
+/*------*/
+/* Contenedor principal */
+.docente-historial-filters-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: none;
+  overflow: hidden;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.docente-historial-filters-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* Encabezado */
+.docente-historial-filters-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 24px;
+  background: linear-gradient(145deg, #14213d, #034081);
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+.docente-historial-filters-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+  pointer-events: none;
+}
+
+.docente-historial-filters-header h4 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Formulario de filtros */
+.docente-historial-filters-form {
+  padding: 24px;
+}
+
+/* Filas de filtros */
+.docente-historial-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+
+.docente-historial-filter-row:last-child {
+  margin-bottom: 0;
+}
+
+.docente-historial-filter-field {
+  flex: 1;
+  min-width: 250px;
+}
+
+.docente-historial-filter-field label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  color: #034081;
+}
+
+
+/* Inputs y selects */
+.docente-historial-form-control {
+  width: 100%;
+  padding: 8px 12px 8px 36px; /* espacio a la izquierda para el icono */
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: white;
+  box-sizing: border-box;
+  height: 36px;
+}
+
+.docente-historial-form-control[type="date"] {
+  padding-left: 30px; /* espacio para el ícono */
+  width: 100%;
+  box-sizing: border-box;
+  height: 36px;
+}
+
+.docente-historial-form-control:focus {
+  outline: none;
+  border-color: #4361ee;
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+}
+
+/* Rango de fechas */
+.docente-historial-date-range-inputs {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.docente-historial-date-separator {
+  font-weight: bold;
+  color: #034081;
+}
+
+/* Inputs con icono */
+.docente-historial-input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  
+}
+
+.docente-historial-input-icon {
+  position: absolute;
+  left: 10px;
+  color: #333;
+  pointer-events: none;
+}
+
+
+
+
+/* Checkboxes */
+.docente-historial-checkbox-group {
+  display: flex;
+  gap: 16px;
+}
+
+.docente-historial-checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.docente-historial-checkbox-option input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #d81020;
+}
+.docente-historial-checkbox-option span {
+  font-size: 14px;
+  color: #334155;
+}
+
+
+/* Botones */
+.docente-historial-filter-actions {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.docente-historial-filter-actions .btn {
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.docente-historial-filter-actions .btn-apply {
+  background: linear-gradient(135deg, #d81020, #a50e18);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(216, 16, 32, 0.4);
+}
+
+.docente-historial-filter-actions .btn-apply:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(216, 16, 32, 0.5);
+}
+
+.docente-historial-filter-actions .btn-clear {
+  background-color: #f1f5f9;
+  color: #334155;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.docente-historial-filter-actions .btn-clear:hover {
+  background-color: #e2e8f0;
+  transform: translateY(-2px);
+}
+
+
+/* Responsive */
+@media (max-width: 1024px) {
+.docente-historial-filter-row {
+flex-direction: column;
+gap: 16px;
+}
+.docente-historial-filter-actions {
+margin-top: 16px;
+}
+}
+@media (max-width: 576px) {
+.docente-historial-date-range-inputs {
+flex-direction: column;
+gap: 16px;
+}
+.docente-historial-date-separator {
+display: none;
+}
+.docente-historial-filter-actions {
+flex-direction: column;
+gap: 12px;
+width: 100%;
+}
+.btn {
+width: 100%;
+justify-content: center;
+}
+.docente-historial-checkbox-group {
+flex-direction: column;
+gap: 12px;
+}
+}
+
+/*-------*/
+/* ==== ESTILOS GENERALES ==== */
+.docente-asesorias-pendientes-view {
+  max-width: 1100px;
+  margin: 0 auto;
+  background-color: #f8fafc;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.docente-asesorias-pendientes-header {
+  margin-bottom: 32px;
+  background: linear-gradient(135deg, #034081, #14213d);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.docente-asesorias-pendientes-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.docente-asesorias-pendientes-title h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.docente-asesorias-pendientes-title svg {
+  background-color: #ffffff;
+  padding: 4px;
+  border-radius: 6px;
+  color: #034081;
+}
+
+/* ==== SECCIÓN DE FILTROS ==== */
+.docente-asesorias-pendientes-filter-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.docente-asesorias-pendientes-filter-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.docente-asesorias-pendientes-filter-button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+}
+
+.docente-asesorias-pendientes-filter-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.docente-asesorias-pendientes-filter-button.active {
+  background: linear-gradient(135deg, #d81020, #a50e18);
+  box-shadow: 0 2px 8px rgba(216, 16, 32, 0.4);
+  transform: translateY(-2px);
+}
+
+.docente-asesorias-pendientes-refresh-button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+}
+
+.docente-asesorias-pendientes-refresh-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.docente-asesorias-pendientes-refresh-button.active {
+  background: linear-gradient(135deg, #d81020, #a50e18);
+  box-shadow: 0 2px 8px rgba(216, 16, 32, 0.4);
+}
+
+.docente-asesorias-pendientes-refresh-button svg {
+  animation: spin 5s linear infinite;
+  animation-play-state: paused;
+}
+
+.docente-asesorias-pendientes-refresh-button:hover svg {
+  animation-play-state: running;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ==== GRID DE TARJETAS ==== */
+.docente-asesorias-pendientes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+/* ==== TARJETAS DE ASESORÍAS ==== */
+.docente-asesorias-pendientes-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: none;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.docente-asesorias-pendientes-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.docente-asesorias-pendientes-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  background: linear-gradient(145deg, #14213d, #034081);
+  border-bottom: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.docente-asesorias-pendientes-card-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+  pointer-events: none;
+}
+
+.docente-asesorias-pendientes-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.docente-asesorias-pendientes-asignatura-badge {
+  background: linear-gradient(135deg, #d81020, #a50e18);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 6px rgba(216, 16, 32, 0.3);
+}
+
+.docente-asesorias-pendientes-fecha {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.docente-asesorias-pendientes-fecha svg {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ==== CONTENIDO DE LA TARJETA ==== */
+.docente-asesorias-pendientes-content {
+  padding: 24px;
+}
+
+.docente-asesorias-pendientes-profile {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.docente-asesorias-pendientes-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #4361ee, #034081);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(3, 64, 129, 0.3);
+}
+
+.docente-asesorias-pendientes-details {
+  flex: 1;
+}
+
+.docente-asesorias-pendientes-details h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.docente-asesorias-pendientes-metadata {
+  display: flex;
+  gap: 10px;
+}
+
+.docente-asesorias-pendientes-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #ffffff;
+  background-color: #4361ee;
+  padding: 4px 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(67, 97, 238, 0.2);
+}
+
+/* ==== SECCIONES ==== */
+.docente-asesorias-pendientes-section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.docente-asesorias-pendientes-section-title h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #034081;
+  margin: 0;
+}
+
+.docente-asesorias-pendientes-section-title svg {
+  color: #d81020;
+}
+
+/* ==== INFORMACIÓN GENERAL ==== */
+.docente-asesorias-pendientes-general {
+  background-color: #f8fafc;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* ==== BLOQUES DE HORARIO ==== */
+.docente-asesorias-pendientes-bloques-section {
+  margin-bottom: 20px;
+}
+
+.docente-asesorias-pendientes-bloques-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.docente-asesorias-pendientes-bloque-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.docente-asesorias-pendientes-bloque-card:hover {
+  border-color: #4361ee;
+  box-shadow: 0 4px 12px rgba(67, 97, 238, 0.15);
+}
+
+.docente-asesorias-pendientes-bloque-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  background-color: #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.docente-asesorias-pendientes-bloque-fecha {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 500;
+  flex-wrap: wrap;
+}
+
+.docente-asesorias-pendientes-bloque-fecha svg {
+  color: #4361ee;
+}
+
+/* ==== ESTADO VACÍO ==== */
+.docente-asesorias-pendientes-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.docente-asesorias-pendientes-empty-icon {
+  width: 80px;
+  height: 80px;
+  background: #f1f5f9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: #d81020;
+}
+
+.docente-asesorias-pendientes-empty-state h4 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 10px;
+}
+
+.docente-asesorias-pendientes-empty-state p {
+  color: #64748b;
+  font-size: 15px;
+  max-width: 400px;
+}
+
+/* ==== ANIMACIONES Y EFECTOS ==== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==== RESPONSIVE ==== */
+@media (max-width: 768px) {
+  .docente-asesorias-pendientes-filter-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .docente-asesorias-pendientes-refresh-button {
+    margin-left: 0;
+    margin-top: 10px;
+    justify-content: center;
+  }
+  
+  .docente-asesorias-pendientes-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .docente-asesorias-pendientes-header-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .docente-asesorias-pendientes-profile {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .docente-asesorias-pendientes-metadata {
+    justify-content: center;
+  }
+  
+  .docente-asesorias-pendientes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .docente-asesorias-pendientes-filter-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .docente-asesorias-pendientes-filter-button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/*----*/
+/* ==== ESTILOS DEL MODAL DE DETALLES DE ASESORÍA ==== */
+.docente-modal-detalle-asesoria-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.docente-modal-detalle-asesoria {
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 90%;
+  max-width: 900px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.4s ease-out;
+}
+
+.docente-modal-detalle-asesoria-lg {
+  min-width: 800px;
+}
+
+.docente-modal-detalle-asesoria-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  background: linear-gradient(145deg, #14213d, #034081);
+  border-bottom: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.docente-modal-detalle-asesoria-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+  pointer-events: none;
+}
+
+.docente-modal-detalle-asesoria-header h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  margin: 0;
+}
+
+.docente-modal-detalle-asesoria-header svg {
+  color: #ffffff;
+}
+
+.docente-modal-detalle-asesoria-close {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 8px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #ffffff;
+  backdrop-filter: blur(5px);
+}
+
+.docente-modal-detalle-asesoria-close:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.docente-modal-detalle-asesoria-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: #64748b;
+}
+
+.docente-modal-detalle-asesoria-spinner {
+  animation: spin 1.5s linear infinite;
+  color: #034081;
+  margin-bottom: 16px;
+}
+
+.docente-modal-detalle-asesoria-content {
+  padding: 24px;
+  overflow-y: auto;
+  max-height: calc(85vh - 140px);
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+.docente-modal-detalle-asesoria-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.docente-modal-detalle-asesoria-content::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.docente-modal-detalle-asesoria-content::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 6px;
+}
+
+/* ==== SECCIONES ==== */
+.docente-modal-detalle-asesoria-section {
+  background-color: #f8fafc;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.docente-modal-detalle-asesoria-section:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+.docente-modal-detalle-asesoria-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #034081;
+  margin-top: 0;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.docente-modal-detalle-asesoria-title svg {
+  color: #d81020;
+}
+
+.docente-modal-detalle-asesoria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.docente-modal-detalle-asesoria-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.docente-modal-detalle-asesoria-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+/* ==== STATUS BADGES ==== */
+.docente-modal-detalle-asesoria-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  max-width: fit-content;
+}
+
+.docente-modal-detalle-asesoria-status-pendiente {
+  background-color: #ffedd5;
+  color: #9a3412;
+}
+
+.docente-modal-detalle-asesoria-status-confirmada {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.docente-modal-detalle-asesoria-status-finalizada {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.docente-modal-detalle-asesoria-status-cancelada {
+  background-color: #fecaca;
+  color: #991b1b;
+}
+
+.docente-modal-detalle-asesoria-status-asistio {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.docente-modal-detalle-asesoria-status-no-asistio {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+/* ==== HORARIOS ==== */
+.docente-modal-detalle-asesoria-horarios-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.docente-modal-detalle-asesoria-horario-item {
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.docente-modal-detalle-asesoria-horario-item:hover {
+  border-color: #4361ee;
+  box-shadow: 0 4px 12px rgba(67, 97, 238, 0.15);
+}
+
+.docente-modal-detalle-asesoria-horario-fecha {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 10px;
+}
+
+.docente-modal-detalle-asesoria-horario-dia {
+  color: #64748b;
+  font-weight: normal;
+  font-size: 13px;
+}
+
+.docente-modal-detalle-asesoria-horario-horas {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #e0f2fe;
+  color: #0369a1;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.docente-modal-detalle-asesoria-horario-lugar,
+.docente-modal-detalle-asesoria-horario-asistencia {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ==== TEXTO ==== */
+.docente-modal-detalle-asesoria-text-content {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ==== CALIFICACIÓN ==== */
+.docente-modal-detalle-asesoria-calificacion {
+  background: linear-gradient(145deg, #034081, #14213d) !important;
+  color: #ffffff;
+}
+
+.docente-modal-detalle-asesoria-calificacion .docente-modal-detalle-asesoria-title {
+  color: #ffffff;
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.docente-modal-detalle-asesoria-calificacion-content {
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.docente-modal-detalle-asesoria-stars {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.docente-modal-detalle-asesoria-rating-value {
+  font-size: 16px;
+  font-weight: 600;
+  margin-left: 8px;
+}
+
+.docente-modal-detalle-asesoria-rating-comment {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 12px;
+  font-style: italic;
+}
+
+.docente-modal-detalle-asesoria-rating-comment p {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.docente-modal-detalle-asesoria-rating-comment small {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+}
+
+/* ==== FOOTER ==== */
+.docente-modal-detalle-asesoria-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  background-color: #f1f5f9;
+  border-top: 1px solid #e2e8f0;
+}
+
+.docente-modal-detalle-asesoria-btn-secondary {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.docente-modal-detalle-asesoria-btn-secondary:hover {
+  background-color: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.docente-modal-detalle-asesoria-btn-primary {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(135deg, #d81020, #a50e18);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(216, 16, 32, 0.4);
+}
+
+.docente-modal-detalle-asesoria-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(216, 16, 32, 0.5);
+}
+
+/* ==== ANIMACIONES ==== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ==== RESPONSIVE ==== */
+@media (max-width: 900px) {
+  .docente-modal-detalle-asesoria-lg {
+    min-width: auto;
+    width: 95%;
+  }
+  
+  .docente-modal-detalle-asesoria-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .docente-modal-detalle-asesoria-horarios-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .docente-modal-detalle-asesoria-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .docente-modal-detalle-asesoria-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+  }
+  
+  .docente-modal-detalle-asesoria-footer {
+    flex-direction: column-reverse;
+  }
+  
+  .docente-modal-detalle-asesoria-btn-secondary,
+  .docente-modal-detalle-asesoria-btn-primary {
+    width: 100%;
+    justify-content: center;
+  }
 }
