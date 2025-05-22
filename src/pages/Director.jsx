@@ -8,6 +8,7 @@ import Carousel from "../components/carousel/carousel";
 import { User, UserCircle, Lock, Search, Eye, EyeOff } from "lucide-react";
 import Perfil from "./Perfil";
 import CambiarClave from "./CambiarClave";
+import ReportesPrograma from "./ReportesPrograma";
 
 const Director = ({
   navbarOptions = [],
@@ -2687,21 +2688,21 @@ const Director = ({
                 />
               </div>
               <div className="director-form-group">
-                  <label htmlFor="nombre_usuario">Nombre y Apellido</label>
-                  <input
-                    type="text"
-                    id="nombre_usuario"
-                    value={estudianteEdicion.nombre_usuario}
-                    onChange={(e) =>
-                      setEstudianteEdicion({
-                        ...estudianteEdicion,
-                        nombre_usuario: e.target.value,
-                      })
-                   
-                    }
-                    required
-                  />
-                </div>
+                <label htmlFor="nombre_usuario">Nombre y Apellido</label>
+                <input
+                  type="text"
+                  id="nombre_usuario"
+                  value={estudianteEdicion.nombre_usuario}
+                  onChange={(e) =>
+                    setEstudianteEdicion({
+                      ...estudianteEdicion,
+                      nombre_usuario: e.target.value,
+                    })
+
+                  }
+                  required
+                />
+              </div>
               <div className="director-form-group">
                 <label htmlFor="password">Contraseña</label>
                 <div className="password-input-container">
@@ -2850,20 +2851,20 @@ const Director = ({
                 />
               </div>
               <div className="director-form-group">
-                  <label htmlFor="nombre_usuario">Nombre y Apellido</label>
-                  <input
-                    type="text"
-                    id="nombre_usuario"
-                    value={nuevoDocente.nombre_usuario}
-                    onChange={(e) =>
-                      setNuevoDocente({
-                        ...nuevoDocente,
-                        nombre_usuario: e.target.value,
-                      })
-                    }
-                    required
-                  />
-                </div>
+                <label htmlFor="nombre_usuario">Nombre y Apellido</label>
+                <input
+                  type="text"
+                  id="nombre_usuario"
+                  value={nuevoDocente.nombre_usuario}
+                  onChange={(e) =>
+                    setNuevoDocente({
+                      ...nuevoDocente,
+                      nombre_usuario: e.target.value,
+                    })
+                  }
+                  required
+                />
+              </div>
               <div className="director-form-group">
                 <label htmlFor="subtipoDocente">Subtipo de Docente</label>
                 <select
@@ -2922,20 +2923,20 @@ const Director = ({
                 />
               </div>
               <div className="director-form-group">
-                  <label htmlFor="nombre_usuarioEdit">Nombre y Apellido</label>
-                  <input
-                    type="text"
-                    id="nombre_usuarioEdit"
-                    value={docenteEdicion.nombre_usuario}
-                    onChange={(e) =>
-                      setDocenteEdicion({
-                        ...docenteEdicion,
-                        nombre_usuario: e.target.value,
-                      })
-                    }
-                    required
-                  />
-                </div>
+                <label htmlFor="nombre_usuarioEdit">Nombre y Apellido</label>
+                <input
+                  type="text"
+                  id="nombre_usuarioEdit"
+                  value={docenteEdicion.nombre_usuario}
+                  onChange={(e) =>
+                    setDocenteEdicion({
+                      ...docenteEdicion,
+                      nombre_usuario: e.target.value,
+                    })
+                  }
+                  required
+                />
+              </div>
               <div className="director-form-group">
                 <label htmlFor="subtipo">Subtipo de Docente</label>
                 <input
@@ -3031,10 +3032,9 @@ const Director = ({
       ),*/
       "gestion-asignaturas": gestionAsignaturasContent,
       "reportes-programa": (
-        <div className="director-section-content">
-          <h2>Reportes del Programa</h2>
-          <p>Visualización de reportes y estadísticas del programa.</p>
-        </div>
+
+        <ReportesPrograma />
+
       ),
       reportes: (
         <div className="director-section-content">

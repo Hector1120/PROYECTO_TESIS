@@ -715,8 +715,12 @@ const Estudiante = () => {
 
   function ajustarFecha(fecha) {
     const meses = [
-      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+      'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+      'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+    ];
+
+    const diasSemana = [
+      'domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'
     ];
 
     const dateObj = new Date(fecha);
@@ -724,18 +728,27 @@ const Estudiante = () => {
     // Corregir las 5 horas de desfase manualmente
     dateObj.setHours(dateObj.getHours() - 5);
 
+    const nombreDiaSemana = diasSemana[dateObj.getDay()];
     const nombreMes = meses[dateObj.getMonth()];
     const dia = dateObj.getDate();
     const anio = dateObj.getFullYear();
 
     let horas = dateObj.getHours();
-    let minutos = dateObj.getMinutes();
+    const minutos = dateObj.getMinutes();
 
-    // Formato 2 dígitos para hora y minutos
-    if (horas < 10) horas = `0${horas}`;
-    if (minutos < 10) minutos = `0${minutos}`;
+    // Determinar AM/PM y convertir a formato 12 horas
+    const esPM = horas >= 12;
+    if (horas > 12) {
+      horas = horas - 12;
+    } else if (horas === 0) {
+      horas = 12;
+    }
 
-    return `${nombreMes} ${dia} ${anio} ${horas}:${minutos}`;
+    // Formato para mostrar minutos solo si no son cero
+    const minutosFormato = minutos > 0 ? `:${minutos.toString().padStart(2, '0')}` : '';
+    const periodo = esPM ? 'pm' : 'am';
+
+    return `${nombreDiaSemana}, ${dia} de ${nombreMes} de ${anio}, ${horas}${minutosFormato}${periodo}`;
   }
 
 

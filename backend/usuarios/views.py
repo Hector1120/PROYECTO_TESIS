@@ -18,6 +18,18 @@ import csv
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
+from django.shortcuts import get_object_or_404
+from docx import Document
+from docx.shared import Pt
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+import os
+
+import io
+from docx.oxml.ns import qn
+
+
+
+
 
 @csrf_exempt
 def registrar_horario(request):
@@ -3634,6 +3646,7 @@ def asesorias_finalizadas_docente(request):
                     'hora_inicio': bloque.hora_inicio.strftime('%H:%M'),
                     'hora_fin': bloque.hora_fin.strftime('%H:%M'),
                     'lugar': bloque.lugar,
+                    'docente_confirma_asistencia': asesoria_bloque.docente_confirma_asistencia,
                     'asistio': asesoria_bloque.asistio,
                     'temas_tratados': asesoria_bloque.temas_tratados,
                     'observaciones': asesoria_bloque.observaciones
@@ -3739,6 +3752,7 @@ def registrar_asistencia_asesoria(request, asesoria_id):
             bloques_data = data.get('bloques', [])
             for bloque_data in bloques_data:
                 bloque_id = bloque_data.get('id')
+                docente_confirma_asistencia = bloque_data.get('docente_confirma_asistencia', False)
                 asistio_bloque = bloque_data.get('asistio', False)
                 temas_bloque = bloque_data.get('temas_tratados', '')
                 observaciones_bloque = bloque_data.get('observaciones', '')
@@ -3749,6 +3763,14 @@ def registrar_asistencia_asesoria(request, asesoria_id):
                         asesoria=asesoria,
                         bloque_horario__id=bloque_id
                     )
+                    # Actualizar la confirmación de asistencia del docente
+                    asesoria_bloque.docente_confirma_asistencia = docente_confirma_asistencia
+                    
+                    # Validar: Solo permitir registrar asistencia del estudiante si el docente confirma su asistencia
+                    if asistio_bloque and not docente_confirma_asistencia:
+                        return JsonResponse({
+                            'error': 'No se puede registrar la asistencia del estudiante si el docente no asistió al bloque'
+                        }, status=400)
                     
                     # Actualizar los campos de asistencia
                     asesoria_bloque.asistio = asistio_bloque
@@ -3779,6 +3801,7 @@ def registrar_asistencia_asesoria(request, asesoria_id):
                     'hora_inicio': bloque.hora_inicio.strftime('%H:%M'),
                     'hora_fin': bloque.hora_fin.strftime('%H:%M'),
                     'lugar': bloque.lugar,
+                    'docente_confirma_asistencia': asesoria_bloque.docente_confirma_asistencia,
                     'asistio': asesoria_bloque.asistio,
                     'temas_tratados': asesoria_bloque.temas_tratados,
                     'observaciones': asesoria_bloque.observaciones
@@ -3818,6 +3841,7 @@ def registrar_asistencia_asesoria(request, asesoria_id):
                     'hora_inicio': bloque.hora_inicio.strftime('%H:%M'),
                     'hora_fin': bloque.hora_fin.strftime('%H:%M'),
                     'lugar': bloque.lugar,
+                    'docente_confirma_asistencia': asesoria_bloque.docente_confirma_asistencia,
                     'asistio': asesoria_bloque.asistio,
                     'temas_tratados': asesoria_bloque.temas_tratados,
                     'observaciones': asesoria_bloque.observaciones
@@ -3993,6 +4017,7 @@ def historial_asesorias(request):
                     'hora_fin': bloque.hora_fin.strftime('%H:%M'),
                     'lugar': bloque.lugar,
                     # Datos de asistencia específicos del bloque
+                    'docente_confirma_asistencia': asesoria_bloque.docente_confirma_asistencia,
                     'asistio': asesoria_bloque.asistio,
                     'temas_tratados': asesoria_bloque.temas_tratados,
                     'observaciones': asesoria_bloque.observaciones
@@ -4385,6 +4410,7 @@ def obtener_asesoria(request, asesoria_id):
                 'hora_fin': bloque.hora_fin.strftime('%H:%M') if bloque.hora_fin else '',
                 'lugar': bloque.lugar or 'No especificado',
                 'asistio': bloque_asesoria.asistio,
+                'docente_confirma_asistencia': bloque_asesoria.docente_confirma_asistencia,  # Nuevo campo añadido
                 'temas_tratados': bloque_asesoria.temas_tratados,
                 'observaciones': bloque_asesoria.observaciones
             })
@@ -4498,3 +4524,402 @@ def finalizar_asesorias_pasadas():
                   ultimo_bloque.hora_inicio <= hora_actual <= ultimo_bloque.hora_fin):
                 asesoria.estado = 'En curso'
                 asesoria.save()
+                
+@login_required
+def generar_reporte_asesoria_docente(request, docente_id):
+    """
+    Genera un reporte de asesorías en formato .docx para un docente específico.
+    Solo directores pueden generar reportes y únicamente para docentes de su área.
+    """
+    # Verificar que el usuario sea un director
+    if not request.user.is_authenticated or request.user.rol != 'Director':
+        return HttpResponse("No autorizado. Solo directores pueden generar reportes.", status=403)
+    
+    # Obtener el docente
+    docente = get_object_or_404(Usuario, id=docente_id, rol='Docente')
+    
+    # Verificar que el director tenga acceso a este docente (mismo subtipo)
+    if request.user.subtipo_director:
+        # Mapeo de subtipo_director a subtipo_docente esperado
+        subtipo_esperado = ""
+        subtipo_director = request.user.subtipo_director.lower()
+        
+        if "sistemas" in subtipo_director:
+            subtipo_esperado = "Docente de Ing.Sistemas"
+        elif "electrónica" in subtipo_director or "electronica" in subtipo_director:
+            subtipo_esperado = "Docente de Ing.Electrónica"
+        
+        if not subtipo_esperado:
+            return HttpResponse("Error: No se pudo determinar el tipo de docente permitido.", status=400)
+        
+        # Verificar que el docente tenga el subtipo correspondiente
+        if docente.subtipo_docente != subtipo_esperado:
+            return HttpResponse(f"No autorizado. El docente no pertenece a su área de dirección.", status=403)
+    else:
+        return HttpResponse("Error: El director no tiene un subtipo asignado.", status=400)
+    
+    # Determinar nombre del programa académico basado en el subtipo del director
+    subtipo = request.user.subtipo_director.lower() if request.user.subtipo_director else ""
+
+    if "sistemas" in subtipo:
+        programa_academico = "Ingeniería de Sistemas"
+    elif "electrónica" in subtipo or "electronica" in subtipo:
+        programa_academico = "Ingeniería Electrónica"
+    else:
+        programa_academico = "Programa no especificado"
+
+    
+    # Obtener período actual o seleccionado
+    periodo_seleccionado = request.GET.get('periodo')
+    
+    # Si no se especificó un periodo, obtener el periodo activo del modelo Periodo
+    if not periodo_seleccionado:
+        periodo_activo = Periodo.objects.filter(activo=True).first()
+        if periodo_activo:
+            periodo_seleccionado = periodo_activo.codigo
+        else:
+            # Si no hay periodo activo, usar el periodo actual
+            periodo_seleccionado = timezone.now().strftime("%Y-%d")
+    
+    # Obtener asesorías finalizadas del docente
+    asesorias = Asesoria.objects.filter(
+        docente=docente,
+        estado='Finalizada'
+    ).prefetch_related(
+        'bloques_asesoria__bloque_horario'
+    ).order_by('-bloque_horario__fecha', '-bloque_horario__hora_inicio')
+    
+    # Filtrar por periodo si se especifica
+    if periodo_seleccionado:
+        # Corregimos el filtrado para que sea efectivo
+        # Primero, filtramos las asesorías cuyos bloques de horario corresponden al periodo seleccionado
+        asesorias = asesorias.filter(bloque_horario__horario__periodo=periodo_seleccionado)
+    
+    # Cargar el documento plantilla
+    try:
+        # Ruta al archivo de plantilla - ajustar según la estructura de archivos
+        template_path = os.path.join(settings.BASE_DIR, 'templates', 'reportes', '1.docx')
+        doc = Document(template_path)
+    except Exception as e:
+        # Si no se puede cargar la plantilla, crear un documento nuevo
+        print(f"Error al cargar la plantilla: {e}")
+        return HttpResponse(f"Error al cargar la plantilla: {e}", status=500)
+    
+    # Buscar la primera tabla (la tabla de información del docente)
+    if len(doc.tables) >= 1:
+        # Asumimos que la tabla de información del docente es la primera
+        info_table = doc.tables[0]
+        
+        # Llenamos la tabla con la información del docente
+        # Verificar si la tabla tiene suficientes filas y columnas
+        if len(info_table.rows) >= 1 and len(info_table.rows[0].cells) >= 6:
+            info_table.rows[0].cells[1].text = docente.nombre_usuario            # Columna 2
+            info_table.rows[0].cells[3].text = programa_academico               # Columna 4
+            info_table.rows[0].cells[5].text = periodo_seleccionado             # Columna 6
+
+    
+    # Buscar la segunda tabla (la tabla de asesorías)
+    if len(doc.tables) >= 2:
+        # Asumimos que la tabla de asesorías es la segunda
+        table = doc.tables[1]
+        
+        # Obtener el número de filas actual (incluyendo la de encabezados)
+        num_rows = len(table.rows)
+        
+        # Añadir filas para cada asesoría
+        for index, asesoria in enumerate(asesorias, 1):
+            # Para cada asesoría, obtener todos sus bloques
+            asesorias_bloques = AsesoriaBloque.objects.filter(
+                asesoria=asesoria
+            ).select_related('bloque_horario').order_by('bloque_horario__fecha', 'bloque_horario__hora_inicio')
+            
+            for bloque_index, asesoria_bloque in enumerate(asesorias_bloques):
+                bloque = asesoria_bloque.bloque_horario
+                
+                # Añadir una fila para este bloque
+                row = table.add_row()
+                
+                # Solo mostrar número para el primer bloque de cada asesoría
+                if bloque_index == 0:
+                    row.cells[0].text = str(index)
+                
+                # Fecha y horas
+                row.cells[1].text = bloque.fecha.strftime('%d/%m/%Y')
+                row.cells[2].text = bloque.hora_inicio.strftime('%H:%M')
+                row.cells[3].text = bloque.hora_fin.strftime('%H:%M')
+                
+                # Información del estudiante (solo en el primer bloque)
+                if bloque_index == 0:
+                    row.cells[4].text = asesoria.estudiante.nombre_usuario
+                    row.cells[5].text = asesoria.estudiante.semestre if asesoria.estudiante.semestre else "N/A"
+                
+                # Temas abordados (específicos del bloque o general)
+                temas = asesoria_bloque.temas_tratados if asesoria_bloque.temas_tratados else asesoria.temas_tratados
+                row.cells[6].text = temas if temas else "No especificado"
+                
+                # Asistencia (específica del bloque)
+                row.cells[7].text = "Sí" if asesoria_bloque.asistio else "No"
+                row.cells[8].text = "Sí" if asesoria_bloque.docente_asistio else "No"
+                
+                # Calificación (solo en el primer bloque)
+                if bloque_index == 0 and asesoria.calificacion:
+                    row.cells[9].text = str(asesoria.calificacion)
+    else:
+        # Si no encontramos la tabla de asesorías, agregar mensaje de error
+        doc.add_paragraph("Error: No se encontró la tabla para las asesorías en la plantilla.")
+    
+    # Guardar documento en memoria
+    output = io.BytesIO()
+    doc.save(output)
+    output.seek(0)
+    
+    # Generar nombre para el reporte
+    fecha_actual = datetime.now().strftime("%Y%m%d_%H%M%S")
+    nombre_archivo = f"Reporte_Asesorias_{docente.nombre_usuario.replace(' ', '_')}_{fecha_actual}.docx"
+    
+    # Crear respuesta HTTP para descargar el archivo
+    response = HttpResponse(
+        output.read(),
+        content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    )
+    response['Content-Disposition'] = f'attachment; filename="{nombre_archivo}"'
+    return response
+
+
+# Endpoint para obtener todos los periodos
+@login_required
+def get_periodos(request):
+    """
+    Retorna la lista de todos los periodos académicos.
+    Los usuarios deben estar autenticados para acceder a esta información.
+    """
+    if not request.user.is_authenticated:
+        return JsonResponse({'error': 'Usuario no autenticado'}, status=401)
+    
+    # Obtener todos los periodos ordenados por código (de más reciente a más antiguo)
+    periodos = Periodo.objects.all().order_by('-codigo')
+    
+    # Serializar los datos
+    periodos_data = [
+        {
+            'id': periodo.id,
+            'codigo': periodo.codigo,
+            'fecha_inicio': periodo.fecha_inicio.strftime('%Y-%m-%d'),
+            'fecha_fin': periodo.fecha_fin.strftime('%Y-%m-%d'),
+            'activo': periodo.activo
+        }
+        for periodo in periodos
+    ]
+    
+    return JsonResponse(periodos_data, safe=False)
+
+@login_required
+def listar_docentes_para_reportes(request):
+    """
+    Proporciona una lista de docentes para los que un director puede generar reportes.
+    Solo los directores pueden acceder a esta vista.
+    Filtra los docentes según el subtipo del director (Sistemas/Electrónica).
+    """
+    if not request.user.is_authenticated or request.user.rol != 'Director':
+        return JsonResponse({'error': 'No autorizado. Solo directores pueden acceder a esta vista.'}, status=403)
+    
+    if not request.user.subtipo_director:
+        return JsonResponse({'error': 'Error: El director no tiene un subtipo asignado.'}, status=400)
+    
+    try:
+        # Mapeo de subtipo_director a subtipo_docente
+        subtipo_docente_correspondiente = ""
+        
+        # Normalizar el subtipo para hacer comparaciones consistentes
+        subtipo_director = request.user.subtipo_director.lower()
+        
+        if "sistemas" in subtipo_director:
+            subtipo_docente_correspondiente = "Docente de Ing.Sistemas"
+        elif "electrónica" in subtipo_director or "electronica" in subtipo_director:
+            subtipo_docente_correspondiente = "Docente de Ing.Electrónica"
+        # Puedes añadir más mapeos según sea necesario
+        
+        if not subtipo_docente_correspondiente:
+            return JsonResponse({'error': 'No se pudo determinar el tipo de docentes a listar.'}, status=400)
+        
+        # Filtrar docentes por el subtipo correspondiente
+        docentes = Usuario.objects.filter(
+            rol="Docente",
+            subtipo_docente=subtipo_docente_correspondiente
+        ).order_by('nombre_usuario')
+        
+        # Preparar datos para la respuesta
+        docentes_data = [
+            {
+                'id': docente.id,
+                'nombre': docente.nombre_usuario,
+                'correo': docente.correo,
+                'subtipo': docente.subtipo_docente
+            }
+            for docente in docentes
+        ]
+        
+        return JsonResponse({'docentes': docentes_data})
+        
+    except Exception as e:
+        return JsonResponse({'error': f'Error al listar docentes: {str(e)}'}, status=500)
+    
+# views.py
+
+@login_required
+def generar_reporte_asesoria_propio(request):
+    """
+    Genera un reporte de asesorías en formato .docx para el docente autenticado.
+    Solo el docente puede generar su propio reporte de asesorías.
+    """
+    # Verificar que el usuario sea un docente
+    if not request.user.is_authenticated or request.user.rol != 'Docente':
+        return HttpResponse("No autorizado. Solo docentes pueden generar sus propios reportes.", status=403)
+    
+    # El docente es el usuario autenticado
+    docente = request.user
+    
+    # Determinar nombre del programa académico basado en el subtipo del docente
+    subtipo = docente.subtipo_docente.lower() if docente.subtipo_docente else ""
+
+    if "sistemas" in subtipo:
+        programa_academico = "Ingeniería de Sistemas"
+    elif "electrónica" in subtipo or "electronica" in subtipo:
+        programa_academico = "Ingeniería Electrónica"
+    else:
+        programa_academico = "Programa no especificado"
+
+    # Obtener período actual o seleccionado
+    periodo_seleccionado = request.GET.get('periodo')
+    
+    # Si no se especificó un periodo, obtener el periodo activo del modelo Periodo
+    if not periodo_seleccionado:
+        periodo_activo = Periodo.objects.filter(activo=True).first()
+        if periodo_activo:
+            periodo_seleccionado = periodo_activo.codigo
+        else:
+            # Si no hay periodo activo, usar el periodo actual
+            periodo_seleccionado = timezone.now().strftime("%Y-%d")
+    
+    # Obtener asesorías finalizadas del docente autenticado
+    asesorias = Asesoria.objects.filter(
+        docente=docente,
+        estado='Finalizada'
+    ).prefetch_related(
+        'bloques_asesoria__bloque_horario'
+    ).order_by('-bloque_horario__fecha', '-bloque_horario__hora_inicio')
+    
+    # Filtrar por periodo si se especifica
+    if periodo_seleccionado:
+        # Filtrar las asesorías cuyos bloques de horario corresponden al periodo seleccionado
+        asesorias = asesorias.filter(bloque_horario__horario__periodo=periodo_seleccionado)
+    
+    # Cargar el documento plantilla
+    try:
+        # Ruta al archivo de plantilla
+        template_path = os.path.join(settings.BASE_DIR, 'templates', 'reportes', '2.docx')
+        doc = Document(template_path)
+    except Exception as e:
+        # Si no se puede cargar la plantilla, devolver error
+        print(f"Error al cargar la plantilla: {e}")
+        return HttpResponse(f"Error al cargar la plantilla: {e}", status=500)
+    
+    # Buscar la primera tabla (la tabla de información del docente)
+    if len(doc.tables) >= 1:
+        # Asumimos que la tabla de información del docente es la primera
+        info_table = doc.tables[0]
+        
+        # Llenamos la tabla con la información del docente
+        # Verificar si la tabla tiene suficientes filas y columnas
+        if len(info_table.rows) >= 1 and len(info_table.rows[0].cells) >= 6:
+            info_table.rows[0].cells[1].text = docente.nombre_usuario            # Columna 2 - Nombre Docente
+            info_table.rows[0].cells[3].text = programa_academico               # Columna 4 - Programa Académico
+            info_table.rows[0].cells[5].text = periodo_seleccionado             # Columna 6 - Periodo
+
+    # Buscar la segunda tabla (la tabla de asesorías)
+    if len(doc.tables) >= 2:
+        # Asumimos que la tabla de asesorías es la segunda
+        table = doc.tables[1]
+        
+        # Añadir filas para cada asesoría
+        for index, asesoria in enumerate(asesorias, 1):
+            # Para cada asesoría, obtener todos sus bloques
+            asesorias_bloques = AsesoriaBloque.objects.filter(
+                asesoria=asesoria
+            ).select_related('bloque_horario').order_by('bloque_horario__fecha', 'bloque_horario__hora_inicio')
+            
+            for bloque_index, asesoria_bloque in enumerate(asesorias_bloques):
+                bloque = asesoria_bloque.bloque_horario
+                
+                # Añadir una fila para este bloque
+                row = table.add_row()
+                
+                # Solo mostrar número para el primer bloque de cada asesoría
+                if bloque_index == 0:
+                    row.cells[0].text = str(index)  # N.º
+                else:
+                    row.cells[0].text = ""  # Celda vacía para bloques adicionales
+                
+                # Fecha de asesoría
+                row.cells[1].text = bloque.fecha.strftime('%d/%m/%Y')
+                
+                # Hora inicio
+                row.cells[2].text = bloque.hora_inicio.strftime('%H:%M')
+                
+                # Hora fin
+                row.cells[3].text = bloque.hora_fin.strftime('%H:%M')
+                
+                # Estado de la asesoría (solo en el primer bloque)
+                if bloque_index == 0:
+                    row.cells[4].text = asesoria.estado
+                else:
+                    row.cells[4].text = ""
+                
+                # Nombre del estudiante (solo en el primer bloque)
+                if bloque_index == 0:
+                    row.cells[5].text = asesoria.estudiante.nombre_usuario
+                else:
+                    row.cells[5].text = ""
+                
+                # Semestre del estudiante (solo en el primer bloque)
+                if bloque_index == 0:
+                    semestre = asesoria.estudiante.semestre if asesoria.estudiante.semestre else "N/A"
+                    row.cells[6].text = str(semestre)
+                else:
+                    row.cells[6].text = ""
+                
+                # Breve descripción del tema abordado (específica del bloque o general)
+                temas = asesoria_bloque.temas_tratados if asesoria_bloque.temas_tratados else asesoria.temas_tratados
+                row.cells[7].text = temas if temas else "No especificado"
+                
+                # El estudiante asistió a este bloque
+                row.cells[8].text = "Sí" if asesoria_bloque.asistio else "No"
+                
+                # El docente asistió a este bloque
+                row.cells[9].text = "Sí" if asesoria_bloque.docente_asistio else "No"
+                
+                # Calificación (solo en el primer bloque)
+                if bloque_index == 0 and asesoria.calificacion:
+                    row.cells[10].text = str(asesoria.calificacion)
+                else:
+                    row.cells[10].text = ""
+    else:
+        # Si no encontramos la tabla de asesorías, agregar mensaje de error
+        doc.add_paragraph("Error: No se encontró la tabla para las asesorías en la plantilla.")
+    
+    # Guardar documento en memoria
+    output = io.BytesIO()
+    doc.save(output)
+    output.seek(0)
+    
+    # Generar nombre para el reporte
+    fecha_actual = datetime.now().strftime("%Y%m%d_%H%M%S")
+    nombre_archivo = f"Mi_Reporte_Asesorias_{docente.nombre_usuario.replace(' ', '_')}_{fecha_actual}.docx"
+    
+    # Crear respuesta HTTP para descargar el archivo
+    response = HttpResponse(
+        output.read(),
+        content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    )
+    response['Content-Disposition'] = f'attachment; filename="{nombre_archivo}"'
+    return response

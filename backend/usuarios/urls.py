@@ -14,7 +14,9 @@ from .views import (
     obtener_asignaturas_por_semestre, obtener_docentes_por_asignatura, obtener_horarios_disponibles,
     solicitar_asesoria, mis_asesorias, cancelar_asesoria, asesorias_programadas_docente, calificar_asesoria,
     asesorias_finalizadas_docente, registrar_asistencia_asesoria, historial_asesorias, exportar_historial_asesorias,
-    obtener_asesoria, registrar_asistencia_docente
+    obtener_asesoria, registrar_asistencia_docente, generar_reporte_asesoria_docente, listar_docentes_para_reportes,
+    get_periodos, generar_reporte_asesoria_propio
+    
     
     
 )
@@ -82,6 +84,9 @@ urlpatterns = [
     path('historial-asesorias/', historial_asesorias, name='historial_asesorias'),
     path('obtener-asesoria/<int:asesoria_id>/', obtener_asesoria, name='obtener_asesoria'),
     path('registrar-asistencia-docente/<int:asesoria_id>/', registrar_asistencia_docente, name='registrar_asistencia_docente'),
-
+    path('generar-reporte-asesoria-docente/<int:docente_id>/', generar_reporte_asesoria_docente, name='generar_reporte_asesoria_docente'),
+    path('listar-docentes-para-reportes/', listar_docentes_para_reportes, name='listar_docentes_para_reportes'),
+    path('get-periodos/', get_periodos, name='get_periodos'),
+    path('generar-reporte-asesoria-propio/', generar_reporte_asesoria_propio, name='generar_reporte_asesoria_propio'),
 
 ]

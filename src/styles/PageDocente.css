@@ -1,9 +1,11 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
   font-family: 'Arial', sans-serif;
-  overflow-x: hidden; /* Prevenir scroll horizontal en el body */
+  overflow-x: hidden;
+  /* Prevenir scroll horizontal en el body */
   width: 100%;
   overflow-y: auto;
 }
@@ -20,15 +22,18 @@ html, body {
 
 .docente-background-image {
   width: 100%;
-  min-height: 100vh; /* Changed from height: 100% to min-height: 100vh */
+  min-height: 100vh;
+  /* Changed from height: 100% to min-height: 100vh */
   background-image: url('../assets/fondo2.png');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* Keep background fixed while scrolling */
+  background-attachment: fixed;
+  /* Keep background fixed while scrolling */
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
-  overflow: visible; /* Changed from hidden to visible */
+  overflow: visible;
+  /* Changed from hidden to visible */
 }
 
 /* Navbar styles */
@@ -79,15 +84,18 @@ html, body {
   flex-grow: 1;
   animation: shine 1.5s infinite;
 }
+
 @keyframes shine {
   0% {
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5);
   }
+
   50% {
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 1);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 1);
   }
+
   100% {
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5);
   }
 }
 
@@ -106,6 +114,7 @@ html, body {
   object-fit: contain;
   /*margin-right: 20px;*/
 }
+
 .docente-options-row {
   width: 100%;
   display: flex;
@@ -123,6 +132,7 @@ html, body {
   gap: 12px;
   max-width: 100%;
 }
+
 .docente-nav-options a.docente-disabled {
   opacity: 0.6;
   cursor: not-allowed;
@@ -148,38 +158,50 @@ html, body {
   font-weight: bold;
   border: 2px solid transparent;
 }
-.docente-nav-options li a svg { /* Asegúrate de que el icono sea un SVG */
-  margin-right: 8px; /* Espacio entre el icono y el texto */
+
+.docente-nav-options li a svg {
+  /* Asegúrate de que el icono sea un SVG */
+  margin-right: 8px;
+  /* Espacio entre el icono y el texto */
 }
 
-.docente-nav-options li a:hover, 
+.docente-nav-options li a:hover,
 .docente-nav-options li a.docente-active {
   background-color: #034081;
-  transform: translateY(-4px); /* Aumenta el desplazamiento al hacer hover */
-  border: 2px solid #e8e9e4; /* Borde visible al hacer hover */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Aumenta la sombra al hacer hover */
-  animation: pulse 0.5s infinite; /* Añade una animación de pulso */
+  transform: translateY(-4px);
+  /* Aumenta el desplazamiento al hacer hover */
+  border: 2px solid #e8e9e4;
+  /* Borde visible al hacer hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Aumenta la sombra al hacer hover */
+  animation: pulse 0.5s infinite;
+  /* Añade una animación de pulso */
 }
+
 @keyframes pulse {
   0% {
-      transform: scale(1);
+    transform: scale(1);
   }
+
   50% {
-      transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+    transform: scale(1.05);
+    /* Aumenta ligeramente el tamaño */
   }
+
   100% {
-      transform: scale(1);
+    transform: scale(1);
   }
 }
 
 .docente-nav-options li a.docente-active {
   border-bottom: 3px solid #e8e9e4;
 }
+
 @media (min-width: 768px) and (max-width: 1400px) {
   .docente-nav-options {
     gap: 8px;
   }
-  
+
   .docente-nav-options li a {
     padding: 6px 10px;
     font-size: 0.85rem;
@@ -191,12 +213,14 @@ html, body {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 0.3rem 1.5rem; /* Reducido para ahorrar espacio vertical */
+  padding: 0.3rem 1.5rem;
+  /* Reducido para ahorrar espacio vertical */
   background-color: #eff0f0;
   color: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
-  box-sizing: border-box; /* Incluir padding y border en el ancho total */
+  box-sizing: border-box;
+  /* Incluir padding y border en el ancho total */
   font-weight: bold;
   display: flex;
   justify-content: flex-start;
@@ -204,9 +228,10 @@ html, body {
 
 .docente-user-info p {
   margin: 0 15px 0 0;
-  font-size: 1rem; /* Reducido para ahorrar espacio vertical */
+  font-size: 1rem;
+  /* Reducido para ahorrar espacio vertical */
   color: #034081;
-  
+
 }
 
 
@@ -214,7 +239,8 @@ html, body {
   background-color: #d81020;
   color: white;
   border: none;
-  padding: 6px 12px; /* Reducido para ahorrar espacio vertical */
+  padding: 6px 12px;
+  /* Reducido para ahorrar espacio vertical */
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
@@ -223,7 +249,7 @@ html, body {
   margin-top: 0;
   font-size: 0.9rem;
   margin-left: auto;
-  
+
 }
 
 .docente-logout-button:hover {
@@ -237,10 +263,14 @@ html, body {
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
-  padding-top: 40px; /* Maintain top padding */
-  padding-right: 10px; /* Maintain right padding */
-  padding-left: 10px; /* Maintain left padding */
-  padding-bottom: 100px; /* Add extra space at the bottom */
+  padding-top: 40px;
+  /* Maintain top padding */
+  padding-right: 10px;
+  /* Maintain right padding */
+  padding-left: 10px;
+  /* Maintain left padding */
+  padding-bottom: 100px;
+  /* Add extra space at the bottom */
   color: white;
   width: 100%;
   box-sizing: border-box;
@@ -253,57 +283,77 @@ html, body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  background: rgba(0, 0, 0, 0.5);
+  /* Fondo semi-transparente */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
+  z-index: 1000;
+  /* Asegúrate de que esté por encima de otros elementos */
 }
 
 .docente-confirmation-logo {
-  width: 200px; /* Ajusta el tamaño a 80 píxeles */
-  margin-bottom: 5px; /* Espacio entre el logo y el texto */
+  width: 200px;
+  /* Ajusta el tamaño a 80 píxeles */
+  margin-bottom: 5px;
+  /* Espacio entre el logo y el texto */
 }
 
 .docente-confirmation-content {
-  background: rgb(8, 72, 102); /* Fondo blanco para la ventana */
+  background: rgb(8, 72, 102);
+  /* Fondo blanco para la ventana */
   padding: 20px;
-  border-radius: 8px; /* Bordes redondeados */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
-  text-align: center; /* Centrar el texto */
+  border-radius: 8px;
+  /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Sombra para dar profundidad */
+  text-align: center;
+  /* Centrar el texto */
 }
 
 .docente-confirmation-content p {
-  margin-bottom: 20px; /* Espacio entre el texto y los botones */
-  font-size: 16px; /* Tamaño de fuente */
+  margin-bottom: 20px;
+  /* Espacio entre el texto y los botones */
+  font-size: 16px;
+  /* Tamaño de fuente */
   color: #ffffff;
   font-weight: bold;
 }
 
 .docente-confirmation-content button {
-  margin: 0 10px; /* Espacio entre los botones */
-  padding: 10px 20px; /* Espaciado interno */
-  border: none; /* Sin borde */
-  border-radius: 5px; /* Bordes redondeados */
-  cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
-  font-size: 16px; /* Tamaño de fuente */
+  margin: 0 10px;
+  /* Espacio entre los botones */
+  padding: 10px 20px;
+  /* Espaciado interno */
+  border: none;
+  /* Sin borde */
+  border-radius: 5px;
+  /* Bordes redondeados */
+  cursor: pointer;
+  /* Cambiar el cursor al pasar sobre el botón */
+  font-size: 16px;
+  /* Tamaño de fuente */
   background-color: #14213d;
   color: #ffffff;
   font-weight: bold;
 }
 
 .docente-confirmation-content button:hover {
-  background-color: #4361ee; /* Color de fondo al pasar el mouse */
+  background-color: #4361ee;
+  /* Color de fondo al pasar el mouse */
 }
 
 .docente-confirmation-content button:last-child {
-  background-color: #a50e18; /* Color de fondo para el botón "No" */
-  color: white; /* Color del texto */
+  background-color: #a50e18;
+  /* Color de fondo para el botón "No" */
+  color: white;
+  /* Color del texto */
   font-weight: bold;
 }
 
 .docente-confirmation-content button:last-child:hover {
-  background-color: #e53935; /* Color de fondo al pasar el mouse sobre "No" */
+  background-color: #e53935;
+  /* Color de fondo al pasar el mouse sobre "No" */
 }
 
 /* Section content styles */
@@ -317,8 +367,10 @@ html, body {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   color: #034081;
   box-sizing: border-box;
-  position: relative; /* Added position relative */
-  z-index: 5; /* Added z-index */
+  position: relative;
+  /* Added position relative */
+  z-index: 5;
+  /* Added z-index */
   top: 10%;
 }
 
@@ -404,9 +456,17 @@ html, body {
 }
 
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 .docente-horario-header h2 {
@@ -456,8 +516,15 @@ html, body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .docente-periodo-badge {
@@ -510,6 +577,7 @@ html, body {
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.8);
   }
+
   100% {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
@@ -538,7 +606,8 @@ html, body {
   padding: 16px 24px;
   border-radius: 8px;
   background-color: #d81020;
-  color: #ffffff; /* Texto blanco */
+  color: #ffffff;
+  /* Texto blanco */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   z-index: 1000;
   max-width: 400px;
@@ -566,8 +635,15 @@ html, body {
 }
 
 @keyframes fadeOut {
-  from { opacity: 1; transform: translateY(0); }
-  to { opacity: 0; transform: translateY(-20px); }
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
 }
 
 
@@ -582,26 +658,30 @@ html, body {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   position: relative;
   z-index: 1;
-  max-width: 900px; /* Limitar el ancho máximo del formulario aumentado */
-  margin: 0 auto; /* Centrar el formulario */
+  max-width: 900px;
+  /* Limitar el ancho máximo del formulario aumentado */
+  margin: 0 auto;
+  /* Centrar el formulario */
 }
 
 
 @media (max-width: 768px) {
   .docente-time-input-wrapper {
-    max-width: 100%; /* En móviles, usar el ancho completo disponible */
+    max-width: 100%;
+    /* En móviles, usar el ancho completo disponible */
   }
-  
+
   .docente-time-inputs {
     flex-direction: column;
     gap: 16px;
   }
 }
+
 .docente-form-group {
   position: relative;
   margin-bottom: 0;
   transition: all 0.3s ease;
-  
+
 }
 
 .docente-form-group:hover {
@@ -696,7 +776,7 @@ select.docente-form-control:hover {
 
 .docente-time-input-wrapper .docente-form-control {
   width: 87%;
-  
+
 }
 
 .docente-time-icon {
@@ -715,6 +795,7 @@ select.docente-form-control:hover {
   margin-left: 5px;
   font-size: 14px;
 }
+
 .docente-no-permission {
   display: flex;
   flex-direction: column;
@@ -739,19 +820,22 @@ select.docente-form-control:hover {
   color: white;
   border: none;
   border-radius: 5px;
-  padding: 12px; /* un poco más de espacio */
+  padding: 12px;
+  /* un poco más de espacio */
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-weight: 600;
   text-align: center;
-  font-size: 16px; /* ← Tamaño de texto aumentado */
+  font-size: 16px;
+  /* ← Tamaño de texto aumentado */
 }
 
 .docente-refresh-button-content {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px; /* Espacio entre ícono y texto */
+  gap: 10px;
+  /* Espacio entre ícono y texto */
 }
 
 .docente-refresh-permissions-button:hover {
@@ -773,9 +857,17 @@ select.docente-form-control:hover {
 }
 
 @keyframes pulse {
-  0% { transform: translateY(-50%) scale(1); }
-  50% { transform: translateY(-50%) scale(1.1); }
-  100% { transform: translateY(-50%) scale(1); }
+  0% {
+    transform: translateY(-50%) scale(1);
+  }
+
+  50% {
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  100% {
+    transform: translateY(-50%) scale(1);
+  }
 }
 
 /* Información adicional sobre horarios */
@@ -816,8 +908,15 @@ select.docente-form-control:hover {
 }
 
 @keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
 .docente-info-text {
@@ -951,30 +1050,31 @@ select.docente-form-control:hover {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.docente-horario-form > * {
+.docente-horario-form>* {
   animation: fadeInUp 0.5s ease forwards;
   opacity: 0;
 }
 
-.docente-horario-form > *:nth-child(1) {
+.docente-horario-form>*:nth-child(1) {
   animation-delay: 0.1s;
 }
 
-.docente-horario-form > *:nth-child(2) {
+.docente-horario-form>*:nth-child(2) {
   animation-delay: 0.2s;
 }
 
-.docente-horario-form > *:nth-child(3) {
+.docente-horario-form>*:nth-child(3) {
   animation-delay: 0.3s;
 }
 
-.docente-horario-form > *:nth-child(4) {
+.docente-horario-form>*:nth-child(4) {
   animation-delay: 0.4s;
 }
 
@@ -983,12 +1083,12 @@ select.docente-form-control:hover {
   .docente-horario-section {
     padding: 22px;
   }
-  
+
   .docente-time-inputs {
     flex-direction: column;
     gap: 16px;
   }
-  
+
   .docente-submit-button {
     width: 100%;
   }
@@ -1012,21 +1112,25 @@ select.docente-form-control:hover {
 }
 
 .docente-footer-logo {
-  height: 40px; /* Ajusta el tamaño según sea necesario */
-  max-width: 100px; /* Ajusta el tamaño según sea necesario */
-  margin: 0 10px; /* Espacio entre los logos */
+  height: 40px;
+  /* Ajusta el tamaño según sea necesario */
+  max-width: 100px;
+  /* Ajusta el tamaño según sea necesario */
+  margin: 0 10px;
+  /* Espacio entre los logos */
 }
 
 .docente-footer-text {
   font-size: 1rem;
   font-weight: bold;
   text-align: center;
-  margin: 0 20px; /* Espacio entre el texto y los logos */
+  margin: 0 20px;
+  /* Espacio entre el texto y los logos */
   color: #ffffff;
 }
 
 /* Added specific style to ensure VisualizarHorario component is visible */
-.docente-content-area > div {
+.docente-content-area>div {
   width: 100%;
   max-width: 1000px;
   z-index: 5;
@@ -1134,8 +1238,15 @@ select.docente-form-control:hover {
 }
 
 @keyframes dropdownFadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .docente-user-menu-dropdown ul {
@@ -1650,6 +1761,7 @@ select.docente-form-control:hover {
   border: 1px solid #e2e8f0;
   transition: all 0.2s ease;
 }
+
 .docente-estudiante-info:hover {
   background-color: #f1f5f9;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
@@ -1854,12 +1966,13 @@ select.docente-form-control:hover {
     grid-template-columns: 1fr;
   }
 }
+
 /* Ajustes responsivos */
 @media (max-width: 768px) {
   .docente-filter-buttons {
     flex-wrap: wrap;
   }
-  
+
   .docente-filter-section {
     flex-direction: column;
     align-items: flex-start;
@@ -1928,15 +2041,15 @@ select.docente-form-control:hover {
   border-radius: 50%;
 }
 
-input:checked + .docente-slider {
+input:checked+.docente-slider {
   background-color: #10b981;
 }
 
-input:focus + .docente-slider {
+input:focus+.docente-slider {
   box-shadow: 0 0 1px #10b981;
 }
 
-input:checked + .docente-slider:before {
+input:checked+.docente-slider:before {
   transform: translateX(20px);
 }
 
@@ -2103,7 +2216,7 @@ input:checked + .docente-slider:before {
   width: 0;
 }
 
-.docente-checkbox input:checked ~ .docente-checkbox-mark {
+.docente-checkbox input:checked~.docente-checkbox-mark {
   background-color: #0284c7;
   border-color: #0284c7;
 }
@@ -2121,7 +2234,7 @@ input:checked + .docente-slider:before {
   transform: rotate(45deg);
 }
 
-.docente-checkbox input:checked ~ .docente-checkbox-mark:after {
+.docente-checkbox input:checked~.docente-checkbox-mark:after {
   display: block;
 }
 
@@ -2135,6 +2248,7 @@ input:checked + .docente-slider:before {
   gap: 10px;
   margin-left: auto;
 }
+
 .docente-filter-buttons {
   display: flex;
   gap: 8px;
@@ -2347,7 +2461,7 @@ input:checked + .docente-slider:before {
   width: 0;
 }
 
-.docente-radio input:checked ~ .docente-radio-mark {
+.docente-radio input:checked~.docente-radio-mark {
   border-color: #0284c7;
 }
 
@@ -2363,7 +2477,7 @@ input:checked + .docente-slider:before {
   background: #0284c7;
 }
 
-.docente-radio input:checked ~ .docente-radio-mark:after {
+.docente-radio input:checked~.docente-radio-mark:after {
   display: block;
 }
 
@@ -2398,29 +2512,29 @@ input:checked + .docente-slider:before {
     align-items: flex-start;
     gap: 16px;
   }
-  
+
   .docente-asesorias-stats {
     width: 100%;
   }
-  
+
   .docente-stat-card {
     flex: 1;
   }
-  
+
   .docente-filtro-row {
     flex-direction: column;
     gap: 16px;
   }
-  
+
   .docente-filter-field {
     width: 100%;
   }
-  
+
   .docente-filter-actions {
     margin-left: 0;
     width: 100%;
   }
-  
+
   .docente-apply-filters-button,
   .docente-clear-filters-button {
     flex: 1;
@@ -2429,12 +2543,19 @@ input:checked + .docente-slider:before {
 
 /* Animaciones y transiciones adicionales */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.docente-asesoria-card, 
-.docente-asistencia-card, 
+.docente-asesoria-card,
+.docente-asistencia-card,
 .docente-reporte-card {
   animation: fadeIn 0.3s ease-out;
 }
@@ -2444,27 +2565,27 @@ input:checked + .docente-slider:before {
   .docente-asesorias-section {
     background-color: #1e293b;
   }
-  
+
   .docente-asesorias-title-container h2 {
     color: #f1f5f9;
   }
-  
+
   .docente-asesorias-subtitle {
     color: #cbd5e1;
   }
-  
+
   .docente-stat-card {
     background-color: #334155;
   }
-  
+
   .docente-stat-value {
     color: #f1f5f9;
   }
-  
+
   .docente-stat-label {
     color: #cbd5e1;
   }
-  
+
   /* Continúa adaptando los demás elementos para el tema oscuro según sea necesario */
 }
 
@@ -2485,6 +2606,7 @@ input:checked + .docente-slider:before {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   padding: 24px;
 }
+
 .docentes-asesorias-asistencia-view {
   animation: fadeIn 0.5s ease-out;
 }
@@ -2510,6 +2632,7 @@ input:checked + .docente-slider:before {
   color: #ffffff;
   text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
 }
+
 .docentes-asesorias-asistencia-title svg {
   background-color: #ffffff;
   padding: 4px;
@@ -2587,21 +2710,29 @@ input:checked + .docente-slider:before {
   background: rgba(255, 255, 255, 0.25);
   transform: translateY(-2px);
 }
+
 .docentes-asesorias-asistencia-refresh-button.active {
   background: linear-gradient(135deg, #d81020, #a50e18);
   box-shadow: 0 2px 8px rgba(216, 16, 32, 0.4);
 }
+
 .docentes-asesorias-asistencia-refresh-button svg {
   animation: spin 5s linear infinite;
   animation-play-state: paused;
 }
+
 .docentes-asesorias-asistencia-refresh-button:hover svg {
   animation-play-state: running;
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Tarjetas de asesorías */
@@ -2620,9 +2751,11 @@ input:checked + .docente-slider:before {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .docentes-asesorias-asistencia-card {
   animation: fadeIn 0.5s ease-out;
 }
+
 .docentes-asesorias-asistencia-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
@@ -2638,6 +2771,7 @@ input:checked + .docente-slider:before {
   position: relative;
   overflow: hidden;
 }
+
 .docentes-asesorias-asistencia-card-header::before {
   content: '';
   position: absolute;
@@ -2648,6 +2782,7 @@ input:checked + .docente-slider:before {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
   pointer-events: none;
 }
+
 .docentes-asesorias-asistencia-header-left {
   display: flex;
   align-items: center;
@@ -2673,6 +2808,7 @@ input:checked + .docente-slider:before {
   font-size: 14px;
   font-weight: 500;
 }
+
 .docentes-asesorias-asistencia-fecha svg {
   color: rgba(255, 255, 255, 0.8);
 }
@@ -2727,6 +2863,7 @@ input:checked + .docente-slider:before {
   color: #ffffff;
   box-shadow: 0 4px 10px rgba(3, 64, 129, 0.3);
 }
+
 .docentes-asesorias-asistencia-details {
   flex: 1;
 }
@@ -2736,6 +2873,9 @@ input:checked + .docente-slider:before {
   font-weight: 600;
   color: #1e293b;
   margin-bottom: 8px;
+  margin-top: 0px;
+  word-break: break-all;
+  overflow-wrap: break-word;
 }
 
 .docentes-asesorias-asistencia-metadata {
@@ -2766,9 +2906,11 @@ input:checked + .docente-slider:before {
   padding-bottom: 10px;
   border-bottom: 2px solid #e2e8f0;
 }
+
 .docentes-asesorias-section-title svg {
   color: #d81020;
 }
+
 .docentes-asesorias-asistencia-general {
   background-color: #f8fafc;
   padding: 20px;
@@ -2827,11 +2969,11 @@ input:checked + .docente-slider:before {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-input:checked + .docentes-asesorias-asistencia-slider {
+input:checked+.docentes-asesorias-asistencia-slider {
   background-color: #10b981;
 }
 
-input:checked + .docentes-asesorias-asistencia-slider:before {
+input:checked+.docentes-asesorias-asistencia-slider:before {
   transform: translateX(26px);
 }
 
@@ -2840,9 +2982,17 @@ input:checked + .docentes-asesorias-asistencia-slider:before {
   color: #334155;
   font-weight: 500;
 }
+
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Pestañas del formulario */
@@ -2900,11 +3050,13 @@ input:checked + .docentes-asesorias-asistencia-slider:before {
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
+
 .docentes-asesorias-bloques-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: 20px;
 }
+
 .docentes-asesorias-bloque-card {
   background-color: #ffffff;
   border-radius: 10px;
@@ -2918,6 +3070,7 @@ input:checked + .docentes-asesorias-asistencia-slider:before {
   border-color: #4361ee;
   box-shadow: 0 4px 12px rgba(67, 97, 238, 0.15);
 }
+
 .docentes-asesorias-bloque-header {
   display: flex;
   justify-content: space-between;
@@ -2926,6 +3079,7 @@ input:checked + .docentes-asesorias-asistencia-slider:before {
   background-color: #f1f5f9;
   border-bottom: 1px solid #e2e8f0;
 }
+
 .docentes-asesorias-bloque-fecha {
   display: flex;
   align-items: center;
@@ -2935,17 +3089,21 @@ input:checked + .docentes-asesorias-asistencia-slider:before {
   font-weight: 500;
   flex-wrap: wrap;
 }
+
 .docentes-asesorias-bloque-fecha svg {
   color: #4361ee;
 }
+
 .docentes-asesorias-bloque-switch {
   display: flex;
   align-items: center;
   gap: 10px;
 }
+
 .docentes-asesorias-bloque-content {
   padding: 16px;
 }
+
 .docentes-asesorias-bloque-form-field {
   margin-bottom: 16px;
 }
@@ -2953,6 +3111,7 @@ input:checked + .docentes-asesorias-asistencia-slider:before {
 .docentes-asesorias-bloque-form-field:last-child {
   margin-bottom: 0;
 }
+
 .docentes-asesorias-bloques-empty {
   padding: 24px;
   background-color: #f1f5f9;
@@ -3011,6 +3170,7 @@ input:checked + .docentes-asesorias-asistencia-slider:before {
   padding: 12px;
   border-radius: 8px;
 }
+
 .docentes-asesorias-asistencia-comentario svg {
   color: #60a5fa;
   flex-shrink: 0;
@@ -3051,45 +3211,46 @@ input:checked + .docentes-asesorias-asistencia-slider:before {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .docentes-asesorias-asistencia-refresh-button {
     margin-left: 0;
     margin-top: 10px;
     justify-content: center;
   }
-  
+
   .docentes-asesorias-asistencia-card-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
   }
-  
+
   .docentes-asesorias-asistencia-header-left {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
   }
-  
+
   .docentes-asesorias-asistencia-profile {
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
-  
+
   .docentes-asesorias-asistencia-metadata {
     justify-content: center;
   }
-  
+
   .docentes-asesorias-bloques-list {
     grid-template-columns: 1fr;
   }
 }
+
 @media (max-width: 480px) {
   .docentes-asesorias-asistencia-filter-buttons {
     flex-direction: column;
     width: 100%;
   }
-  
+
   .docentes-asesorias-asistencia-filter-button {
     width: 100%;
     text-align: center;
@@ -3110,9 +3271,11 @@ input:checked + .docentes-asesorias-asistencia-slider:before {
   font-weight: 500;
   margin-top: 8px;
 }
+
 .docentes-asesorias-bloque-hora svg {
   color: #0284c7;
 }
+
 .docente-asesoria-bloques {
   display: flex;
   flex-direction: column;
@@ -3222,9 +3385,17 @@ input:checked + .docentes-asesorias-asistencia-slider:before {
 
 /* Animación para bloques próximos */
 @keyframes pulso {
-  0% { box-shadow: 0 0 0 0 rgba(216, 16, 32, 0.4); }
-  70% { box-shadow: 0 0 0 6px rgba(216, 16, 32, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(216, 16, 32, 0); }
+  0% {
+    box-shadow: 0 0 0 0 rgba(216, 16, 32, 0.4);
+  }
+
+  70% {
+    box-shadow: 0 0 0 6px rgba(216, 16, 32, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(216, 16, 32, 0);
+  }
 }
 
 .docente-asesoria-bloque.urgente {
@@ -3232,6 +3403,7 @@ input:checked + .docentes-asesorias-asistencia-slider:before {
   border-left: 4px solid #d81020;
   background-color: #fff8f8;
 }
+
 .docente-asesoria-bloque.urgente .docente-asesoria-bloque-icon {
   background-color: #d81020;
   animation: pulso 2s infinite;
@@ -3251,7 +3423,7 @@ input:checked + .docentes-asesorias-asistencia-slider:before {
   .docente-form-grid {
     grid-template-columns: 1fr 1fr;
   }
-  
+
   .docente-time-container {
     grid-column: span 2;
   }
@@ -3287,12 +3459,14 @@ input:checked + .docentes-asesorias-asistencia-slider:before {
   gap: 20px;
   flex-wrap: wrap;
 }
+
 /* Inputs de horario compactos */
 .docente-time-inputs-compact {
   display: flex;
   gap: 15px;
   flex: 2;
 }
+
 .docente-time-inputs-compact .docente-form-group {
   flex: 1;
   min-width: 120px;
@@ -3332,23 +3506,38 @@ input:checked + .docentes-asesorias-asistencia-slider:before {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.docente-horario-form > * {
+.docente-horario-form>* {
   animation: fadeInUp 0.5s ease forwards;
   opacity: 0;
 }
 
 /* Retrasos para las animaciones */
-.docente-day-group { animation-delay: 0.1s; }
-.docente-time-container { animation-delay: 0.2s; }
-.docente-location-group { animation-delay: 0.3s; }
-.docente-horario-info { animation-delay: 0.4s; }
-.docente-submit-button { animation-delay: 0.5s; }
+.docente-day-group {
+  animation-delay: 0.1s;
+}
+
+.docente-time-container {
+  animation-delay: 0.2s;
+}
+
+.docente-location-group {
+  animation-delay: 0.3s;
+}
+
+.docente-horario-info {
+  animation-delay: 0.4s;
+}
+
+.docente-submit-button {
+  animation-delay: 0.5s;
+}
 
 
 /* Estilos para la nueva disposición */
@@ -3364,6 +3553,7 @@ input:checked + .docentes-asesorias-asistencia-slider:before {
   gap: 15px;
   flex-wrap: wrap;
 }
+
 /* Contenedor combinado de día y horario */
 .docente-day-time-container {
   display: flex;
@@ -3417,11 +3607,11 @@ input:checked + .docentes-asesorias-asistencia-slider:before {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .docente-time-inputs-compact {
     width: 100%;
   }
-  
+
   .docente-time-inputs-compact .docente-form-group {
     min-width: unset;
   }
@@ -3709,6 +3899,7 @@ input:checked + .docentes-asesorias-asistencia-slider:before {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -3719,6 +3910,7 @@ input:checked + .docentes-asesorias-asistencia-slider:before {
     transform: translateY(20px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
@@ -3776,6 +3968,7 @@ input:checked + .docentes-asesorias-asistencia-slider:before {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -3913,6 +4106,7 @@ input:checked + .docentes-asesorias-asistencia-slider:before {
   animation: spin 1.5s linear infinite;
   margin-bottom: 16px;
 }
+
 .docente-historial-asesorias-loading-state p {
   color: #64748b;
   font-size: 16px;
@@ -3920,8 +4114,13 @@ input:checked + .docentes-asesorias-asistencia-slider:before {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Tabla de asesorías */
@@ -3938,9 +4137,10 @@ input:checked + .docentes-asesorias-asistencia-slider:before {
   width: 100%;
   border-collapse: collapse;
 }
+
 .docente-historial-asesorias-table thead {
-background: linear-gradient(145deg, #14213d, #034081);
-color: #ffffff;
+  background: linear-gradient(145deg, #14213d, #034081);
+  color: #ffffff;
 }
 
 .docente-historial-asesorias-table thead tr {
@@ -3970,8 +4170,9 @@ color: #ffffff;
   font-size: 14px;
   color: #334155;
 }
+
 .docente-historial-asesorias-table tbody tr:last-child {
-border-bottom: none;
+  border-bottom: none;
 }
 
 /* Insignias de estado */
@@ -3985,6 +4186,7 @@ border-bottom: none;
   font-weight: 600;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
 }
+
 
 .docente-historial-asesorias-status-completada {
   background-color: #e6f4ea;
@@ -4000,10 +4202,12 @@ border-bottom: none;
   background-color: #d1fae5;
   color: #065f46;
 }
+
 .docente-historial-asesorias-status-no-asistio {
   background-color: #fee2e2;
   color: #b91c1c;
 }
+
 .docente-historial-asesorias-status-pendiente {
   background-color: #fef3c7;
   color: #92400e;
@@ -4137,6 +4341,7 @@ border-bottom: none;
   flex-direction: column;
   gap: 8px;
 }
+
 .docente-historial-bloque-asistencia-item {
   display: flex;
   align-items: center;
@@ -4151,14 +4356,27 @@ border-bottom: none;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
+
 .docente-historial-asesorias-view-actions {
   display: flex;
   gap: 12px;
@@ -4166,24 +4384,29 @@ border-bottom: none;
 
 /* Responsive design */
 @media (max-width: 768px) {
-.docente-historial-asesorias-view-header {
-flex-direction: column;
-align-items: flex-start;
-gap: 16px;
-}.docente-historial-asesorias-view-actions {
-width: 100%;
-}
-.docente-historial-asesorias-export-button {
-width: 100%;
-justify-content: center;
-}
-.docente-historial-asesorias-table-container {
-overflow-x: auto;
-}
-.docente-historial-asesorias-pagination {
-flex-direction: column;
-gap: 16px;
-}
+  .docente-historial-asesorias-view-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .docente-historial-asesorias-view-actions {
+    width: 100%;
+  }
+
+  .docente-historial-asesorias-export-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .docente-historial-asesorias-table-container {
+    overflow-x: auto;
+  }
+
+  .docente-historial-asesorias-pagination {
+    flex-direction: column;
+    gap: 16px;
+  }
 }
 
 /*------*/
@@ -4267,7 +4490,8 @@ gap: 16px;
 /* Inputs y selects */
 .docente-historial-form-control {
   width: 100%;
-  padding: 8px 12px 8px 36px; /* espacio a la izquierda para el icono */
+  padding: 8px 12px 8px 36px;
+  /* espacio a la izquierda para el icono */
   font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -4277,7 +4501,8 @@ gap: 16px;
 }
 
 .docente-historial-form-control[type="date"] {
-  padding-left: 30px; /* espacio para el ícono */
+  padding-left: 30px;
+  /* espacio para el ícono */
   width: 100%;
   box-sizing: border-box;
   height: 36px;
@@ -4307,7 +4532,7 @@ gap: 16px;
   position: relative;
   display: flex;
   align-items: center;
-  
+
 }
 
 .docente-historial-input-icon {
@@ -4332,11 +4557,13 @@ gap: 16px;
   gap: 8px;
   cursor: pointer;
 }
+
 .docente-historial-checkbox-option input[type="checkbox"] {
   width: 18px;
   height: 18px;
   accent-color: #d81020;
 }
+
 .docente-historial-checkbox-option span {
   font-size: 14px;
   color: #334155;
@@ -4389,35 +4616,41 @@ gap: 16px;
 
 /* Responsive */
 @media (max-width: 1024px) {
-.docente-historial-filter-row {
-flex-direction: column;
-gap: 16px;
+  .docente-historial-filter-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .docente-historial-filter-actions {
+    margin-top: 16px;
+  }
 }
-.docente-historial-filter-actions {
-margin-top: 16px;
-}
-}
+
 @media (max-width: 576px) {
-.docente-historial-date-range-inputs {
-flex-direction: column;
-gap: 16px;
-}
-.docente-historial-date-separator {
-display: none;
-}
-.docente-historial-filter-actions {
-flex-direction: column;
-gap: 12px;
-width: 100%;
-}
-.btn {
-width: 100%;
-justify-content: center;
-}
-.docente-historial-checkbox-group {
-flex-direction: column;
-gap: 12px;
-}
+  .docente-historial-date-range-inputs {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .docente-historial-date-separator {
+    display: none;
+  }
+
+  .docente-historial-filter-actions {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .docente-historial-checkbox-group {
+    flex-direction: column;
+    gap: 12px;
+  }
 }
 
 /*-------*/
@@ -4539,8 +4772,13 @@ gap: 12px;
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ==== GRID DE TARJETAS ==== */
@@ -4632,8 +4870,8 @@ gap: 12px;
 }
 
 .docente-asesorias-pendientes-avatar {
-  width: 56px;
-  height: 56px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   background: linear-gradient(145deg, #4361ee, #034081);
   display: flex;
@@ -4641,7 +4879,9 @@ gap: 12px;
   justify-content: center;
   color: #ffffff;
   box-shadow: 0 4px 10px rgba(3, 64, 129, 0.3);
+  flex-shrink: 0;
 }
+
 
 .docente-asesorias-pendientes-details {
   flex: 1;
@@ -4651,7 +4891,11 @@ gap: 12px;
   font-size: 18px;
   font-weight: 600;
   color: #1e293b;
+  margin-top: 0px;
   margin-bottom: 8px;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  
 }
 
 .docente-asesorias-pendientes-metadata {
@@ -4789,8 +5033,15 @@ gap: 12px;
 
 /* ==== ANIMACIONES Y EFECTOS ==== */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ==== RESPONSIVE ==== */
@@ -4799,35 +5050,35 @@ gap: 12px;
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .docente-asesorias-pendientes-refresh-button {
     margin-left: 0;
     margin-top: 10px;
     justify-content: center;
   }
-  
+
   .docente-asesorias-pendientes-card-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
   }
-  
+
   .docente-asesorias-pendientes-header-left {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
   }
-  
+
   .docente-asesorias-pendientes-profile {
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
-  
+
   .docente-asesorias-pendientes-metadata {
     justify-content: center;
   }
-  
+
   .docente-asesorias-pendientes-grid {
     grid-template-columns: 1fr;
   }
@@ -4838,7 +5089,7 @@ gap: 12px;
     flex-direction: column;
     width: 100%;
   }
-  
+
   .docente-asesorias-pendientes-filter-button {
     width: 100%;
     text-align: center;
@@ -5006,20 +5257,26 @@ gap: 12px;
 
 .docente-modal-detalle-asesoria-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 0.5rem;
 }
 
 .docente-modal-detalle-asesoria-item {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+
 }
 
 .docente-modal-detalle-asesoria-label {
   font-size: 13px;
   font-weight: 600;
   color: #64748b;
+  margin-bottom: 0.2rem;
+}
+
+.correo-largo {
+  word-break: break-word;
 }
 
 /* ==== STATUS BADGES ==== */
@@ -5229,18 +5486,35 @@ gap: 12px;
 
 /* ==== ANIMACIONES ==== */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ==== RESPONSIVE ==== */
@@ -5249,11 +5523,11 @@ gap: 12px;
     min-width: auto;
     width: 95%;
   }
-  
+
   .docente-modal-detalle-asesoria-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .docente-modal-detalle-asesoria-horarios-list {
     grid-template-columns: 1fr;
   }
@@ -5264,20 +5538,83 @@ gap: 12px;
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .docente-modal-detalle-asesoria-close {
     position: absolute;
     top: 12px;
     right: 12px;
   }
-  
+
   .docente-modal-detalle-asesoria-footer {
     flex-direction: column-reverse;
   }
-  
+
   .docente-modal-detalle-asesoria-btn-secondary,
   .docente-modal-detalle-asesoria-btn-primary {
     width: 100%;
     justify-content: center;
   }
+}
+
+/* Estilo básico y limpio */
+.docente-historial-tabla-hora-cell {
+  padding: 12px;
+  vertical-align: top;
+}
+
+.docente-historial-tabla-hora-bloque {
+  display: inline-block;
+  background: linear-gradient(135deg, #034081, #14213d);
+  color: white;
+  padding: 6px 12px;
+  margin: 2px 4px 2px 0;
+  border-radius: 20px;
+  font-size: 0.9em;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(3, 64, 129, 0.3);
+  transition: all 0.3s ease;
+}
+
+.docente-historial-tabla-hora-bloque:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(3, 64, 129, 0.4);
+}
+
+.docente-historial-tabla-hora-unico {
+  background: #fff3cd;
+  color: #856404;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid #ffeaa7;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para los estados de las asesorías */
+.docente-historial-estado-asesoria {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.docente-historial-estado-asesoria-en-curso {
+  background-color: #84b6f4;
+  color: #005187;
+}
+
+.docente-historial-estado-asesoria-finalizada {
+  background-color: #d1fae5;
+  color: #065f46;
+  
+}
+
+.docente-historial-estado-asesoria-aprobada {
+  background-color: #fee2e2;
+  color: #b91c1c;
 }

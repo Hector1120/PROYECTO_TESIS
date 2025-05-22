@@ -428,38 +428,74 @@ const MenuDocentes = () => {
   };
 
   // Modificar la función que actualiza un bloque específico
-  const actualizarAsistenciaBloque = async (asesoriaId, bloqueId, asistio, temasTratados, observaciones) => {
+  const actualizarAsistenciaBloque = async (asesoriaId, bloqueId, datosActualizados) => {
     try {
+      // 1. Obtener el bloque actual para verificar el estado del docente
       const asesoriaActual = asesoriasFinalizadas.find(a => a.id === asesoriaId);
-      if (!asesoriaActual) return;
+      const bloqueActual = asesoriaActual?.bloques?.find(b => b.id === bloqueId);
 
-      const bloquesActualizados = asesoriaActual.bloques.map(bloque => {
-        if (bloque.id === bloqueId) {
+      if (!bloqueActual) {
+        mostrarMensaje('Bloque no encontrado', 'error');
+        return;
+      }
+
+      // 2. Validación adicional: asegurar que el docente confirmó asistencia
+      if (datosActualizados.asistio && !bloqueActual.docente_confirma_asistencia) {
+        mostrarMensaje('El docente debe confirmar asistencia primero', 'error');
+        return;
+      }
+
+      // 3. Preparar payload para el backend
+      const payload = {
+        bloques: [{
+          id: bloqueId,
+          docente_confirma_asistencia: bloqueActual.docente_confirma_asistencia, // Enviar siempre este campo
+          ...datosActualizados,
+          temas_tratados: bloqueActual.temas_tratados || '',
+          observaciones: bloqueActual.observaciones || ''
+        }]
+      };
+
+      // 4. Enviar al backend
+      const response = await fetch(
+        `http://localhost:8000/registrar-asistencia-asesoria/${asesoriaId}/`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify(payload),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Error al actualizar la asistencia');
+      }
+
+      // 5. Actualizar estado local con la respuesta
+      const result = await response.json();
+      setAsesoriasFinalizadas(prev => prev.map(a => {
+        if (a.id === asesoriaId) {
           return {
-            ...bloque,
-            asistio: asistio,
-            temas_tratados: temasTratados,
-            observaciones: observaciones
+            ...a,
+            bloques: a.bloques.map(b => {
+              if (b.id === bloqueId) {
+                const bloqueActualizado = result.bloques?.find(rb => rb.id === bloqueId);
+                return bloqueActualizado ? { ...b, ...bloqueActualizado } : b;
+              }
+              return b;
+            })
           };
         }
-        return bloque;
-      });
+        return a;
+      }));
 
-      // Solo actualizamos asistencia general si NO es un bloque único
-      const asistioGeneral = asesoriaActual.es_bloque_unico ?
-        asistio : // Para bloque único, la asistencia general es igual a la del bloque
-        bloquesActualizados.some(bloque => bloque.asistio); // Para múltiples bloques, si alguno tiene asistencia
-
-      await actualizarAsistencia(asesoriaId, {
-        asistio: asistioGeneral,
-        temas_tratados: asesoriaActual.temas_tratados,
-        observaciones: asesoriaActual.observaciones,
-        compromisos: asesoriaActual.compromisos,
-        bloques: bloquesActualizados
-      });
+      mostrarMensaje('Asistencia actualizada correctamente', 'exito');
     } catch (error) {
       console.error('Error:', error);
-      mostrarMensaje('Error al actualizar la asistencia del bloque', 'error');
+      mostrarMensaje(error.message || 'Error al actualizar la asistencia', 'error');
     }
   };
   // 3. Componente para renderizar un bloque individual de asesoría
@@ -495,7 +531,7 @@ const MenuDocentes = () => {
               <Calendar size={14} />
               <span>{formatFecha(bloque.fecha)}</span>
               <Clock size={14} />
-              <span>{bloque.hora_inicio} - {bloque.hora_fin}</span>
+              <span>{formatearHorario(bloque.hora_inicio)} - {formatearHorario(bloque.hora_fin)}</span>
             </div>
           )}
           <div className="docentes-asesorias-bloque-switch">
@@ -586,6 +622,17 @@ const MenuDocentes = () => {
     verificarPermisoCrearHorarios();
     setShowUserMenu(!showUserMenu);
   };
+  useEffect(() => {
+    const obtenerDatosIniciales = async () => {
+      try {
+        await obtenerAsesoriasFinalizadas(fechaFiltroAsistencia);
+      } catch (error) {
+        console.error("Error cargando asesorías:", error);
+      }
+    };
+
+    obtenerDatosIniciales();
+  }, [fechaFiltroAsistencia]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -724,6 +771,44 @@ const MenuDocentes = () => {
       mostrarMensaje("No tienes permiso para registrar horarios", "error");
     }
   };
+
+  function ajustarFecha(fecha) {
+    const meses = [
+      'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+      'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+    ];
+
+    const diasSemana = [
+      'domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'
+    ];
+
+    const dateObj = new Date(fecha);
+
+    // Corregir las 5 horas de desfase manualmente
+    dateObj.setHours(dateObj.getHours() - 5);
+
+    const nombreDiaSemana = diasSemana[dateObj.getDay()];
+    const nombreMes = meses[dateObj.getMonth()];
+    const dia = dateObj.getDate();
+    const anio = dateObj.getFullYear();
+
+    let horas = dateObj.getHours();
+    const minutos = dateObj.getMinutes();
+
+    // Determinar AM/PM y convertir a formato 12 horas
+    const esPM = horas >= 12;
+    if (horas > 12) {
+      horas = horas - 12;
+    } else if (horas === 0) {
+      horas = 12;
+    }
+
+    // Formato para mostrar minutos solo si no son cero
+    const minutosFormato = minutos > 0 ? `:${minutos.toString().padStart(2, '0')}` : '';
+    const periodo = esPM ? 'pm' : 'am';
+
+    return `${nombreDiaSemana}, ${dia} de ${nombreMes} de ${anio}, ${horas}${minutosFormato}${periodo}`;
+  }
 
   // Implementación recomendada para la función filtrarAsesorias
   const filtrarAsesorias = (asesorias) => {
@@ -1089,7 +1174,7 @@ const MenuDocentes = () => {
                               required
                               className="docente-form-control"
                             />
-                            <span className="docente-time-icon">🕗</span>
+                            {/*<span className="docente-time-icon">🕗</span>*/}
                           </div>
                         </label>
                       </div>
@@ -1109,7 +1194,7 @@ const MenuDocentes = () => {
                               required
                               className="docente-form-control"
                             />
-                            <span className="docente-time-icon">🕘</span>
+                            {/*<span className="docente-time-icon">🕗</span>*/}
                           </div>
                         </label>
                       </div>
@@ -1533,35 +1618,66 @@ const MenuDocentes = () => {
                                       <div className="docentes-asesorias-bloque-fecha">
                                         <Calendar size={14} />
                                         <span>{formatFecha(bloque.fecha)}</span>
-                                        <Clock size={14} />
-                                        <span>{bloque.hora_inicio} - {bloque.hora_fin}</span>
+                                        <div className="docentes-asesorias-bloque-hora">
+                                          <Clock size={14} />
+                                          <span>{formatearHorario(bloque.hora_inicio)} - {formatearHorario(bloque.hora_fin)}</span>
+                                        </div>
                                       </div>
                                     )}
                                     {asesoria.es_bloque_unico && (
                                       <div className="docentes-asesorias-bloque-hora">
                                         <Clock size={14} />
-                                        <span>{bloque.hora_inicio} - {bloque.hora_fin}</span>
+                                        <span>{formatearHorario(bloque.hora_inicio)} - {formatearHorario(bloque.hora_fin)}</span>
                                       </div>
                                     )}
+                                    {/* Switch de confirmación de asistencia del docente */}
+                                    {/* Switch de confirmación del docente */}
                                     <div className="docentes-asesorias-bloque-switch">
                                       <label className="docentes-asesorias-asistencia-switch-label">
                                         <input
                                           type="checkbox"
-                                          checked={bloque.asistio || false}
-                                          onChange={(e) => {
-                                            actualizarAsistenciaBloque(
-                                              asesoria.id,
-                                              bloque.id,
-                                              e.target.checked,
-                                              bloque.temas_tratados,
-                                              bloque.observaciones
-                                            );
+                                          checked={bloque.docente_confirma_asistencia || false}
+                                          onChange={async (e) => {
+                                            const confirmacionDocente = e.target.checked;
+                                            await actualizarAsistenciaBloque(asesoria.id, bloque.id, {
+                                              docente_confirma_asistencia: confirmacionDocente,
+                                              asistio: confirmacionDocente ? bloque.asistio : false
+                                            });
                                           }}
                                         />
                                         <span className="docentes-asesorias-asistencia-slider"></span>
                                       </label>
                                       <span className="docentes-asesorias-asistencia-switch-text">
-                                        {asesoria.es_bloque_unico ? 'Asistió a la asesoría' : 'Asistió a este bloque'}
+                                        Confirmo mi asistencia a este bloque
+                                      </span>
+                                    </div>
+
+                                    {/* Switch de asistencia del estudiante */}
+                                    <div className="docentes-asesorias-bloque-switch">
+                                      <label className="docentes-asesorias-asistencia-switch-label">
+                                        <input
+                                          type="checkbox"
+                                          checked={bloque.asistio || false}
+                                          onChange={async (e) => {
+                                            if (!bloque.docente_confirma_asistencia) {
+                                              mostrarMensaje('Debes confirmar tu asistencia primero', 'error');
+                                              return;
+                                            }
+
+                                            try {
+                                              await actualizarAsistenciaBloque(asesoria.id, bloque.id, {
+                                                asistio: e.target.checked
+                                              });
+                                            } catch (error) {
+                                              console.error("Error al actualizar asistencia:", error);
+                                            }
+                                          }}
+                                          disabled={!bloque.docente_confirma_asistencia}
+                                        />
+                                        <span className="docentes-asesorias-asistencia-slider"></span>
+                                      </label>
+                                      <span className="docentes-asesorias-asistencia-switch-text">
+                                        Estudiante asistió
                                       </span>
                                     </div>
                                   </div>
@@ -1848,21 +1964,24 @@ const MenuDocentes = () => {
                         <tbody>
                           {historialAsesorias.map((asesoria) => (
                             <tr key={asesoria.id}>
-                              <td>{asesoria.fecha_inicio}</td>
-                              <td>
+                              <td>{formatFecha(asesoria.fecha_inicio)}</td>
+                              <td className="docente-historial-tabla-hora-cell">
                                 {asesoria.bloques && asesoria.bloques.length > 0 ? (
                                   asesoria.bloques.map((bloque, index) => (
-                                    <div key={index}>
-                                      {bloque.hora_inicio} - {bloque.hora_fin}
-                                    </div>
+                                    <span key={index} className="docente-historial-tabla-hora-bloque">
+                                      {formatearHorario(bloque.hora_inicio)} - {formatearHorario(bloque.hora_fin)}
+                                    </span>
                                   ))
                                 ) : (
-                                  `${asesoria.hora_inicio_primer_bloque} - ${asesoria.hora_fin_ultimo_bloque}`
+                                  <div className="docente-historial-tabla-hora-unico">
+                                    {asesoria.hora_inicio_primer_bloque} - {asesoria.hora_fin_ultimo_bloque}
+                                  </div>
                                 )}
-                              </td>                              <td>{asesoria.estudiante.nombre}</td>
+                              </td>
+                              <td>{asesoria.estudiante.nombre}</td>
                               <td>{asesoria.asignatura.nombre}</td>
                               <td>
-                                <span className={`docente-historial-asesorias-status-badge docente-historial-asesorias-status-${asesoria.estado.toLowerCase().replace(/\s+/g, '-')}`}>
+                                <span className={`docente-historial-estado-asesoria docente-historial-estado-asesoria-${asesoria.estado.toLowerCase().replace(/\s+/g, '-')}`}>
                                   {asesoria.estado}
                                 </span>
                               </td>
@@ -1873,7 +1992,7 @@ const MenuDocentes = () => {
                                     asesoria.bloques.map((bloque, index) => (
                                       <div key={index} className="docente-historial-bloque-asistencia-item">
                                         <span className="docente-historial-bloque-hora">
-                                          {bloque.hora_inicio} - {bloque.hora_fin}:
+                                          {formatearHorario(bloque.hora_inicio)} - {formatearHorario(bloque.hora_fin)}:
                                         </span>
                                         {bloque.asistio === true ? (
                                           <span className="docente-historial-asesorias-status-badge docente-historial-asesorias-status-asistio">
@@ -2175,33 +2294,42 @@ const MenuDocentes = () => {
                   <div className="docente-modal-detalle-asesoria-section">
                     <h4 className="docente-modal-detalle-asesoria-title">Información General</h4>
                     <div className="docente-modal-detalle-asesoria-grid">
-                      <div className="docente-modal-detalle-asesoria-item">
-                        <span className="docente-modal-detalle-asesoria-label">Estado:</span>
-                        <span className={`docente-modal-detalle-asesoria-status-badge docente-modal-detalle-asesoria-status-${asesoriaSeleccionada.estado.toLowerCase().replace(/\s+/g, '-')}`}>
-                          {asesoriaSeleccionada.estado}
-                        </span>
-                      </div>
                       {asesoriaSeleccionada.es_un_solo_bloque && (
-                        <div className="docente-modal-detalle-asesoria-item">
-                          <span className="docente-modal-detalle-asesoria-label">Asistencia:</span>
-                          {asesoriaSeleccionada.asistio === true ? (
-                            <span className="docente-modal-detalle-asesoria-status-badge docente-modal-detalle-asesoria-status-asistio">
-                              <CheckCircle size={14} /> Asistió
-                            </span>
-                          ) : asesoriaSeleccionada.asistio === false ? (
-                            <span className="docente-modal-detalle-asesoria-status-badge docente-modal-detalle-asesoria-status-no-asistio">
-                              <UserX size={14} /> No asistió
-                            </span>
-                          ) : (
-                            <span className="docente-modal-detalle-asesoria-status-badge docente-modal-detalle-asesoria-status-pendiente">
-                              <Clock size={14} /> Pendiente
-                            </span>
-                          )}
-                        </div>
+                        <>
+                          <div className="docente-modal-detalle-asesoria-item">
+                            <span className="docente-modal-detalle-asesoria-label">Docente asistió:</span>
+                            {asesoriaSeleccionada.bloques[0]?.docente_confirma_asistencia === true ? (
+                              <span className="docente-modal-detalle-asesoria-status-badge docente-modal-detalle-asesoria-status-asistio">
+                                <CheckCircle size={14} /> Sí
+                              </span>
+                            ) : (
+                              <span className="docente-modal-detalle-asesoria-status-badge docente-modal-detalle-asesoria-status-pendiente">
+                                <Clock size={14} /> No
+                              </span>
+                            )}
+                          </div>
+                          <div className="docente-modal-detalle-asesoria-item">
+                            <span className="docente-modal-detalle-asesoria-label">Estudiante asistió:</span>
+                            {asesoriaSeleccionada.bloques[0]?.asistio === true ? (
+                              <span className="docente-modal-detalle-asesoria-status-badge docente-modal-detalle-asesoria-status-asistio">
+                                <CheckCircle size={14} /> Asistió
+                              </span>
+                            ) : asesoriaSeleccionada.bloques[0]?.asistio === false ? (
+                              <span className="docente-modal-detalle-asesoria-status-badge docente-modal-detalle-asesoria-status-no-asistio">
+                                <UserX size={14} /> No asistió
+                              </span>
+                            ) : (
+                              <span className="docente-modal-detalle-asesoria-status-badge docente-modal-detalle-asesoria-status-pendiente">
+                                <Clock size={14} /> Pendiente
+                              </span>
+                            )}
+                          </div>
+                        </>
                       )}
+
                       <div className="docente-modal-detalle-asesoria-item">
                         <span className="docente-modal-detalle-asesoria-label">Fecha de solicitud:</span>
-                        <span>{asesoriaSeleccionada.fecha_solicitud}</span>
+                        <span>{ajustarFecha(asesoriaSeleccionada.fecha_solicitud)}</span>
                       </div>
                       <div className="docente-modal-detalle-asesoria-item">
                         <span className="docente-modal-detalle-asesoria-label">Asignatura:</span>
@@ -2222,7 +2350,7 @@ const MenuDocentes = () => {
                       </div>
                       <div className="docente-modal-detalle-asesoria-item">
                         <span className="docente-modal-detalle-asesoria-label">Correo:</span>
-                        <span>{asesoriaSeleccionada.estudiante.correo}</span>
+                        <span className="correo-largo">{asesoriaSeleccionada.estudiante.correo}</span>
                       </div>
                       <div className="docente-modal-detalle-asesoria-item">
                         <span className="docente-modal-detalle-asesoria-label">Semestre:</span>
@@ -2235,6 +2363,7 @@ const MenuDocentes = () => {
                     </div>
                   </div>
 
+
                   {/* Bloques de horario */}
                   <div className="docente-modal-detalle-asesoria-section">
                     <h4 className="docente-modal-detalle-asesoria-title">
@@ -2245,34 +2374,48 @@ const MenuDocentes = () => {
                         <div key={index} className="docente-modal-detalle-asesoria-horario-item">
                           <div className="docente-modal-detalle-asesoria-horario-fecha">
                             <Calendar size={16} />
-                            <span>{bloque.fecha}</span>
-                            {bloque.dia_semana && <span className="docente-modal-detalle-asesoria-horario-dia">({bloque.dia_semana})</span>}
+                            <span>{formatFecha(bloque.fecha)}</span>
+                            {/*{bloque.dia_semana && <span className="docente-modal-detalle-asesoria-horario-dia">({bloque.dia_semana})</span>} */}
                           </div>
                           <div className="docente-modal-detalle-asesoria-horario-horas">
                             <Clock size={16} />
-                            <span>{bloque.hora_inicio} - {bloque.hora_fin}</span>
+                            <span>{formatearHorario(bloque.hora_inicio)} - {formatearHorario(bloque.hora_fin)}</span>
                           </div>
                           <div className="docente-modal-detalle-asesoria-horario-lugar">
                             <span className="docente-modal-detalle-asesoria-label">Lugar:</span>
                             <span>{bloque.lugar}</span>
                           </div>
                           {!asesoriaSeleccionada.es_un_solo_bloque && (
-                            <div className="docente-modal-detalle-asesoria-horario-asistencia">
-                              <span className="docente-modal-detalle-asesoria-label">Asistencia:</span>
-                              {bloque.asistio === true ? (
-                                <span className="docente-modal-detalle-asesoria-status-badge docente-modal-detalle-asesoria-status-asistio">
-                                  <CheckCircle size={14} /> Asistió
-                                </span>
-                              ) : bloque.asistio === false ? (
-                                <span className="docente-modal-detalle-asesoria-status-badge docente-modal-detalle-asesoria-status-no-asistio">
-                                  <UserX size={14} /> No asistió
-                                </span>
-                              ) : (
-                                <span className="docente-modal-detalle-asesoria-status-badge docente-modal-detalle-asesoria-status-pendiente">
-                                  <Clock size={14} /> Pendiente
-                                </span>
-                              )}
-                            </div>
+                            <>
+                              <div className="docente-modal-detalle-asesoria-horario-asistencia">
+                                <span className="docente-modal-detalle-asesoria-label">Docente confirmó:</span>
+                                {bloque.docente_confirma_asistencia === true ? (
+                                  <span className="docente-modal-detalle-asesoria-status-badge docente-modal-detalle-asesoria-status-asistio">
+                                    <CheckCircle size={14} /> Sí
+                                  </span>
+                                ) : (
+                                  <span className="docente-modal-detalle-asesoria-status-badge docente-modal-detalle-asesoria-status-pendiente">
+                                    <Clock size={14} /> No
+                                  </span>
+                                )}
+                              </div>
+                              <div className="docente-modal-detalle-asesoria-horario-asistencia">
+                                <span className="docente-modal-detalle-asesoria-label">Estudiante asistió:</span>
+                                {bloque.asistio === true ? (
+                                  <span className="docente-modal-detalle-asesoria-status-badge docente-modal-detalle-asesoria-status-asistio">
+                                    <CheckCircle size={14} /> Asistió
+                                  </span>
+                                ) : bloque.asistio === false ? (
+                                  <span className="docente-modal-detalle-asesoria-status-badge docente-modal-detalle-asesoria-status-no-asistio">
+                                    <UserX size={14} /> No asistió
+                                  </span>
+                                ) : (
+                                  <span className="docente-modal-detalle-asesoria-status-badge docente-modal-detalle-asesoria-status-pendiente">
+                                    <Clock size={14} /> Pendiente
+                                  </span>
+                                )}
+                              </div>
+                            </>
                           )}
                         </div>
                       ))}
@@ -2317,7 +2460,7 @@ const MenuDocentes = () => {
                           {asesoriaSeleccionada.bloques.map((bloque, index) => (
                             <div key={index} className="docente-modal-detalle-asesoria-section">
                               <h4 className="docente-modal-detalle-asesoria-title">
-                                <BookOpen size={16} /> Bloque {index + 1} - {bloque.fecha} {bloque.hora_inicio}-{bloque.hora_fin}
+                                <BookOpen size={16} /> Bloque {index + 1} - {formatFecha(bloque.fecha)} - {formatearHorario(bloque.hora_inicio)}-{formatearHorario(bloque.hora_fin)}
                               </h4>
                               <div className="docente-modal-detalle-asesoria-grid">
                                 <div className="docente-modal-detalle-asesoria-item">

@@ -232,7 +232,10 @@ class AsesoriaBloque(models.Model):
     docente_asistio = models.BooleanField(default=False, help_text="Indica si el docente asistió a este bloque de asesoría (registrado por el estudiante)")
     temas_tratados = models.TextField(blank=True, null=True, help_text="Temas abordados durante este bloque")
     observaciones = models.TextField(blank=True, null=True, help_text="Observaciones adicionales para este bloque")
-    
+    docente_confirma_asistencia = models.BooleanField(
+    default=False, 
+    help_text="Confirmación por el docente de que asistió a este bloque de asesoría"
+    )
     class Meta:
         verbose_name = "Bloque de Asesoría"
         verbose_name_plural = "Bloques de Asesorías"
