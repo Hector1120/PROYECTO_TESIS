@@ -4542,12 +4542,18 @@ def generar_reporte_asesoria_docente(request, docente_id):
     if request.user.subtipo_director:
         # Mapeo de subtipo_director a subtipo_docente esperado
         subtipo_esperado = ""
-        subtipo_director = request.user.subtipo_director.lower()
+        subtipo_director = request.user.subtipo_director
         
-        if "sistemas" in subtipo_director:
+        if subtipo_director == "Director de Ing.Sistemas":
             subtipo_esperado = "Docente de Ing.Sistemas"
-        elif "electrónica" in subtipo_director or "electronica" in subtipo_director:
+        elif subtipo_director == "Director de Ing.Electrónica":
             subtipo_esperado = "Docente de Ing.Electrónica"
+        elif subtipo_director == "Director de Humanidades":
+            subtipo_esperado = "Docente de Humanidades"
+        elif subtipo_director == "Director de Idiomas":
+            subtipo_esperado = "Docente de Idiomas"
+        elif subtipo_director == "Director de Ciencias Básicas":
+            subtipo_esperado = "Docente de Ciencias Básicas"
         
         if not subtipo_esperado:
             return HttpResponse("Error: No se pudo determinar el tipo de docente permitido.", status=400)
@@ -4559,12 +4565,18 @@ def generar_reporte_asesoria_docente(request, docente_id):
         return HttpResponse("Error: El director no tiene un subtipo asignado.", status=400)
     
     # Determinar nombre del programa académico basado en el subtipo del director
-    subtipo = request.user.subtipo_director.lower() if request.user.subtipo_director else ""
+    subtipo = request.user.subtipo_director if request.user.subtipo_director else ""
 
-    if "sistemas" in subtipo:
+    if subtipo == "Director de Ing.Sistemas":
         programa_academico = "Ingeniería de Sistemas"
-    elif "electrónica" in subtipo or "electronica" in subtipo:
+    elif subtipo == "Director de Ing.Electrónica":
         programa_academico = "Ingeniería Electrónica"
+    elif subtipo == "Director de Humanidades":
+        programa_academico = "Ingeniería de sistemas - Humanidades"
+    elif subtipo == "Director de Idiomas":
+        programa_academico = "Ingeniería de sistemas - Idiomas"
+    elif subtipo == "Director de Ciencias Básicas":
+        programa_academico = "Ingeniería de sistemas - Ciencias Básicas"
     else:
         programa_academico = "Programa no especificado"
 
@@ -4626,32 +4638,34 @@ def generar_reporte_asesoria_docente(request, docente_id):
         # Obtener el número de filas actual (incluyendo la de encabezados)
         num_rows = len(table.rows)
         
+        # Inicializar contador para el número de fila
+        row_number = 1
+        
         # Añadir filas para cada asesoría
-        for index, asesoria in enumerate(asesorias, 1):
+        for asesoria in asesorias:
             # Para cada asesoría, obtener todos sus bloques
             asesorias_bloques = AsesoriaBloque.objects.filter(
                 asesoria=asesoria
             ).select_related('bloque_horario').order_by('bloque_horario__fecha', 'bloque_horario__hora_inicio')
             
-            for bloque_index, asesoria_bloque in enumerate(asesorias_bloques):
+            for asesoria_bloque in asesorias_bloques:
                 bloque = asesoria_bloque.bloque_horario
                 
                 # Añadir una fila para este bloque
                 row = table.add_row()
                 
-                # Solo mostrar número para el primer bloque de cada asesoría
-                if bloque_index == 0:
-                    row.cells[0].text = str(index)
+                # Asignar el número de fila a la primera columna
+                row.cells[0].text = str(row_number)
+                row_number += 1
                 
-                # Fecha y horas
+                # Fecha y horas - siempre mostrar
                 row.cells[1].text = bloque.fecha.strftime('%d/%m/%Y')
                 row.cells[2].text = bloque.hora_inicio.strftime('%H:%M')
                 row.cells[3].text = bloque.hora_fin.strftime('%H:%M')
                 
-                # Información del estudiante (solo en el primer bloque)
-                if bloque_index == 0:
-                    row.cells[4].text = asesoria.estudiante.nombre_usuario
-                    row.cells[5].text = asesoria.estudiante.semestre if asesoria.estudiante.semestre else "N/A"
+                # Información del estudiante - mostrar en todos los bloques
+                row.cells[4].text = asesoria.estudiante.nombre_usuario
+                row.cells[5].text = asesoria.estudiante.semestre if asesoria.estudiante.semestre else "N/A"
                 
                 # Temas abordados (específicos del bloque o general)
                 temas = asesoria_bloque.temas_tratados if asesoria_bloque.temas_tratados else asesoria.temas_tratados
@@ -4659,11 +4673,14 @@ def generar_reporte_asesoria_docente(request, docente_id):
                 
                 # Asistencia (específica del bloque)
                 row.cells[7].text = "Sí" if asesoria_bloque.asistio else "No"
-                row.cells[8].text = "Sí" if asesoria_bloque.docente_asistio else "No"
+                row.cells[8].text = "Sí" if asesoria_bloque.docente_confirma_asistencia else "No"
+                row.cells[9].text = "Sí" if asesoria_bloque.docente_asistio else "No"
                 
-                # Calificación (solo en el primer bloque)
-                if bloque_index == 0 and asesoria.calificacion:
-                    row.cells[9].text = str(asesoria.calificacion)
+                # Calificación - mostrar en todos los bloques si existe
+                if asesoria.calificacion:
+                    row.cells[10].text = str(asesoria.calificacion)
+                else:
+                    row.cells[10].text = ""
     else:
         # Si no encontramos la tabla de asesorías, agregar mensaje de error
         doc.add_paragraph("Error: No se encontró la tabla para las asesorías en la plantilla.")
@@ -4684,7 +4701,6 @@ def generar_reporte_asesoria_docente(request, docente_id):
     )
     response['Content-Disposition'] = f'attachment; filename="{nombre_archivo}"'
     return response
-
 
 # Endpoint para obtener todos los periodos
 @login_required
@@ -4729,15 +4745,18 @@ def listar_docentes_para_reportes(request):
     try:
         # Mapeo de subtipo_director a subtipo_docente
         subtipo_docente_correspondiente = ""
+        subtipo_director = request.user.subtipo_director
         
-        # Normalizar el subtipo para hacer comparaciones consistentes
-        subtipo_director = request.user.subtipo_director.lower()
-        
-        if "sistemas" in subtipo_director:
+        if subtipo_director == "Director de Ing.Sistemas":
             subtipo_docente_correspondiente = "Docente de Ing.Sistemas"
-        elif "electrónica" in subtipo_director or "electronica" in subtipo_director:
+        elif subtipo_director == "Director de Ing.Electrónica":
             subtipo_docente_correspondiente = "Docente de Ing.Electrónica"
-        # Puedes añadir más mapeos según sea necesario
+        elif subtipo_director == "Director de Humanidades":
+            subtipo_docente_correspondiente = "Docente de Humanidades"
+        elif subtipo_director == "Director de Idiomas":
+            subtipo_docente_correspondiente = "Docente de Idiomas"
+        elif subtipo_director == "Director de Ciencias Básicas":
+            subtipo_docente_correspondiente = "Docente de Ciencias Básicas"
         
         if not subtipo_docente_correspondiente:
             return JsonResponse({'error': 'No se pudo determinar el tipo de docentes a listar.'}, status=400)
@@ -4764,13 +4783,13 @@ def listar_docentes_para_reportes(request):
     except Exception as e:
         return JsonResponse({'error': f'Error al listar docentes: {str(e)}'}, status=500)
     
-# views.py
 
 @login_required
 def generar_reporte_asesoria_propio(request):
     """
     Genera un reporte de asesorías en formato .docx para el docente autenticado.
     Solo el docente puede generar su propio reporte de asesorías.
+    Incluye asesorías en estados: Aprobada, Finalizada y En Curso.
     """
     # Verificar que el usuario sea un docente
     if not request.user.is_authenticated or request.user.rol != 'Docente':
@@ -4780,14 +4799,23 @@ def generar_reporte_asesoria_propio(request):
     docente = request.user
     
     # Determinar nombre del programa académico basado en el subtipo del docente
-    subtipo = docente.subtipo_docente.lower() if docente.subtipo_docente else ""
+    subtipo = docente.subtipo_docente if docente.subtipo_docente else ""
 
-    if "sistemas" in subtipo:
-        programa_academico = "Ingeniería de Sistemas"
-    elif "electrónica" in subtipo or "electronica" in subtipo:
-        programa_academico = "Ingeniería Electrónica"
+    if subtipo == "Docente de Humanidades":
+        programa_academico = "Ingeniería de sistemas - Humanidades"
+    elif subtipo == "Docente de Idiomas":
+        programa_academico = "Ingeniería de sistemas - Idiomas"
+    elif subtipo == "Docente de Ciencias Básicas":
+        programa_academico = "Ingeniería de sistemas - Ciencias Básicas"
     else:
-        programa_academico = "Programa no especificado"
+        # Mantener la lógica original como fallback
+        subtipo_lower = subtipo.lower()
+        if "sistemas" in subtipo_lower:
+            programa_academico = "Ingeniería de Sistemas"
+        elif "electrónica" in subtipo_lower or "electronica" in subtipo_lower:
+            programa_academico = "Ingeniería Electrónica"
+        else:
+            programa_academico = "Programa no especificado"
 
     # Obtener período actual o seleccionado
     periodo_seleccionado = request.GET.get('periodo')
@@ -4801,10 +4829,17 @@ def generar_reporte_asesoria_propio(request):
             # Si no hay periodo activo, usar el periodo actual
             periodo_seleccionado = timezone.now().strftime("%Y-%d")
     
-    # Obtener asesorías finalizadas del docente autenticado
+    # Obtener filtros adicionales de parámetros GET
+    fecha_inicio = request.GET.get('fecha_inicio')
+    fecha_fin = request.GET.get('fecha_fin')
+    estado_filtro = request.GET.get('estado')
+    asignatura_id = request.GET.get('asignatura_id')
+    estudiante_id = request.GET.get('estudiante_id')
+    
+    # Obtener asesorías del docente autenticado en los estados especificados
     asesorias = Asesoria.objects.filter(
         docente=docente,
-        estado='Finalizada'
+        estado__in=['Aprobada', 'Finalizada', 'En curso']
     ).prefetch_related(
         'bloques_asesoria__bloque_horario'
     ).order_by('-bloque_horario__fecha', '-bloque_horario__hora_inicio')
@@ -4813,6 +4848,43 @@ def generar_reporte_asesoria_propio(request):
     if periodo_seleccionado:
         # Filtrar las asesorías cuyos bloques de horario corresponden al periodo seleccionado
         asesorias = asesorias.filter(bloque_horario__horario__periodo=periodo_seleccionado)
+    
+    # Aplicar filtros adicionales
+    # Filtrar por fecha
+    if fecha_inicio:
+        try:
+            fecha_inicio_obj = datetime.strptime(fecha_inicio, '%Y-%m-%d').date()
+            asesorias = asesorias.filter(bloque_horario__fecha__gte=fecha_inicio_obj)
+        except ValueError:
+            return HttpResponse("Formato de fecha_inicio inválido. Use YYYY-MM-DD", status=400)
+    
+    if fecha_fin:
+        try:
+            fecha_fin_obj = datetime.strptime(fecha_fin, '%Y-%m-%d').date()
+            asesorias = asesorias.filter(bloque_horario__fecha__lte=fecha_fin_obj)
+        except ValueError:
+            return HttpResponse("Formato de fecha_fin inválido. Use YYYY-MM-DD", status=400)
+    
+    # Filtrar por estado de asistencia
+    if estado_filtro:
+        if estado_filtro == 'asistio':
+            asesorias = asesorias.filter(Q(bloques_asesoria__asistio=True)).distinct()
+        elif estado_filtro == 'no_asistio':
+            asesorias = asesorias.exclude(Q(bloques_asesoria__asistio=True))
+    
+    # Filtrar por asignatura
+    if asignatura_id:
+        try:
+            asesorias = asesorias.filter(asignatura_id=int(asignatura_id))
+        except ValueError:
+            return HttpResponse("ID de asignatura inválido", status=400)
+    
+    # Filtrar por estudiante
+    if estudiante_id:
+        try:
+            asesorias = asesorias.filter(estudiante_id=int(estudiante_id))
+        except ValueError:
+            return HttpResponse("ID de estudiante inválido", status=400)
     
     # Cargar el documento plantilla
     try:
@@ -4841,68 +4913,76 @@ def generar_reporte_asesoria_propio(request):
         # Asumimos que la tabla de asesorías es la segunda
         table = doc.tables[1]
         
+        # Contador general para numerar todas las filas
+        contador_fila = 1
+        
         # Añadir filas para cada asesoría
-        for index, asesoria in enumerate(asesorias, 1):
+        for asesoria in asesorias:
             # Para cada asesoría, obtener todos sus bloques
             asesorias_bloques = AsesoriaBloque.objects.filter(
                 asesoria=asesoria
             ).select_related('bloque_horario').order_by('bloque_horario__fecha', 'bloque_horario__hora_inicio')
             
-            for bloque_index, asesoria_bloque in enumerate(asesorias_bloques):
-                bloque = asesoria_bloque.bloque_horario
-                
-                # Añadir una fila para este bloque
+            # Si la asesoría no tiene bloques, crear una fila con la información básica
+            if not asesorias_bloques.exists():
                 row = table.add_row()
-                
-                # Solo mostrar número para el primer bloque de cada asesoría
-                if bloque_index == 0:
-                    row.cells[0].text = str(index)  # N.º
-                else:
-                    row.cells[0].text = ""  # Celda vacía para bloques adicionales
-                
-                # Fecha de asesoría
-                row.cells[1].text = bloque.fecha.strftime('%d/%m/%Y')
-                
-                # Hora inicio
-                row.cells[2].text = bloque.hora_inicio.strftime('%H:%M')
-                
-                # Hora fin
-                row.cells[3].text = bloque.hora_fin.strftime('%H:%M')
-                
-                # Estado de la asesoría (solo en el primer bloque)
-                if bloque_index == 0:
+                row.cells[0].text = str(contador_fila)  # N.º
+                row.cells[1].text = asesoria.fecha_solicitud.strftime('%d/%m/%Y') if asesoria.fecha_solicitud else "N/A"
+                row.cells[2].text = "N/A"  # Hora inicio
+                row.cells[3].text = "N/A"  # Hora fin
+                row.cells[4].text = asesoria.estado
+                row.cells[5].text = asesoria.estudiante.nombre_usuario
+                semestre = asesoria.estudiante.semestre if asesoria.estudiante.semestre else "N/A"
+                row.cells[6].text = str(semestre)
+                row.cells[7].text = asesoria.temas_tratados if asesoria.temas_tratados else "No especificado"
+                row.cells[8].text = "N/A"  # Asistencia estudiante
+                row.cells[9].text = "N/A"  # Asistencia docente
+                row.cells[10].text = str(asesoria.calificacion) if asesoria.calificacion else ""
+                contador_fila += 1
+            else:
+                # Para cada bloque, crear una fila separada
+                for asesoria_bloque in asesorias_bloques:
+                    bloque = asesoria_bloque.bloque_horario
+                    
+                    # Añadir una fila para este bloque
+                    row = table.add_row()
+                    
+                    # N.º - Cada bloque tiene su propio número
+                    row.cells[0].text = str(contador_fila)
+                    
+                    # Fecha de asesoría
+                    row.cells[1].text = bloque.fecha.strftime('%d/%m/%Y')
+                    
+                    # Hora inicio
+                    row.cells[2].text = bloque.hora_inicio.strftime('%H:%M')
+                    
+                    # Hora fin
+                    row.cells[3].text = bloque.hora_fin.strftime('%H:%M')
+                    
+                    # Estado de la asesoría
                     row.cells[4].text = asesoria.estado
-                else:
-                    row.cells[4].text = ""
-                
-                # Nombre del estudiante (solo en el primer bloque)
-                if bloque_index == 0:
+                    
+                    # Nombre del estudiante
                     row.cells[5].text = asesoria.estudiante.nombre_usuario
-                else:
-                    row.cells[5].text = ""
-                
-                # Semestre del estudiante (solo en el primer bloque)
-                if bloque_index == 0:
+                    
+                    # Semestre del estudiante
                     semestre = asesoria.estudiante.semestre if asesoria.estudiante.semestre else "N/A"
                     row.cells[6].text = str(semestre)
-                else:
-                    row.cells[6].text = ""
-                
-                # Breve descripción del tema abordado (específica del bloque o general)
-                temas = asesoria_bloque.temas_tratados if asesoria_bloque.temas_tratados else asesoria.temas_tratados
-                row.cells[7].text = temas if temas else "No especificado"
-                
-                # El estudiante asistió a este bloque
-                row.cells[8].text = "Sí" if asesoria_bloque.asistio else "No"
-                
-                # El docente asistió a este bloque
-                row.cells[9].text = "Sí" if asesoria_bloque.docente_asistio else "No"
-                
-                # Calificación (solo en el primer bloque)
-                if bloque_index == 0 and asesoria.calificacion:
-                    row.cells[10].text = str(asesoria.calificacion)
-                else:
-                    row.cells[10].text = ""
+                    
+                    # Breve descripción del tema abordado (específica del bloque o general)
+                    temas = asesoria_bloque.temas_tratados if asesoria_bloque.temas_tratados else asesoria.temas_tratados
+                    row.cells[7].text = temas if temas else "No especificado"
+                    
+                    # El estudiante asistió a este bloque
+                    row.cells[8].text = "Sí" if asesoria_bloque.asistio else "No"
+                    
+                    # El docente asistió a este bloque
+                    row.cells[9].text = "Sí" if asesoria_bloque.docente_confirma_asistencia else "No"
+                    
+                    # Calificación (se muestra en todos los bloques de la misma asesoría)
+                    row.cells[10].text = str(asesoria.calificacion) if asesoria.calificacion else ""
+                    
+                    contador_fila += 1
     else:
         # Si no encontramos la tabla de asesorías, agregar mensaje de error
         doc.add_paragraph("Error: No se encontró la tabla para las asesorías en la plantilla.")
@@ -4912,9 +4992,22 @@ def generar_reporte_asesoria_propio(request):
     doc.save(output)
     output.seek(0)
     
-    # Generar nombre para el reporte
+    # Generar nombre para el reporte con información adicional de filtros
     fecha_actual = datetime.now().strftime("%Y%m%d_%H%M%S")
-    nombre_archivo = f"Mi_Reporte_Asesorias_{docente.nombre_usuario.replace(' ', '_')}_{fecha_actual}.docx"
+    filtros_aplicados = []
+    
+    if fecha_inicio or fecha_fin:
+        filtros_aplicados.append("Filtrado_por_fecha")
+    if estado_filtro:
+        filtros_aplicados.append(f"Estado_{estado_filtro}")
+    if asignatura_id:
+        filtros_aplicados.append("Filtrado_por_asignatura")
+    if estudiante_id:
+        filtros_aplicados.append("Filtrado_por_estudiante")
+    
+    filtros_str = "_".join(filtros_aplicados) if filtros_aplicados else "Completo"
+    
+    nombre_archivo = f"Reporte_Asesorias_{docente.nombre_usuario.replace(' ', '_')}_{filtros_str}_{fecha_actual}.docx"
     
     # Crear respuesta HTTP para descargar el archivo
     response = HttpResponse(
@@ -4923,3 +5016,32 @@ def generar_reporte_asesoria_propio(request):
     )
     response['Content-Disposition'] = f'attachment; filename="{nombre_archivo}"'
     return response
+
+@login_required
+@csrf_exempt
+def obtener_periodo_activo(request):
+    """
+    Obtiene el periodo académico activo actual
+    """
+    if request.method == 'GET':
+        try:
+            periodo_activo = Periodo.objects.filter(activo=True).first()
+            
+            if periodo_activo:
+                return JsonResponse({
+                    'codigo': periodo_activo.codigo,
+                    'fecha_inicio': periodo_activo.fecha_inicio.strftime('%Y-%m-%d'),
+                    'fecha_fin': periodo_activo.fecha_fin.strftime('%Y-%m-%d'),
+                    'activo': periodo_activo.activo
+                })
+            else:
+                return JsonResponse({
+                    'error': 'No hay periodo activo configurado'
+                }, status=404)
+                
+        except Exception as e:
+            return JsonResponse({
+                'error': f'Error al obtener periodo activo: {str(e)}'
+            }, status=500)
+    
+    return JsonResponse({'error': 'Método no permitido'}, status=405)

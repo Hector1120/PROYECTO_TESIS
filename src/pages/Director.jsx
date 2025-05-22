@@ -3037,10 +3037,11 @@ const Director = ({
 
       ),
       reportes: (
-        <div className="director-section-content">
+        /*<div className="director-section-content">
           <h2>Reportes del Departamento</h2>
           <p>Aquí son los Reportes de Asesorías - Departamentos -.</p>
-        </div>
+        </div>*/
+        <ReportesPrograma />
       ),
     };
 

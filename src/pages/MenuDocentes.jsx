@@ -67,6 +67,7 @@ const MenuDocentes = () => {
   const [asesoriaSeleccionada, setAsesoriaSeleccionada] = useState(null);
   const [mostrarModalDetalles, setMostrarModalDetalles] = useState(false);
   const [cargandoDetalles, setCargandoDetalles] = useState(false);
+  const [cargandoReporte, setCargandoReporte] = useState(false);
 
   const obtenerPeriodoVigente = async () => {
     try {
@@ -956,6 +957,119 @@ const MenuDocentes = () => {
       setCargandoExportacion(false);
     }
   };
+
+  const generarReporteWord = async () => {
+    try {
+      setCargandoReporte(true);
+
+      // Construir la URL con los parámetros de filtro
+      let url = "http://localhost:8000/generar-reporte-asesoria-propio/?";
+
+      // Obtener el periodo activo y aplicar sus fechas como filtro base
+      const periodoActivo = await obtenerPeriodoActivo();
+      if (periodoActivo) {
+        url += `periodo=${periodoActivo.codigo}&`;
+        url += `fecha_inicio=${periodoActivo.fecha_inicio}&`;
+        url += `fecha_fin=${periodoActivo.fecha_fin}&`;
+      }
+
+      // Aplicar filtros adicionales del usuario (si existen y están dentro del periodo)
+      if (fechaInicioFiltro && periodoActivo) {
+        // Solo aplicar si la fecha del filtro está después de la fecha de inicio del periodo
+        const fechaInicioPeriodo = new Date(periodoActivo.fecha_inicio);
+        const fechaInicioUsuario = new Date(fechaInicioFiltro);
+        if (fechaInicioUsuario >= fechaInicioPeriodo) {
+          url += `fecha_inicio=${fechaInicioFiltro}&`;
+        }
+      }
+
+      if (fechaFinFiltro && periodoActivo) {
+        // Solo aplicar si la fecha del filtro está antes de la fecha de fin del periodo
+        const fechaFinPeriodo = new Date(periodoActivo.fecha_fin);
+        const fechaFinUsuario = new Date(fechaFinFiltro);
+        if (fechaFinUsuario <= fechaFinPeriodo) {
+          url += `fecha_fin=${fechaFinFiltro}&`;
+        }
+      }
+
+      if (asignaturaFiltro) {
+        url += `asignatura_id=${asignaturaFiltro}&`;
+      }
+
+      // Aplicar filtros de asistencia
+      if (estadoAsistioFiltro && !estadoNoAsistioFiltro) {
+        url += `estado=asistio&`;
+      } else if (!estadoAsistioFiltro && estadoNoAsistioFiltro) {
+        url += `estado=no_asistio&`;
+      } else if (!estadoAsistioFiltro && !estadoNoAsistioFiltro) {
+        mostrarMensaje("Seleccione al menos un estado de asistencia para generar el reporte", "error");
+        setCargandoReporte(false);
+        return;
+      }
+      // Si ambos están seleccionados, no se aplica filtro de asistencia
+
+      // Realizar la solicitud para generar el reporte
+      const response = await fetch(url, {
+        method: "GET",
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        const errorData = await response.text();
+        throw new Error(errorData || "Error al generar el reporte");
+      }
+
+      // Obtener el blob del archivo Word
+      const blob = await response.blob();
+
+      // Crear un enlace para descargar el archivo
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+
+      // Obtener el nombre del archivo desde los headers o usar uno predeterminado
+      const contentDisposition = response.headers.get('Content-Disposition');
+      let filename = 'Reporte_Asesorias.docx';
+
+      if (contentDisposition) {
+        const filenameMatch = contentDisposition.match(/filename="(.+)"/);
+        if (filenameMatch && filenameMatch[1]) {
+          filename = filenameMatch[1];
+        }
+      }
+
+      link.setAttribute('download', filename);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      mostrarMensaje("Reporte generado y descargado correctamente", "exito");
+    } catch (error) {
+      console.error("Error al generar reporte:", error);
+      mostrarMensaje(error.message || "Error al generar el reporte", "error");
+    } finally {
+      setCargandoReporte(false);
+    }
+  };
+
+  const obtenerPeriodoActivo = async () => {
+  try {
+    const response = await fetch("http://localhost:8000/obtener-periodo-activo/", {
+      method: "GET",
+      credentials: "include",
+    });
+
+    if (response.ok) {
+      const periodo = await response.json();
+      return periodo;
+    }
+    return null;
+  } catch (error) {
+    console.error("Error al obtener periodo activo:", error);
+    return null;
+  }
+};
+
   // Añadir esta función para cargar el historial de asesorías
   const cargarHistorialAsesorias = async (pagina = 1, aplicarFiltros = false) => {
     try {
@@ -1836,6 +1950,14 @@ const MenuDocentes = () => {
                       >
                         <Download size={16} />
                         <span>{cargandoExportacion ? "Exportando..." : "Exportar a Excel"}</span>
+                      </button>
+                      <button
+                        className="docente-historial-asesorias-export-button docente-historial-word-report-button"
+                        onClick={generarReporteWord}
+                        disabled={cargandoReporte}
+                      >
+                        <FileText size={16} />
+                        <span>{cargandoReporte ? "Generando..." : "Generar Reporte Word"}</span>
                       </button>
                     </div>
                   </div>
